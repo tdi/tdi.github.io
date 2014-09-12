@@ -22,6 +22,27 @@ DEFAULT_LANG = u'en'
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 
+PLUGIN_PATHS = ['/home/tdi/dev/pelican-plugins']
+PLUGINS = ['sitemap']
+ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
+
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.5,
+        'indexes': 0.5,
+        'pages': 0.5
+    },
+    'changefreqs': {
+        'articles': 'monthly',
+        'indexes': 'daily',
+        'pages': 'monthly'
+    }
+}
+
+
+
 # Feed generation is usually not desired when developing
 #FEED_ALL_ATOM = None
 #CATEGORY_FEED_ATOM = None
