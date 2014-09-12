@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="http://tdi.github.io/" rel="alternate"></link><link href="http://tdi.github.io/feeds/tools.atom.xml" rel="self"></link><id>http://tdi.github.io/</id><updated>2014-09-12T14:30:00+02:00</updated><entry><title>forwarding messages with attachments in mutt</title><link href="http://tdi.github.io/forwarding-messages-with-attachments-in-mutt.html" rel="alternate"></link><updated>2014-09-12T14:30:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-12:forwarding-messages-with-attachments-in-mutt.html</id><summary type="html">&lt;p&gt;This is a pain for every mutt user. I do not know why this solution is so hard to find. 
 Just add these two lines to your &lt;code&gt;.muttrc&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward&lt;/span&gt;                                                                                   &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward_rest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward&lt;/span&gt;
+&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward_rest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This will forward an email with all the attachments, no scripts needed, no fancy tagging or
-reediting. &lt;/p&gt;</summary><category term="mutt"></category></entry></feed>
+reediting. &lt;/p&gt;</summary><category term="mutt"></category></entry><entry><title>Highlight lines over 79</title><link href="http://tdi.github.io/highlight-lines-over-79.html" rel="alternate"></link><updated>2013-02-02T11:09:54+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2013-02-02:highlight-lines-over-79.html</id><summary type="html">&lt;p&gt;If you want to stick to PEP8 speccification of Python syntax, you should stick to 79 line length.
+It is very easy to forget to follow that rule, fortunatelly vim can help you. There are many nice
+solution to inform you when you go past 79 column. The most generic one is highlighting only the
+80th column by setting &lt;tt class="docutils literal"&gt;set cursorcolumn&lt;/tt&gt; (or just &lt;tt class="docutils literal"&gt;set cc&lt;/tt&gt;). This will produce a vertical line
+on the column according to your &lt;tt class="docutils literal"&gt;textwidth&lt;/tt&gt; variable. You can check this by doing &lt;tt class="docutils literal"&gt;:set tw?&lt;/tt&gt;.
+If you want some better looking solution try the one I found on stackoverflow. You can adjust the color and linewidth to your
+preferences.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;highlight&lt;/span&gt; OverLength ctermbg&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="k"&gt;red&lt;/span&gt; ctermfg&lt;span class="p"&gt;=&lt;/span&gt;white guibg&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;#592929&lt;/span&gt;
+&lt;span class="k"&gt;match&lt;/span&gt; OverLength &lt;span class="sr"&gt;/\%80v.\+/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</summary><category term="vim"></category><category term="python"></category></entry><entry><title>Toggle cursorline and cursorcolumn function in VIM</title><link href="http://tdi.github.io/toggle-cursorline-in-vim.html" rel="alternate"></link><updated>2013-01-30T10:59:09+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2013-01-30:toggle-cursorline-in-vim.html</id><summary type="html">&lt;p&gt;It is often very comfortable to see where your cursor in VIM is. To achieve that you can use
+cursorcolumn and cursorline to highlight the row and the column in which you are currently present
+with your cursor. Below is a function that can be placed in your &lt;tt class="docutils literal"&gt;.vimrc&lt;/tt&gt; to toggle such a
+behaviour. It is then mapped to &lt;tt class="docutils literal"&gt;&amp;lt;leader&amp;gt;cl&lt;/tt&gt;, which effectively means that you need to punch &lt;tt class="docutils literal"&gt;\cl&lt;/tt&gt; to
+make it work.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorline&lt;/span&gt;
+&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorcolumn&lt;/span&gt;
+
+&lt;span class="k"&gt;fu&lt;/span&gt;&lt;span class="p"&gt;!&lt;/span&gt; ToggleCurline &lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &amp;amp;&lt;span class="nb"&gt;cursorline&lt;/span&gt; &amp;amp;&amp;amp; &amp;amp;&lt;span class="nb"&gt;cursorcolumn&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;nocursorline&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;nocursorcolumn&lt;/span&gt;
+  &lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorline&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorcolumn&lt;/span&gt;
+  &lt;span class="k"&gt;endif&lt;/span&gt;
+&lt;span class="k"&gt;endfunction&lt;/span&gt;
+
+map &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;silent&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;leader&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="k"&gt;cl&lt;/span&gt; :&lt;span class="k"&gt;call&lt;/span&gt; ToggleCurline&lt;span class="p"&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</summary><category term="vim"></category><category term="viml"></category></entry></feed>

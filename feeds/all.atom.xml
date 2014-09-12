@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="http://tdi.github.io/" rel="alternate"></link><link href="http://tdi.github.io/feeds/all.atom.xml" rel="self"></link><id>http://tdi.github.io/</id><updated>2014-09-12T14:30:00+02:00</updated><entry><title>forwarding messages with attachments in mutt</title><link href="http://tdi.github.io/forwarding-messages-with-attachments-in-mutt.html" rel="alternate"></link><updated>2014-09-12T14:30:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-12:forwarding-messages-with-attachments-in-mutt.html</id><summary type="html">&lt;p&gt;This is a pain for every mutt user. I do not know why this solution is so hard to find. 
 Just add these two lines to your &lt;code&gt;.muttrc&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward&lt;/span&gt;                                                                                   &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward_rest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward&lt;/span&gt;
+&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;mime_forward_rest&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
