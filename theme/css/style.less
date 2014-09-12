@@ -1,0 +1,261 @@
+@red: #ff0000;
+@black: #000000;
+@white: #ffffff;
+@light-grey: #eeeeee;
+@med-grey: #5f5f5f;
+@dark-grey: #202020;
+@blue: #0e94ec;
+@accent: @blue;
+
+@import (css) "//fonts.googleapis.com/css?family=Noto+Sans|Noto+Serif|Droid+Sans+Mono";
+@sans: 'Noto Sans', sans-serif;
+@serif: 'Noto Serif', serif;
+@mono: 'Droid Sans Mono', monospace;
+
+@side_size: 250px;
+@main_size: 740px;
+@border_color: #C2C2C2;
+@pag_label_size: 60px;
+@logo_size: 150px;
+
+@total_size: (@side_size + @main_size + 16px);
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: @white;
+  color: @dark-grey;
+  font-family: @sans;
+  font-size: 16px;
+}
+
+a {
+  color: @black;
+  text-decoration: none;
+}
+
+a[href]:not(.nohover) {
+  &:hover{
+    color: @accent;
+  }
+}
+
+hr {
+  color: @border_color;
+  background-color: @border_color;
+  height: 1px;
+  border: none;
+}
+
+aside {
+  div#user_meta {
+    padding: 40px 20px 40px 20px;
+    text-align: center;
+
+    img#logo {
+        width: @logo_size;
+        height: @logo_size;
+    }
+
+    h2 {
+      margin: 15px 0 5px 0;
+    }
+
+    p {
+      margin: 0 0 15px 0;
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 20px 0 0 0;
+      padding-left: 0;
+      font-size: 15px;
+      list-style-type: none;
+
+      li {
+        display: block;
+        line-height: 2em;
+
+        a {
+          i {
+              padding-left: 5px;
+              color: @black;
+              width: 30px;
+              text-align: center;
+              vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+
+main {
+  max-width: @main_size;
+  position: relative;
+  width: 100%;
+  margin: auto;
+
+  header {
+    padding: 20px 40px 20px 40px;
+    border-top: @border_color 1px solid;
+    border-bottom: @border_color 1px solid;
+    text-align: center;
+    color: @med-grey;
+
+    p {
+      font-weight: bold;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+
+    p#header {
+      color: @black;
+    }
+
+    p:not(#header){
+      a {
+        color: @med-grey;
+        &:hover{
+          color: @accent;
+        }
+      }
+    }
+  }
+
+  article {
+    padding: 10px 40px 10px 40px;
+
+    div.article_title {
+    }
+
+    div.article_text {
+      line-height: 1.375em;
+      a {
+        text-decoration: underline;
+      }
+
+      code {
+        margin: 2px;
+        padding: 0;
+        color: @black;
+        font-size: 14px;
+        font-family: @mono;
+        background: @light-grey;
+      }
+
+      pre {
+        margin: 22px 2px 22px 2px;
+        padding: 2px;
+        color: @black;
+        border-left: 3px solid @accent;
+        font-size: 14px;
+        font-family: @mono;
+        background: @light-grey;
+        line-height: 1.125em;
+        overflow-x: auto;
+      }
+
+      blockquote {
+        margin: 22px 2px 22px 2px;
+        padding-left: 40px;
+        color: @med-grey;
+        font-style: italic;
+      }
+
+      .footnote-reference {
+        vertical-align: super;
+        font-size: 12px;
+        text-decoration: none;
+        line-height: 1;
+      }
+
+      .footnote {
+        font-size: smaller;
+        .fn-backref{
+          margin-right: 5px;
+          text-decoration: none;
+        }
+      }
+    }
+
+    div.gist {
+      line-height: .875em;
+    }
+
+    div.article_meta {
+      font-size: 12px;
+      color: @med-grey;
+    }
+  }
+
+  footer {
+    border-top: @border_color 1px solid;
+    padding: 30px 40px 30px 40px;
+
+    div#paginator {
+      font-weight: bold;
+      font-size: 15px;
+      text-transform: uppercase;
+      overflow: auto;
+      text-align: center;
+
+      span {
+        width: @pag_label_size;
+        min-height: 1px;
+      }
+
+      span#left {
+        float: left;
+        text-align: left;
+      }
+
+      span#right {
+        float: right;
+        text-align: right;
+      }
+    }
+  }
+
+  div#ending_message {
+    border-top: @border_color 1px solid;
+    padding: 0 40px 0 40px;
+    color: @med-grey;
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: @total_size) {
+  aside {
+    width: @side_size;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    h2 {
+      margin: 10px 0 0 0;
+    }
+
+    div#user_meta {
+      max-width: 192px;
+      text-align: right;
+      margin: 0 20px 0 auto;
+    }
+  }
+
+  main {
+    position: absolute;
+    top: 0;
+    left: @side_size;
+    margin: 0;
+    border-left: @border_color 1px solid;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    header {
+      border-top: 0;
+      text-align: left;
+    }
+  }
+}

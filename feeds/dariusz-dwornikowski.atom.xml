@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="/" rel="alternate"></link><link href="/feeds/dariusz-dwornikowski.atom.xml" rel="self"></link><id>/</id><updated>2014-09-12T09:10:00+02:00</updated><entry><title>profanity and libstrophe status in Debian</title><link href="/profanity-and-libstrophe-status-in-debian.html" rel="alternate"></link><updated>2014-09-12T09:10:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:,2014-09-12:profanity-and-libstrophe-status-in-debian.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www.profanity.im"&gt;profanity&lt;/a&gt; is a great console based XMPP client written in ncurses and C
+by James Booth. The code has a great quality, upstream is super collaborative, and willing, so packaging should be pretty straightforward. This
+post will show that this was not the case here. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="profanity" src="http://www.profanity.im/images/prof-1.png" /&gt;&lt;/p&gt;
+&lt;p&gt;First obstacle was that profanity depended on &lt;a href="http://strophe.im"&gt;libstrophe&lt;/a&gt;, an XMPP library, which
+was not in Debian. As it occurred libstrophe's upstream was not responsive, so any changes that were
+needed to prepare libstrophe for high quality packaging could not be met. &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;First of all libstrophe's build system (automake and friends) built only a static library. &lt;/li&gt;
+&lt;li&gt;The second problem was that libstrophe did not tag releases on github, this was needed to make Debian watch file work. &lt;/li&gt;
+&lt;li&gt;A third, smaller problem was the presence of &lt;code&gt;debian/&lt;/code&gt; directory in upstream's source. It can be neglected
+most of the time, since you can tell &lt;code&gt;git-import-orig&lt;/code&gt; to delete it. &lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To solve those 3 problems I created a pull request fixing the
+build system to build also a shared library, deleting &lt;code&gt;debian/&lt;/code&gt; directory and politely asking for
+tagging releases. You can see my pull request &lt;a href="https://github.com/strophe/libstrophe/pull/20"&gt;here&lt;/a&gt; dated on April 26th. 
+There was no answer for the libstrophe's upstream but I has some support from profanity's developers
+and other users wanting to make those changes. Finally metajack (libstrophe upstream) gave us right
+to the repo and we could merge the pull request on August 6th. The lesson learned - be patient and
+know autotools (a great tutorial &lt;a href="https://www.lrde.epita.fr/~adl/autotools.html"&gt;is here&lt;/a&gt;). &lt;/p&gt;
+&lt;p&gt;With profanity there were less changes to do. The most important one was that it linked to OpenSSL
+and due to the license incompatibility with GPL it could not go into Debian. Fortunately upstream
+added the OpenSSL exception, and profanity could be finally packaged. &lt;/p&gt;
+&lt;p&gt;Now both profanity and libstrophe are in &lt;a href="https://ftp-master.debian.org/new.html"&gt;NEW queue&lt;/a&gt; and hopefully they will be accepted by ftp
+masters. When they are, there is plenty to do with them in the future,  upstream closed some bugs,
+new upstream versions are tagged. &lt;/p&gt;</summary><category term="debian"></category><category term="packaging"></category></entry><entry><title>VIM PEPA syntax</title><link href="/vim-pepa-syntax.html" rel="alternate"></link><updated>2013-02-18T21:22:41+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:,2013-02-18:vim-pepa-syntax.html</id><summary type="html">&lt;p&gt;For everyone interested in PEPA (Performance Evaluation Process Algbra) I created a small
+syntax plugin that will colorize syntax of any PEPA model in VIM. The plugin is hosted on github
+&lt;a class="reference external" href="https://github.com/tdi/vim-pepa-syntax"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here is how it looks:&lt;/p&gt;
+&lt;img alt="" class="align-center" src="../images/pepa-vim.png" /&gt;
+</summary><category term="vim"></category><category term="pepa"></category></entry><entry><title>Highlight lines over 79</title><link href="/highlight-lines-over-79.html" rel="alternate"></link><updated>2013-02-02T11:09:54+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:,2013-02-02:highlight-lines-over-79.html</id><summary type="html">&lt;p&gt;If you want to stick to PEP8 speccification of Python syntax, you should stick to 79 line length.
+It is very easy to forget to follow that rule, fortunatelly vim can help you. There are many nice
+solution to inform you when you go past 79 column. The most generic one is highlighting only the
+80th column by setting &lt;tt class="docutils literal"&gt;set cursorcolumn&lt;/tt&gt; (or just &lt;tt class="docutils literal"&gt;set cc&lt;/tt&gt;). This will produce a vertical line
+on the column according to your &lt;tt class="docutils literal"&gt;textwidth&lt;/tt&gt; variable. You can check this by doing &lt;tt class="docutils literal"&gt;:set tw?&lt;/tt&gt;.
+If you want some better looking solution try the one I found on stackoverflow. You can adjust the color and linewidth to your
+preferences.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;highlight&lt;/span&gt; OverLength ctermbg&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="k"&gt;red&lt;/span&gt; ctermfg&lt;span class="p"&gt;=&lt;/span&gt;white guibg&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="mh"&gt;#592929&lt;/span&gt;
+&lt;span class="k"&gt;match&lt;/span&gt; OverLength &lt;span class="sr"&gt;/\%80v.\+/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</summary><category term="vim"></category><category term="python"></category></entry><entry><title>Text above arrows in LaTeX</title><link href="/text-above-arrows-in-latex.html" rel="alternate"></link><updated>2013-01-30T12:00:39+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:,2013-01-30:text-above-arrows-in-latex.html</id><summary type="html">&lt;p&gt;Sometimes you need to place text above arrows. Let's say you need to write transitions for a labelled transition system. In fact in LaTeX this is not so obvious, especially if you want to have text above and under the arrow. I know of two easy ways to do it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sb"&gt;$$&lt;/span&gt;&lt;span class="nb"&gt; E &lt;/span&gt;&lt;span class="nv"&gt;\xrightarrow&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;\alpha&lt;/span&gt;&lt;span class="nb"&gt;} F &lt;/span&gt;&lt;span class="s"&gt;$$&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The second method.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sb"&gt;$$&lt;/span&gt;&lt;span class="nb"&gt; &lt;/span&gt;&lt;span class="nv"&gt;\mathop&lt;/span&gt;&lt;span class="nb"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;\longrightarrow&lt;/span&gt;&lt;span class="nb"&gt;}^_{&lt;/span&gt;&lt;span class="nv"&gt;\alpha&lt;/span&gt;&lt;span class="nb"&gt;} &lt;/span&gt;&lt;span class="s"&gt;$$&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</summary><category term="latex"></category></entry><entry><title>Toggle cursorline and cursorcolumn function in VIM</title><link href="/toggle-cursorline-in-vim.html" rel="alternate"></link><updated>2013-01-30T10:59:09+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:,2013-01-30:toggle-cursorline-in-vim.html</id><summary type="html">&lt;p&gt;It is often very comfortable to see where your cursor in VIM is. To achieve that you can use
+cursorcolumn and cursorline to highlight the row and the column in which you are currently present
+with your cursor. Below is a function that can be placed in your &lt;tt class="docutils literal"&gt;.vimrc&lt;/tt&gt; to toggle such a
+behaviour. It is then mapped to &lt;tt class="docutils literal"&gt;&amp;lt;leader&amp;gt;cl&lt;/tt&gt;, which effectively means that you need to punch &lt;tt class="docutils literal"&gt;\cl&lt;/tt&gt; to
+make it work.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorline&lt;/span&gt;
+&lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorcolumn&lt;/span&gt;
+
+&lt;span class="k"&gt;fu&lt;/span&gt;&lt;span class="p"&gt;!&lt;/span&gt; ToggleCurline &lt;span class="p"&gt;()&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &amp;amp;&lt;span class="nb"&gt;cursorline&lt;/span&gt; &amp;amp;&amp;amp; &amp;amp;&lt;span class="nb"&gt;cursorcolumn&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;nocursorline&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;nocursorcolumn&lt;/span&gt;
+  &lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorline&lt;/span&gt;
+    &lt;span class="k"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;cursorcolumn&lt;/span&gt;
+  &lt;span class="k"&gt;endif&lt;/span&gt;
+&lt;span class="k"&gt;endfunction&lt;/span&gt;
+
+map &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;silent&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;leader&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="k"&gt;cl&lt;/span&gt; :&lt;span class="k"&gt;call&lt;/span&gt; ToggleCurline&lt;span class="p"&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</summary><category term="vim"></category><category term="viml"></category></entry></feed>
