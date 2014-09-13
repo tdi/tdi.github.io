@@ -36,7 +36,7 @@ new upstream versions are tagged. &lt;/p&gt;</description><dc:creator xmlns:dc="
 syntax plugin that will colorize syntax of any PEPA model in VIM. The plugin is hosted on github
 &lt;a class="reference external" href="https://github.com/tdi/vim-pepa-syntax"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here is how it looks:&lt;/p&gt;
-&lt;img alt="" class="align-center" src="../images/pepa-vim.png" /&gt;
+&lt;img alt="" class="align-center" src="http://tdi.github.io/images/pepa-vim.png" /&gt;
 </description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Dariusz Dwornikowski</dc:creator><pubDate>Mon, 18 Feb 2013 21:22:41 +0100</pubDate><guid>tag:tdi.github.io,2013-02-18:2013/02/18/vim-pepa-syntax/</guid><category>vim</category><category>pepa</category></item><item><title>Highlight lines over 79</title><link>http://tdi.github.io/2013/02/02/highlight-lines-over-79/</link><description>&lt;p&gt;If you want to stick to PEP8 speccification of Python syntax, you should stick to 79 line length.
 It is very easy to forget to follow that rule, fortunatelly vim can help you. There are many nice
 solution to inform you when you go past 79 column. The most generic one is highlighting only the
