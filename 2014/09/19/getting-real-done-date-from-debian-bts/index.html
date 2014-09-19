@@ -85,42 +85,42 @@ but for RFS it will always be <code>done</code>. </p>
 
 <p>Below is a script that extracts the done date of a bug from its log in mbox format. It uses requests
 to download the mbox and caches the result in <code>./cache/bugs</code>, which you need to create. </p>
-<div class="highlight"><pre>  <span class="o">:::</span><span class="n">python</span>
-  <span class="err">#</span><span class="o">!/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">python</span>
+<div class="highlight"><pre> <span class="o">:::</span><span class="n">python</span>
+ <span class="err">#</span><span class="o">!/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">python</span>
 
-  <span class="n">import</span> <span class="n">requests</span>
-  <span class="n">from</span> <span class="n">datetime</span> <span class="n">import</span> <span class="n">datetime</span>
-  <span class="n">import</span> <span class="n">re</span>
-  <span class="n">import</span> <span class="n">os</span>
+ <span class="n">import</span> <span class="n">requests</span>
+ <span class="n">from</span> <span class="n">datetime</span> <span class="n">import</span> <span class="n">datetime</span>
+ <span class="n">import</span> <span class="n">re</span>
+ <span class="n">import</span> <span class="n">os</span>
 
-  <span class="n">class</span> <span class="n">BugLog</span><span class="p">(</span><span class="n">object</span><span class="p">)</span><span class="o">:</span>
+ <span class="n">class</span> <span class="n">BugLog</span><span class="p">(</span><span class="n">object</span><span class="p">)</span><span class="o">:</span>
 
-      <span class="n">CACHE_DIR</span><span class="o">=</span><span class="s">&quot;./cache/bugs/&quot;</span>
+     <span class="n">CACHE_DIR</span><span class="o">=</span><span class="s">&quot;./cache/bugs/&quot;</span>
 
-      <span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span><span class="o">:</span>
-          <span class="n">self</span><span class="p">.</span><span class="n">_num</span> <span class="o">=</span> <span class="n">num</span>
+     <span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span><span class="o">:</span>
+         <span class="n">self</span><span class="p">.</span><span class="n">_num</span> <span class="o">=</span> <span class="n">num</span>
 
-      <span class="err">@</span><span class="n">property</span>
-      <span class="n">def</span> <span class="n">done_date</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
-          <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">BugLog</span><span class="p">.</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span><span class="o">:</span>
-              <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">_get_from_cache</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">)</span>
-          <span class="nl">else:</span>
-              <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;https://bugs.debian.org/cgi-bin/bugreport.cgi?mbox=yes;bug={};mboxstatus=yes&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span>
-              <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;Received: \(at {}-done\) by bugs\.debian\.org\; (\d+ \w+ \d\d\d\d) \d\d:\d\d:\d\d&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">)</span>
-              <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-              <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
-              <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">BugLog</span><span class="p">.</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">),</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-                  <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()))</span>
-              <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()</span>
+     <span class="err">@</span><span class="n">property</span>
+     <span class="n">def</span> <span class="n">done_date</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="o">:</span>
+         <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">BugLog</span><span class="p">.</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span><span class="o">:</span>
+             <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">_get_from_cache</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">)</span>
+         <span class="nl">else:</span>
+             <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;https://bugs.debian.org/cgi-bin/bugreport.cgi?mbox=yes;bug={};mboxstatus=yes&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span>
+             <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;Received: \(at {}-done\) by bugs\.debian\.org\; (\d+ \w+ \d\d\d\d) \d\d:\d\d:\d\d&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">)</span>
+             <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+             <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
+             <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">BugLog</span><span class="p">.</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">),</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+                 <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()))</span>
+             <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()</span>
 
-      <span class="n">def</span> <span class="n">_get_from_cache</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span><span class="o">:</span>
-          <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">BugLog</span><span class="p">.</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-              <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;%Y-%M-%d&quot;</span><span class="p">).</span><span class="n">date</span><span class="p">()</span>
+     <span class="n">def</span> <span class="n">_get_from_cache</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span><span class="o">:</span>
+         <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">BugLog</span><span class="p">.</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+             <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s">&quot;%Y-%M-%d&quot;</span><span class="p">).</span><span class="n">date</span><span class="p">()</span>
 
 
-  <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="o">:</span>
-      <span class="n">b</span> <span class="o">=</span> <span class="n">BugLog</span><span class="p">(</span><span class="mi">657783</span><span class="p">)</span>
-      <span class="n">print</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">done_date</span><span class="p">)</span>
+ <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="o">:</span>
+     <span class="n">b</span> <span class="o">=</span> <span class="n">BugLog</span><span class="p">(</span><span class="mi">657783</span><span class="p">)</span>
+     <span class="n">print</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">done_date</span><span class="p">)</span>
 </pre></div>
 
 
