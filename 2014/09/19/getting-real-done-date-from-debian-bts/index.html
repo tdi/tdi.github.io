@@ -86,6 +86,7 @@ but for RFS it will always be <code>done</code>. </p>
 <p>Below is a script that extracts the done date of a bug from its log in mbox format. It uses requests
 to download the mbox and caches the result in <code>./cache/bugs</code>, which you need to create. </p>
 <div class="highlight"><pre>  <span class="o">:::</span><span class="n">python</span>
+  <span class="err">#</span><span class="o">!/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">python</span>
 
   <span class="n">import</span> <span class="n">requests</span>
   <span class="n">from</span> <span class="n">datetime</span> <span class="n">import</span> <span class="n">datetime</span>
