@@ -5,29 +5,36 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tdi.github.io/index.html</loc>
-<lastmod>2014-09-18T11:47:28-00:00</lastmod>
+<lastmod>2014-09-19T09:36:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tdi.github.io/archives.html</loc>
-<lastmod>2014-09-18T11:47:28-00:00</lastmod>
+<lastmod>2014-09-19T09:36:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tdi.github.io/tags.html</loc>
-<lastmod>2014-09-18T11:47:28-00:00</lastmod>
+<lastmod>2014-09-19T09:36:06-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tdi.github.io/categories.html</loc>
-<lastmod>2014-09-18T11:47:28-00:00</lastmod>
+<lastmod>2014-09-19T09:36:06-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/</loc>
+<lastmod>2014-09-19T09:17:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -82,7 +89,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tdi.github.io/category/debian.html</loc>
-<lastmod>2014-09-18T10:50:00:%s</lastmod>
+<lastmod>2014-09-19T09:17:00:%s</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -117,7 +124,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tdi.github.io/tag/python.html</loc>
-<lastmod>2014-09-18T10:50:00:%s</lastmod>
+<lastmod>2014-09-19T09:17:00:%s</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -159,14 +166,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tdi.github.io/tag/debian.html</loc>
-<lastmod>2014-09-18T10:50:00:%s</lastmod>
+<lastmod>2014-09-19T09:17:00:%s</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tdi.github.io/author/dariusz-dwornikowski.html</loc>
-<lastmod>2014-09-18T10:50:00:%s</lastmod>
+<lastmod>2014-09-19T09:17:00:%s</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
