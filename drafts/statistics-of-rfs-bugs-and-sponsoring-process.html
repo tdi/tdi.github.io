@@ -84,8 +84,16 @@ particular bug number and returns a "real done date". </p>
 <h1>What I measured ?</h1>
 <p>RFSs is a queue and in every queue we are interested in a mean time to be processed. In this case I
 call the metric MTTGS (mean time to get sponsored). This is a metric that gives the overall
-performance insight in RFS queue. Time to get sponsored is a number of days between the date of filing an RFS bug
-and </p>
+performance insight in RFS queue. Time to get sponsored (TTGS) is a number of days between the date of filing an RFS bug
+and the date of closing it (bug was sponsored), whereas mean time to get sponsored is calculated as
+a sum of TTGSs of all bugs divided by number of bugs (in a given period of time). </p>
+<p>Besided MTTGS I have also measures typical bug related metrics:</p>
+<ul>
+<li>number of bugs closed in a given day</li>
+<li>number of bugs opened in a given day</li>
+<li>number of bugs with status open in a given day</li>
+<li>number of bugs with status closed in a given day</li>
+</ul>
   </div>
   <div class="article_meta">
     <p>Category: <a href="http://tdi.github.io/category/debian.html">Debian</a></p>
