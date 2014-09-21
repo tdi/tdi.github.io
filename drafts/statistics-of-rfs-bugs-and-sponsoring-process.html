@@ -72,6 +72,20 @@ on Sun 21 September 2014</p>
 this to be one of the most important things that Debian has to attract and enable new contributions.
 It is important to know how this process works, whether we need more sponsors, how effective is the
 sponsoring and what are the timings connected to it. </p>
+<h1>How is it done ?</h1>
+<p>I have used Debbugs SOAP interface to get all the bugs that are filed agains <code>sponsorship-requests</code>
+pseudo package. SOAP gives a little bit of overhead because I need to download a complete list of
+bugs for the <code>sponsorship-requests</code> package, and then process them. The same information can be easily extracted
+from the UDD database in the future, it will be faster because SQL works faster when working with
+date ranges than python obviously. </p>
+<p>The most problematic part was getting the "real done date" of a particular bug, and frankly most of
+my time I have spent on writing a rather dirty and complicated script. The script gets a log for a
+particular bug number and returns a "real done date". </p>
+<h1>What I measured ?</h1>
+<p>RFSs is a queue and in every queue we are interested in a mean time to be processed. In this case I
+call the metric MTTGS (mean time to get sponsored). This is a metric that gives the overall
+performance insight in RFS queue. Time to get sponsored is a number of days between the date of filing an RFS bug
+and </p>
   </div>
   <div class="article_meta">
     <p>Category: <a href="http://tdi.github.io/category/debian.html">Debian</a></p>
