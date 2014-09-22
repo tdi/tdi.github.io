@@ -87,95 +87,95 @@ different checks:</p>
 <li>
 <p>Check for <code>Close: NUMBER</code> in body.</p>
 <p>:::python</p>
-<p>#!/usr/bin/env python</p>
+<h1>!/usr/bin/env python</h1>
 <p>import requests
-  from datetime import datetime
-  import mailbox
-  import re
-  import os
-  import tempfile</p>
+from datetime import datetime
+import mailbox
+import re
+import os
+import tempfile</p>
 <p>def get_done_date(bug_num):</p>
-<div class="highlight"><pre>  <span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/.cache/rfs_bugs/&quot;</span>
+<div class="highlight"><pre><span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/.cache/rfs_bugs/&quot;</span>
 
-  <span class="n">def</span> <span class="n">get_from_cache</span><span class="p">()</span><span class="o">:</span>
-      <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">bug_num</span><span class="p">))</span><span class="o">:</span>
-          <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">bug_num</span><span class="p">))</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-              <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">rstrip</span><span class="p">(),</span> <span class="s">&quot;%Y-%m-%d&quot;</span><span class="p">).</span><span class="n">date</span><span class="p">()</span>
-      <span class="nl">else:</span>
-          <span class="k">return</span> <span class="n">None</span>
+<span class="n">def</span> <span class="n">get_from_cache</span><span class="p">()</span><span class="o">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">bug_num</span><span class="p">))</span><span class="o">:</span>
+        <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">bug_num</span><span class="p">))</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+            <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="n">rstrip</span><span class="p">(),</span> <span class="s">&quot;%Y-%m-%d&quot;</span><span class="p">).</span><span class="n">date</span><span class="p">()</span>
+    <span class="nl">else:</span>
+        <span class="k">return</span> <span class="n">None</span>
 
-  <span class="n">done_date</span> <span class="o">=</span> <span class="n">get_from_cache</span><span class="p">()</span>
+<span class="n">done_date</span> <span class="o">=</span> <span class="n">get_from_cache</span><span class="p">()</span>
 
-  <span class="k">if</span> <span class="n">done_date</span> <span class="n">is</span> <span class="n">not</span> <span class="n">None</span><span class="o">:</span>
-      <span class="k">return</span> <span class="n">done_date</span>
-  <span class="nl">else:</span>
-      <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;https://bugs.debian.org/cgi-bin/bugreport.cgi?mbox=yes;bug={};mboxstatus=yes&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span>
-      <span class="n">d</span> <span class="o">=</span> <span class="n">try_header</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">d</span> <span class="n">is</span> <span class="n">None</span><span class="o">:</span>
-          <span class="n">d</span> <span class="o">=</span> <span class="n">try_cc</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">d</span> <span class="n">is</span> <span class="n">None</span><span class="o">:</span>
-          <span class="n">d</span> <span class="o">=</span> <span class="n">try_body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-      <span class="k">if</span> <span class="n">d</span> <span class="n">is</span> <span class="n">not</span> <span class="n">None</span><span class="o">:</span>
-          <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">bug_num</span><span class="p">),</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-              <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()))</span>
-      <span class="nl">else:</span>
-          <span class="k">return</span> <span class="n">None</span>
-      <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">done_date</span> <span class="n">is</span> <span class="n">not</span> <span class="n">None</span><span class="o">:</span>
+    <span class="k">return</span> <span class="n">done_date</span>
+<span class="nl">else:</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;https://bugs.debian.org/cgi-bin/bugreport.cgi?mbox=yes;bug={};mboxstatus=yes&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">_num</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">try_header</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="n">is</span> <span class="n">None</span><span class="o">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">try_cc</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="n">is</span> <span class="n">None</span><span class="o">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">try_body</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">d</span> <span class="n">is</span> <span class="n">not</span> <span class="n">None</span><span class="o">:</span>
+        <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="s">&quot;{}{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">CACHE_DIR</span><span class="p">,</span> <span class="n">bug_num</span><span class="p">),</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+            <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()))</span>
+    <span class="nl">else:</span>
+        <span class="k">return</span> <span class="n">None</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">.</span><span class="n">date</span><span class="p">()</span>
 
-  <span class="n">def</span> <span class="n">try_body</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">:</span>
-      <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;\(at\s.+\)\s+by\sbugs\.debian\.org;\s(\d{1,2}\s\w\w\w\s\d\d\d\d)&quot;</span>
-      <span class="n">handle</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">mkstemp</span><span class="p">()</span>
-      <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-          <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="err">&#39;</span><span class="n">latin</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">))</span>
-      <span class="n">mbox</span> <span class="o">=</span> <span class="n">mailbox</span><span class="p">.</span><span class="n">mbox</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-      <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="n">mbox</span><span class="p">.</span><span class="n">items</span><span class="p">()</span><span class="o">:</span>
-          <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">is_multipart</span><span class="p">()</span><span class="o">:</span>
-              <span class="k">for</span> <span class="n">m</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">get_payload</span><span class="p">()</span><span class="o">:</span>
-                  <span class="k">if</span> <span class="s">&quot;close&quot;</span> <span class="n">in</span> <span class="n">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="n">or</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">:</span>
-                      <span class="nl">try:</span>
-                          <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">Received</span><span class="err">&#39;</span><span class="p">])</span>
-                          <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
-                      <span class="nl">except:</span>
-                          <span class="k">return</span> <span class="n">None</span>
-          <span class="nl">else:</span>
-              <span class="k">if</span> <span class="s">&quot;close&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">get_payload</span><span class="p">()</span> <span class="n">or</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">get_payload</span><span class="p">()</span><span class="o">:</span>
-                  <span class="nl">try:</span>
-                      <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">Received</span><span class="err">&#39;</span><span class="p">])</span>
-                      <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
-                  <span class="nl">except:</span>
-                      <span class="k">return</span> <span class="n">None</span>
-      <span class="k">return</span> <span class="n">None</span>
+<span class="n">def</span> <span class="n">try_body</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;\(at\s.+\)\s+by\sbugs\.debian\.org;\s(\d{1,2}\s\w\w\w\s\d\d\d\d)&quot;</span>
+    <span class="n">handle</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">mkstemp</span><span class="p">()</span>
+    <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="err">&#39;</span><span class="n">latin</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">))</span>
+    <span class="n">mbox</span> <span class="o">=</span> <span class="n">mailbox</span><span class="p">.</span><span class="n">mbox</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="n">mbox</span><span class="p">.</span><span class="n">items</span><span class="p">()</span><span class="o">:</span>
+        <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">is_multipart</span><span class="p">()</span><span class="o">:</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">get_payload</span><span class="p">()</span><span class="o">:</span>
+                <span class="k">if</span> <span class="s">&quot;close&quot;</span> <span class="n">in</span> <span class="n">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="n">or</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">:</span>
+                    <span class="nl">try:</span>
+                        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">Received</span><span class="err">&#39;</span><span class="p">])</span>
+                        <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
+                    <span class="nl">except:</span>
+                        <span class="k">return</span> <span class="n">None</span>
+        <span class="nl">else:</span>
+            <span class="k">if</span> <span class="s">&quot;close&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">get_payload</span><span class="p">()</span> <span class="n">or</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">get_payload</span><span class="p">()</span><span class="o">:</span>
+                <span class="nl">try:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">Received</span><span class="err">&#39;</span><span class="p">])</span>
+                    <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
+                <span class="nl">except:</span>
+                    <span class="k">return</span> <span class="n">None</span>
+    <span class="k">return</span> <span class="n">None</span>
 
-  <span class="n">def</span> <span class="n">try_header</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">:</span>
-      <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;Received:\s\(at\s\d\d\d\d\d\d-(close|done)\)\s+by.+&quot;</span>
-      <span class="nl">try:</span>
-          <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-          <span class="n">line</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-          <span class="n">reg2</span> <span class="o">=</span> <span class="s">&quot;\d{1,2}\s\w\w\w\s\d\d\d\d&quot;</span>
-          <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg2</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
-          <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
-          <span class="k">return</span> <span class="n">d</span>
-      <span class="nl">except:</span>
-          <span class="k">return</span> <span class="n">None</span>
+<span class="n">def</span> <span class="n">try_header</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;Received:\s\(at\s\d\d\d\d\d\d-(close|done)\)\s+by.+&quot;</span>
+    <span class="nl">try:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">reg2</span> <span class="o">=</span> <span class="s">&quot;\d{1,2}\s\w\w\w\s\d\d\d\d&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg2</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span>
+    <span class="nl">except:</span>
+        <span class="k">return</span> <span class="n">None</span>
 
-  <span class="n">def</span> <span class="n">try_cc</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">:</span>
-      <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;\(at\s.+\)\s+by\sbugs\.debian\.org;\s(\d{1,2}\s\w\w\w\s\d\d\d\d)&quot;</span>
-      <span class="n">handle</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">mkstemp</span><span class="p">()</span>
-      <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-          <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="err">&#39;</span><span class="n">latin</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">))</span>
-      <span class="n">mbox</span> <span class="o">=</span> <span class="n">mailbox</span><span class="p">.</span><span class="n">mbox</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-      <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="n">mbox</span><span class="p">.</span><span class="n">items</span><span class="p">()</span><span class="o">:</span>
-          <span class="k">if</span> <span class="p">(</span><span class="err">&#39;</span><span class="n">CC</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">and</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">CC</span><span class="err">&#39;</span><span class="p">])</span> <span class="n">or</span> <span class="p">(</span><span class="err">&#39;</span><span class="n">To</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">and</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">To</span><span class="err">&#39;</span><span class="p">])</span><span class="o">:</span>
-              <span class="nl">try:</span>
-                  <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">Received</span><span class="err">&#39;</span><span class="p">])</span>
-                  <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
-              <span class="nl">except:</span>
-                  <span class="k">return</span> <span class="n">None</span>
+<span class="n">def</span> <span class="n">try_cc</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="s">&quot;\(at\s.+\)\s+by\sbugs\.debian\.org;\s(\d{1,2}\s\w\w\w\s\d\d\d\d)&quot;</span>
+    <span class="n">handle</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="p">.</span><span class="n">mkstemp</span><span class="p">()</span>
+    <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="err">&#39;</span><span class="n">latin</span><span class="o">-</span><span class="mi">1</span><span class="err">&#39;</span><span class="p">))</span>
+    <span class="n">mbox</span> <span class="o">=</span> <span class="n">mailbox</span><span class="p">.</span><span class="n">mbox</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="n">mbox</span><span class="p">.</span><span class="n">items</span><span class="p">()</span><span class="o">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="err">&#39;</span><span class="n">CC</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">and</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">CC</span><span class="err">&#39;</span><span class="p">])</span> <span class="n">or</span> <span class="p">(</span><span class="err">&#39;</span><span class="n">To</span><span class="err">&#39;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">and</span> <span class="s">&quot;done&quot;</span> <span class="n">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">To</span><span class="err">&#39;</span><span class="p">])</span><span class="o">:</span>
+            <span class="nl">try:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="err">&#39;</span><span class="n">Received</span><span class="err">&#39;</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">datetime</span><span class="p">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="s">&quot;%d %b %Y&quot;</span><span class="p">)</span>
+            <span class="nl">except:</span>
+                <span class="k">return</span> <span class="n">None</span>
 </pre></div>
 
 
 <p>if <strong>name</strong> == "<strong>main</strong>":
-      print get_done_date(752210)</p>
+    print get_done_date(752210)</p>
 </li>
 </ol>
 <p>PS: I hope that the script will be not needed in the near future, as Don Armstrong plans a new BTS
