@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet/less" type="text/css" href="http://tdi.github.io/theme/css/style.less">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="http://tdi.github.io/theme/css/pygments.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Dariusz Dwornikowski">
+  <meta name="description" content="Posts and writings by Dariusz Dwornikowski">
+
+
+  <link href="http://tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
+
+<meta name="keywords" content="debian, sponsoring">
+
+  <title>
+statistics of RFS bugs and sponsoring process | Blog  </title>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1656033-10', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://tdi.github.io">
+        <!--<img src="http://tdi.github.io/theme/images/logo.png" alt="logo" id="logo">-->
+      </a>
+      <h2><a href="http://tdi.github.io" class="nohover">Dariusz Dwornikowski</a></h2>
+      <p>Computer Scientist, Admin, Debian Maintainer</p>
+      <ul>
+      </ul>
+      <ul>
+        <li><a href="https://qa.debian.org/developer.php?login=dariusz.dwornikowski%40cs.put.poznan.pl" target="_blank">Debian DDPO<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="https://github.com/tdi" target="_blank">Github<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="https://wiki.debian.org/LocalGroups/DebianPoz" target="_blank">Debian Poznań<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="http://www.cs.put.poznan.pl/ddwornikowski/" target="_blank">About me<i class="fa fa-external-link-square fa-lg"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      <a href="http://tdi.github.io">Home</a>
+      
+      &#124; <a href="http://tdi.github.io/feeds/all.atom.xml">Atom Feed</a>
+      </p>
+<p>Posted
+ by Dariusz Dwornikowski
+on Sun 21 September 2014</p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="http://tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/" class="nohover">statistics of RFS bugs and sponsoring process</a></h1>
+  </div>
+  <div class="article_text">
+    <p>For some days I have been working on statistics of the sponsoring process in Debian. I find
+this to be one of the most important things that Debian has to attract and enable new contributions.
+It is important to know how this process works, whether we need more sponsors, how effective is the
+sponsoring and what are the timings connected to it. </p>
+<h1>How I did this ?</h1>
+<p>I have used Debbugs SOAP interface to get all bugs that are filed against <code>sponsorship-requests</code>
+pseudo package. SOAP gives a little bit of overhead because it needs to download a complete list of
+bugs for the <code>sponsorship-requests</code> package, and then process them according to given date ranges. 
+The same information can be easily extracted from the UDD database in the future, it will be faster
+because SQL is better when working with date ranges than python obviously. </p>
+<p>The most problematic part was getting the "real done date" of a particular bug, and frankly most of
+my time I have spent on writing a rather dirty and complicated script. The script gets a log for a
+particular bug number and returns a "real done date". I have published a proof of concept in a
+<a href="http://tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/">previous post.</a>.</p>
+<h1>What I measured ?</h1>
+<p>RFSs is a queue, and in every queue one is interested in a mean time to get processed. In this case I
+called the metric global MTTGS (mean time to get sponsored). This is a metric that gives the overall
+performance insight in RFS queue. Time to get sponsored (TTGS) for a bug is a number of days that
+passed between filing an RFS bug and closing it (bug was sponsored). Mean time to get sponsored is calculated as
+a sum of TTGSs of all bugs divided by number of bugs (in a given period of time). Global MTTGS is
+MTTGS calculated for a period of time 2012-1-1 until <code>today()</code>. </p>
+<p>Besides MTTGS I have also measured typical bug related metrics:</p>
+<ul>
+<li>number of bugs closed in a given day,</li>
+<li>number of bugs opened in a given day,</li>
+<li>number of bugs with status open in a given day,</li>
+<li>number of bugs with status closed in a given day.</li>
+</ul>
+<h1>Plots and graphs</h1>
+<p>Below is a plot of global MTTGS vs. time (click for a larger image).</p>
+<p><a href="http://tdi.github.io/images/mttgs.png"><img alt="mttgs plot" src="http://tdi.github.io/images/mttgs_small.png" /></a></p>
+<p>As you can see, the trend is roughly exponential and MTTGS tends to settle around 60 days at the end of the
+year 2013. This does not mean that your package will wait 60 days on average nowadays to get
+sponsored. I remind that this is a global MTTGS, so even if the MTTGS of last month was very low, the global MTTGS would decrease
+just slightly. It gives, however, a good glance in performance of the process. Even that more
+packages are filed for sponsoring (see next graphs) now, than in the beginning of the epoch, the
+sponsoring rate is high enough to flatten the global MTTGS, and with time maybe decrease it. </p>
+<p>The image below (click for a larger one) shows how many bugs reside in a queue with status open or
+closed (calculated for each day). For closed we have an almost linear function, so each day more or less the same amount of
+bugs are closed and they increase the pool of bugs with status closed. For bugs with status open the
+interesting part begins around May 2012 after the system is saturated or gets popular. It can be interpreted
+as a plot of how many bugs reside in the queue, the important part is that it is stable and does not
+show clear increasing trend. </p>
+<p><a href="http://tdi.github.io/images/open_done.png"><img alt="open done plot" src="http://tdi.github.io/images/open_done_small.png" /></a></p>
+<p>The last plot shows arrival and departure rate of bugs from RFS queue, i.e. how many bugs are opened
+and closed each day. The interesting part here are the maxima. Let's look at them.</p>
+<p><a href="http://tdi.github.io/images/opened_closed.png"><img alt="opened closed plot" src="http://tdi.github.io/images/opened_closed_small.png" /></a></p>
+<p>Maximal number of opened bugs (21) was on 2012-05-06. As it appears it was a bunch upload of RFSs
+for <code>tryton-modules-*.</code>.</p>
+<div class="highlight"><pre>  <span class="mi">706953</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">anglo</span><span class="o">-</span><span class="n">saxon</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706954</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">purchase</span><span class="o">-</span><span class="n">shipment</span><span class="o">-</span><span class="n">cost</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706948</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">production</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706969</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">fr</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706946</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="n">invoice</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706950</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">supply</span><span class="o">-</span><span class="n">production</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706942</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">attribute</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706957</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">lot</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706958</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">carrier</span><span class="o">-</span><span class="n">weight</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706941</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">supply</span><span class="o">-</span><span class="n">forecast</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706955</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">measurements</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706952</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">carrier</span><span class="o">-</span><span class="n">percentage</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706949</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">asset</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706904</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">chinese</span><span class="o">-</span><span class="n">checkers</span><span class="o">/</span><span class="mf">0.4</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706944</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">split</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706981</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">distcc</span><span class="o">/</span><span class="mf">3.1</span><span class="o">-</span><span class="mi">6</span> 
+  <span class="mi">706945</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">sale</span><span class="o">-</span><span class="n">supply</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706959</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">carrier</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706951</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">sale</span><span class="o">-</span><span class="n">shipment</span><span class="o">-</span><span class="n">cost</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706943</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">continental</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706956</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">sale</span><span class="o">-</span><span class="n">supply</span><span class="o">-</span><span class="n">drop</span><span class="o">-</span><span class="n">shipment</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Maximum number of closed bugs (18) was on 2013-09-24, and as you probably guessed right also tryton modules had impact on that. </p>
+<div class="highlight"><pre>  <span class="mi">706953</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">anglo</span><span class="o">-</span><span class="n">saxon</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706954</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">purchase</span><span class="o">-</span><span class="n">shipment</span><span class="o">-</span><span class="n">cost</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706948</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">production</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706969</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">fr</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706946</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="n">invoice</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706950</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">supply</span><span class="o">-</span><span class="n">production</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706942</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">attribute</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706958</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">carrier</span><span class="o">-</span><span class="n">weight</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706941</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">supply</span><span class="o">-</span><span class="n">forecast</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706955</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">product</span><span class="o">-</span><span class="n">measurements</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706952</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">carrier</span><span class="o">-</span><span class="n">percentage</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706949</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">asset</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706944</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">split</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706959</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">carrier</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">723991</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">mapserver</span><span class="o">/</span><span class="mf">6.4.0</span><span class="o">-</span><span class="mi">2</span> 
+  <span class="mi">706951</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">sale</span><span class="o">-</span><span class="n">shipment</span><span class="o">-</span><span class="n">cost</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706943</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">account</span><span class="o">-</span><span class="n">stock</span><span class="o">-</span><span class="n">continental</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span> 
+  <span class="mi">706956</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">tryton</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">sale</span><span class="o">-</span><span class="n">supply</span><span class="o">-</span><span class="n">drop</span><span class="o">-</span><span class="n">shipment</span><span class="o">/</span><span class="mf">2.8.0</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+
+<h1>The sofware</h1>
+<p>Most of the software was written in Python. Graphs were generated in R. After a code cleanup I will
+publish a complete solution on my gihub account, free to use by everybody. If you would like to see
+another statistics, please let me know, I can create them if the data provides sufficient
+information. </p>
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="http://tdi.github.io/category/debian.html">Debian</a></p>
+    <p>Tags:
+      <a href="http://tdi.github.io/tag/debian.html">debian</a>,      <a href="http://tdi.github.io/tag/sponsoring.html">sponsoring</a>    </p>
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = '//tdiblog.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; 2012-2014 Dariusz Dwornikowski. Built using <a href="http://getpelican.com"
+          target="_blank">Pelican</a>. Based on theme by Carey Metcalfe, available on <a
+          href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">GitHub</a>, which is based
+        on <a href="https://github.com/giulivo/pelican-svbhack" target="_blank">svbhack</a> by
+        Giulio Fidente, modified by <a href="https://github.com/Vincent-C/pelican-svbhack"
+        target="_blank">Vincent Cheng</a>.</p>
+    </div>
+  </main>
+
+
+
+</body>
+</html>
