@@ -18,7 +18,6 @@ different checks:&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;Check for &lt;code&gt;Close: NUMBER&lt;/code&gt; in body.&lt;/p&gt;
 &lt;p&gt;:::python&lt;/p&gt;
-&lt;h1&gt;!/usr/bin/env python&lt;/h1&gt;
 &lt;p&gt;import requests
 from datetime import datetime
 import mailbox
