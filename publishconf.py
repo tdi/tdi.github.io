@@ -11,9 +11,13 @@ TAGLINE = 'Computer Scientist, Admin, Debian Maintainer'
 PATH = 'content'
 DISQUS_SITENAME = 'tdiblog'
 TIMEZONE = 'Europe/Warsaw'
+LOCALE = ('en_US.utf8')
+GOOGLE_ANALYTICS_ID = 'UA-1656033-10'
+GOOGLE_ANALYTICS_PROP = 'auto'
 
 MENUITEMS = [('all', '/blog/archives.html')]
-
+TAG_CLOUD_STEPS = 4
+TAG_CLOUD_MAX_ITEMS = 100
 TAGS_URL='tags.html'
 
 CATEGORIES_URL='categories.html'
@@ -52,7 +56,8 @@ SUMMARY_MAX_LENGTH = 40
 THEME = 'svbhack'
 # Blogroll
 LINKS = (('Debian DDPO', 'https://qa.debian.org/developer.php?login=dariusz.dwornikowski%40cs.put.poznan.pl'),
-        ('Home Page', 'http://www.cs.put.poznan.pl/ddwornikowski/'), 
+        ('Github', 'https://github.com/tdi'), 
+        ('Debian Poznań', 'https://wiki.debian.org/LocalGroups/DebianPoz'), 
         ('About me', 'http://www.cs.put.poznan.pl/ddwornikowski/'), 
         )
 

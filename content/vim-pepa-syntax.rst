@@ -12,6 +12,7 @@ syntax plugin that will colorize syntax of any PEPA model in VIM. The plugin is 
 
 Here is how it looks:
 
-.. image:: ../images/pepa-vim.png
+.. image:: {filename}/images/pepa-vim.png
    :align: center
+   :alt: pepa vim plugin in action
 

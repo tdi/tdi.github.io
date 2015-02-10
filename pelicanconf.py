@@ -42,4 +42,4 @@ LINKS = (('Debian DDPO', 'https://qa.debian.org/developer.php?login=dariusz.dwor
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
