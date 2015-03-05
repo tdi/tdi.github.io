@@ -4,196 +4,196 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>http://tdi.github.io/</loc>
-<lastmod>2015-03-05T15:14:13-00:00</lastmod>
+<loc>//tdi.github.io/</loc>
+<lastmod>2015-03-05T15:15:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/archives.html</loc>
-<lastmod>2015-03-05T15:14:13-00:00</lastmod>
+<loc>//tdi.github.io/archives.html</loc>
+<lastmod>2015-03-05T15:15:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tags.html</loc>
-<lastmod>2015-03-05T15:14:13-00:00</lastmod>
+<loc>//tdi.github.io/tags.html</loc>
+<lastmod>2015-03-05T15:15:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/categories.html</loc>
-<lastmod>2015-03-05T15:14:13-00:00</lastmod>
+<loc>//tdi.github.io/categories.html</loc>
+<lastmod>2015-03-05T15:15:45-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2014/09/23/debrfstats-software-for-rfs-statistics/</loc>
+<loc>//tdi.github.io/2014/09/23/debrfstats-software-for-rfs-statistics/</loc>
 <lastmod>2014-09-23T11:35:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/</loc>
+<loc>//tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/</loc>
 <lastmod>2014-09-21T16:21:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/</loc>
+<loc>//tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/</loc>
 <lastmod>2014-09-19T09:17:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2014/09/18/rfs-health-in-debian/</loc>
+<loc>//tdi.github.io/2014/09/18/rfs-health-in-debian/</loc>
 <lastmod>2014-09-18T10:50:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2014/09/12/forwarding-messages-with-attachments-in-mutt/</loc>
+<loc>//tdi.github.io/2014/09/12/forwarding-messages-with-attachments-in-mutt/</loc>
 <lastmod>2014-09-12T14:30:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2014/09/12/profanity-and-libstrophe-status-in-debian/</loc>
+<loc>//tdi.github.io/2014/09/12/profanity-and-libstrophe-status-in-debian/</loc>
 <lastmod>2014-09-12T09:10:00+02:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2013/02/18/vim-pepa-syntax/</loc>
+<loc>//tdi.github.io/2013/02/18/vim-pepa-syntax/</loc>
 <lastmod>2013-02-18T21:22:41+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2013/02/02/highlight-lines-over-79/</loc>
+<loc>//tdi.github.io/2013/02/02/highlight-lines-over-79/</loc>
 <lastmod>2013-02-02T11:09:54+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2013/01/30/text-above-arrows-in-latex/</loc>
+<loc>//tdi.github.io/2013/01/30/text-above-arrows-in-latex/</loc>
 <lastmod>2013-01-30T12:00:39+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/2013/01/30/toggle-cursorline-in-vim/</loc>
+<loc>//tdi.github.io/2013/01/30/toggle-cursorline-in-vim/</loc>
 <lastmod>2013-01-30T10:59:09+01:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/category/debian.html</loc>
+<loc>//tdi.github.io/category/debian.html</loc>
 <lastmod>2014-09-23T11:35:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/category/latex.html</loc>
+<loc>//tdi.github.io/category/latex.html</loc>
 <lastmod>2013-01-30T12:00:39+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/category/projects.html</loc>
+<loc>//tdi.github.io/category/projects.html</loc>
 <lastmod>2013-02-18T21:22:41+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/category/tools.html</loc>
+<loc>//tdi.github.io/category/tools.html</loc>
 <lastmod>2014-09-12T14:30:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/latex.html</loc>
+<loc>//tdi.github.io/tag/latex.html</loc>
 <lastmod>2013-01-30T12:00:39+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/python.html</loc>
+<loc>//tdi.github.io/tag/python.html</loc>
 <lastmod>2014-09-23T11:35:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/viml.html</loc>
+<loc>//tdi.github.io/tag/viml.html</loc>
 <lastmod>2013-01-30T10:59:09+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/vim.html</loc>
+<loc>//tdi.github.io/tag/vim.html</loc>
 <lastmod>2013-02-18T21:22:41+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/packaging.html</loc>
+<loc>//tdi.github.io/tag/packaging.html</loc>
 <lastmod>2014-09-12T09:10:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/pepa.html</loc>
+<loc>//tdi.github.io/tag/pepa.html</loc>
 <lastmod>2013-02-18T21:22:41+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/sponsoring.html</loc>
+<loc>//tdi.github.io/tag/sponsoring.html</loc>
 <lastmod>2014-09-21T16:21:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/mutt.html</loc>
+<loc>//tdi.github.io/tag/mutt.html</loc>
 <lastmod>2014-09-12T14:30:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/tag/debian.html</loc>
+<loc>//tdi.github.io/tag/debian.html</loc>
 <lastmod>2014-09-23T11:35:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tdi.github.io/author/dariusz-dwornikowski.html</loc>
+<loc>//tdi.github.io/author/dariusz-dwornikowski.html</loc>
 <lastmod>2014-09-23T11:35:00+01:24</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>

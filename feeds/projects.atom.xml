@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="http://tdi.github.io/" rel="alternate"></link><link href="http://tdi.github.io/feeds/projects.atom.xml" rel="self"></link><id>http://tdi.github.io/</id><updated>2013-02-18T21:22:41+01:00</updated><entry><title>VIM PEPA syntax</title><link href="http://tdi.github.io/2013/02/18/vim-pepa-syntax/" rel="alternate"></link><updated>2013-02-18T21:22:41+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2013-02-18:2013/02/18/vim-pepa-syntax/</id><summary type="html">&lt;p&gt;For everyone interested in PEPA (Performance Evaluation Process Algbra) I created a small
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/projects.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2013-02-18T21:22:41+01:00</updated><entry><title>VIM PEPA syntax</title><link href="//tdi.github.io/2013/02/18/vim-pepa-syntax/" rel="alternate"></link><updated>2013-02-18T21:22:41+01:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2013-02-18:2013/02/18/vim-pepa-syntax/</id><summary type="html">&lt;p&gt;For everyone interested in PEPA (Performance Evaluation Process Algbra) I created a small
 syntax plugin that will colorize syntax of any PEPA model in VIM. The plugin is hosted on github
 &lt;a class="reference external" href="https://github.com/tdi/vim-pepa-syntax"&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here is how it looks:&lt;/p&gt;
-&lt;img alt="pepa vim plugin in action" class="align-center" src="http://tdi.github.io/images/pepa-vim.png" /&gt;
+&lt;img alt="pepa vim plugin in action" class="align-center" src="//tdi.github.io/images/pepa-vim.png" /&gt;
 </summary><category term="vim"></category><category term="pepa"></category></entry></feed>

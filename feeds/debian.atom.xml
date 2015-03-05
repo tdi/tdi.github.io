@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="http://tdi.github.io/" rel="alternate"></link><link href="http://tdi.github.io/feeds/debian.atom.xml" rel="self"></link><id>http://tdi.github.io/</id><updated>2014-09-23T11:35:00+02:00</updated><entry><title>debrfstats software for RFS statistics</title><link href="http://tdi.github.io/2014/09/23/debrfstats-software-for-rfs-statistics/" rel="alternate"></link><updated>2014-09-23T11:35:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-23:2014/09/23/debrfstats-software-for-rfs-statistics/</id><summary type="html">&lt;p&gt;&lt;a href="http://tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/"&gt;Last time&lt;/a&gt; I told that I would release software I used to make
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/debian.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2014-09-23T11:35:00+02:00</updated><entry><title>debrfstats software for RFS statistics</title><link href="//tdi.github.io/2014/09/23/debrfstats-software-for-rfs-statistics/" rel="alternate"></link><updated>2014-09-23T11:35:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-23:2014/09/23/debrfstats-software-for-rfs-statistics/</id><summary type="html">&lt;p&gt;&lt;a href="//tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/"&gt;Last time&lt;/a&gt; I told that I would release software I used to make
 RFS stats plots. You can find it in my github repo -
 &lt;a href="https://github.com/tdi/debrfstats"&gt;github.com/tdi/debrfstats&lt;/a&gt;. &lt;/p&gt;
 &lt;p&gt;The software contains small class to get data needed to generate plots, as well as for doing
@@ -7,7 +7,7 @@ some simple bug analysis. The software also contains an R script to make plots f
 now debrfstats uses SOAP interface to Debbugs but I am now working on adding a UDD data source.&lt;/p&gt;
 &lt;p&gt;The software is written in Python 2 (SOAPpy does not come in 3 flavour), some usage examples are in
 the &lt;code&gt;main.py&lt;/code&gt; file in the repository.  &lt;/p&gt;
-&lt;p&gt;If you have any questions or wishes for debrfstats do not hesitate to contact me. &lt;/p&gt;</summary><category term="debian"></category><category term="python"></category></entry><entry><title>statistics of RFS bugs and sponsoring process</title><link href="http://tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/" rel="alternate"></link><updated>2014-09-21T16:21:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-21:2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/</id><summary type="html">&lt;p&gt;For some days I have been working on statistics of the sponsoring process in Debian. I find
+&lt;p&gt;If you have any questions or wishes for debrfstats do not hesitate to contact me. &lt;/p&gt;</summary><category term="debian"></category><category term="python"></category></entry><entry><title>statistics of RFS bugs and sponsoring process</title><link href="//tdi.github.io/2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/" rel="alternate"></link><updated>2014-09-21T16:21:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-21:2014/09/21/statistics-of-rfs-bugs-and-sponsoring-process/</id><summary type="html">&lt;p&gt;For some days I have been working on statistics of the sponsoring process in Debian. I find
 this to be one of the most important things that Debian has to attract and enable new contributions.
 It is important to know how this process works, whether we need more sponsors, how effective is the
 sponsoring and what are the timings connected to it. &lt;/p&gt;
@@ -20,7 +20,7 @@ because SQL is better when working with date ranges than python obviously. &lt;/
 &lt;p&gt;The most problematic part was getting the "real done date" of a particular bug, and frankly most of
 my time I have spent on writing a rather dirty and complicated script. The script gets a log for a
 particular bug number and returns a "real done date". I have published a proof of concept in a
-&lt;a href="http://tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/"&gt;previous post.&lt;/a&gt;.&lt;/p&gt;
+&lt;a href="//tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/"&gt;previous post.&lt;/a&gt;.&lt;/p&gt;
 &lt;h1&gt;What I measured ?&lt;/h1&gt;
 &lt;p&gt;RFSs is a queue, and in every queue one is interested in a mean time to get processed. In this case I
 called the metric global MTTGS (mean time to get sponsored). This is a metric that gives the overall
@@ -37,7 +37,7 @@ MTTGS calculated for a period of time 2012-1-1 until &lt;code&gt;today()&lt;/cod
 &lt;/ul&gt;
 &lt;h1&gt;Plots and graphs&lt;/h1&gt;
 &lt;p&gt;Below is a plot of global MTTGS vs. time (click for a larger image).&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://tdi.github.io/images/mttgs.png"&gt;&lt;img alt="mttgs plot" src="http://tdi.github.io/images/mttgs_small.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="//tdi.github.io/images/mttgs.png"&gt;&lt;img alt="mttgs plot" src="//tdi.github.io/images/mttgs_small.png" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;As you can see, the trend is roughly exponential and MTTGS tends to settle around 60 days at the end of the
 year 2013. This does not mean that your package will wait 60 days on average nowadays to get
 sponsored. I remind that this is a global MTTGS, so even if the MTTGS of last month was very low, the global MTTGS would decrease
@@ -50,10 +50,10 @@ bugs are closed and they increase the pool of bugs with status closed. For bugs 
 interesting part begins around May 2012 after the system is saturated or gets popular. It can be interpreted
 as a plot of how many bugs reside in the queue, the important part is that it is stable and does not
 show clear increasing trend. &lt;/p&gt;
-&lt;p&gt;&lt;a href="http://tdi.github.io/images/open_done.png"&gt;&lt;img alt="open done plot" src="http://tdi.github.io/images/open_done_small.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="//tdi.github.io/images/open_done.png"&gt;&lt;img alt="open done plot" src="//tdi.github.io/images/open_done_small.png" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The last plot shows arrival and departure rate of bugs from RFS queue, i.e. how many bugs are opened
 and closed each day. The interesting part here are the maxima. Let's look at them.&lt;/p&gt;
-&lt;p&gt;&lt;a href="http://tdi.github.io/images/opened_closed.png"&gt;&lt;img alt="opened closed plot" src="http://tdi.github.io/images/opened_closed_small.png" /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="//tdi.github.io/images/opened_closed.png"&gt;&lt;img alt="opened closed plot" src="//tdi.github.io/images/opened_closed_small.png" /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Maximal number of opened bugs (21) was on 2012-05-06. As it appears it was a bunch upload of RFSs
 for &lt;code&gt;tryton-modules-*.&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="mi"&gt;706953&lt;/span&gt;  &lt;span class="n"&gt;RFS&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;tryton&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;modules&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;account&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;stock&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;anglo&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;saxon&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.8.0&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; 
@@ -106,7 +106,7 @@ for &lt;code&gt;tryton-modules-*.&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Most of the software was written in Python. Graphs were generated in R. After a code cleanup I will
 publish a complete solution on my github account, free to use by everybody. If you would like to see
 another statistics, please let me know, I can create them if the data provides sufficient
-information. &lt;/p&gt;</summary><category term="debian"></category><category term="sponsoring"></category></entry><entry><title>getting real "done date" of a bug from Debian BTS</title><link href="http://tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/" rel="alternate"></link><updated>2014-09-19T09:17:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-19:2014/09/19/getting-real-done-date-from-debian-bts/</id><summary type="html">&lt;p&gt;As I wrote in my last &lt;a href="http://tdi.github.io/2014/09/18/rfs-health-in-debian/"&gt;post&lt;/a&gt; currently, SOAP
+information. &lt;/p&gt;</summary><category term="debian"></category><category term="sponsoring"></category></entry><entry><title>getting real "done date" of a bug from Debian BTS</title><link href="//tdi.github.io/2014/09/19/getting-real-done-date-from-debian-bts/" rel="alternate"></link><updated>2014-09-19T09:17:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-19:2014/09/19/getting-real-done-date-from-debian-bts/</id><summary type="html">&lt;p&gt;As I wrote in my last &lt;a href="//tdi.github.io/2014/09/18/rfs-health-in-debian/"&gt;post&lt;/a&gt; currently, SOAP
 interface, nor Ultimate Debian Database do not provide a date when a given bug was closed (done
 date). It is quite hard to calculate statistics on a bug tracker when you do not know when a bug was
 closed (!!). &lt;/p&gt;
@@ -219,7 +219,7 @@ different checks:&lt;/p&gt;
 
 
 &lt;p&gt;PS: I hope that the script will be not needed in the near future, as Don Armstrong plans a new BTS
-database, a &lt;a href="http://meetings-archive.debian.net/pub/debian-meetings/2014/debconf14/webm/bugsdebianorg_Database_Ho.webm"&gt;Debconf14 video is here&lt;/a&gt;.&lt;/p&gt;</summary><category term="debian"></category><category term="python"></category></entry><entry><title>RFS health in Debian</title><link href="http://tdi.github.io/2014/09/18/rfs-health-in-debian/" rel="alternate"></link><updated>2014-09-18T10:50:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-18:2014/09/18/rfs-health-in-debian/</id><summary type="html">&lt;p&gt;I am working on a small project to create WNPP like statistics for open RFS bugs. I think this could
+database, a &lt;a href="http://meetings-archive.debian.net/pub/debian-meetings/2014/debconf14/webm/bugsdebianorg_Database_Ho.webm"&gt;Debconf14 video is here&lt;/a&gt;.&lt;/p&gt;</summary><category term="debian"></category><category term="python"></category></entry><entry><title>RFS health in Debian</title><link href="//tdi.github.io/2014/09/18/rfs-health-in-debian/" rel="alternate"></link><updated>2014-09-18T10:50:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-18:2014/09/18/rfs-health-in-debian/</id><summary type="html">&lt;p&gt;I am working on a small project to create WNPP like statistics for open RFS bugs. I think this could
 improve a little bit effectiveness of sponsoring new packages by giving insight into bugs that are on
 their way to being starved (i.e. not ever sponsored, or rotting in a queue). &lt;/p&gt;
 &lt;p&gt;The script attached in this post is written in Python and uses &lt;a href="https://wiki.debian.org/DebbugsSoapInterface"&gt;Debbugs SOAP
@@ -311,7 +311,7 @@ the whole history (i.e. 2012-1-1 until now), and check its health, calculate &lt
     &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Age  Dust Number  Title&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;buglist_sorted_by_dust&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{:&amp;lt;4} {:&amp;lt;4} {:&amp;lt;7} {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;age&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dust&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bug_number&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;subject&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="debian"></category><category term="python"></category></entry><entry><title>profanity and libstrophe status in Debian</title><link href="http://tdi.github.io/2014/09/12/profanity-and-libstrophe-status-in-debian/" rel="alternate"></link><updated>2014-09-12T09:10:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-12:2014/09/12/profanity-and-libstrophe-status-in-debian/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.profanity.im"&gt;profanity&lt;/a&gt; is a great console based XMPP client written in ncurses and C
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="debian"></category><category term="python"></category></entry><entry><title>profanity and libstrophe status in Debian</title><link href="//tdi.github.io/2014/09/12/profanity-and-libstrophe-status-in-debian/" rel="alternate"></link><updated>2014-09-12T09:10:00+02:00</updated><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2014-09-12:2014/09/12/profanity-and-libstrophe-status-in-debian/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.profanity.im"&gt;profanity&lt;/a&gt; is a great console based XMPP client written in ncurses and C
 by James Booth. The code has a great quality, upstream is super collaborative, and willing, so packaging should be pretty straightforward. This
 post will show that this was not the case here. &lt;/p&gt;
 &lt;p&gt;&lt;img alt="profanity" src="http://www.profanity.im/images/prof-1.png" /&gt;&lt;/p&gt;
