@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Dariusz Dwornikowski">
+  <meta name="description" content="Posts and writings by Dariusz Dwornikowski">
+
+
+  <link href="//tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
+
+<meta name="keywords" content="debian, python">
+
+  <title>
+RFS health in Debian | Blog  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <!--<img src="./theme/images/logo.png" alt="logo" id="logo">-->
+      </a>
+      <h2><a href="." class="nohover">Dariusz Dwornikowski</a></h2>
+      <p>Computer Scientist, Admin, Debian Maintainer</p>
+      <ul>
+      </ul>
+      <ul>
+        <li><a href="https://qa.debian.org/developer.php?login=dariusz.dwornikowski%40cs.put.poznan.pl" target="_blank">Debian DDPO<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="http://www.cs.put.poznan.pl/ddwornikowski/" target="_blank">Home Page<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="http://www.cs.put.poznan.pl/ddwornikowski/" target="_blank">About me<i class="fa fa-external-link-square fa-lg"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      <a href=".">Home</a>
+      
+      &#124; <a href="//tdi.github.io/feeds/all.atom.xml">Atom Feed</a>
+      </p>
+<p>Posted
+ by Dariusz Dwornikowski
+on czw 18 wrzesień 2014</p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="./rfs-health-in-debian.html" class="nohover">RFS health in Debian</a></h1>
+  </div>
+  <div class="article_text">
+    <p>I am working on a small project to create WNPP like statistics for open RFS bugs. I think this could
+improve a little bit effectiveness of sponsoring new packages by giving insight into bugs that are on
+their way to being starved (i.e. not ever sponsored, or rotting in a queue). </p>
+<p>The script attached in this post is written in Python and uses <a href="https://wiki.debian.org/DebbugsSoapInterface">Debbugs SOAP
+interface</a> to get currently open RFS bugs and
+calculates their dust and age. </p>
+<p>The dust factor is calculated as an absolute value of a difference between bugs's <code>age</code> and
+<code>log_modified</code>. </p>
+<p>Later I would like to create fully blown stats for an RFS queue, taking into account 
+the whole history (i.e. 2012-1-1 until now), and check its health, calculate <code>MTTGS</code> (mean time to get sponsored). </p>
+<p>The list looks more or less like this:</p>
+<div class="highlight"><pre><span class="n">Age</span>  <span class="n">Dust</span> <span class="n">Number</span>  <span class="n">Title</span>
+<span class="mi">37</span>   <span class="mi">0</span>    <span class="mi">757966</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">lutris</span><span class="o">/</span><span class="mf">0.3.5</span><span class="o">-</span><span class="mi">1</span> <span class="p">[</span><span class="n">ITP</span><span class="p">]</span>
+<span class="mi">1</span>    <span class="mi">0</span>    <span class="mi">762015</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">s3fs</span><span class="o">-</span><span class="n">fuse</span><span class="o">/</span><span class="mf">1.78</span><span class="o">-</span><span class="mi">1</span> <span class="p">[</span><span class="n">ITP</span> <span class="err">#</span><span class="mi">601789</span><span class="p">]</span> <span class="o">--</span> <span class="n">FUSE</span><span class="o">-</span><span class="n">based</span> <span class="n">file</span> <span class="n">system</span> <span class="n">backed</span> <span class="n">by</span> <span class="n">Amazon</span> <span class="n">S3</span>
+<span class="mi">81</span>   <span class="mi">0</span>    <span class="mi">753110</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">mrrescue</span><span class="o">/</span><span class="mf">1.02</span><span class="n">c</span><span class="o">-</span><span class="mi">1</span> <span class="p">[</span><span class="n">ITP</span><span class="p">]</span>
+<span class="mi">456</span>  <span class="mi">0</span>    <span class="mi">712787</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">distkeys</span><span class="o">/</span><span class="mf">1.0</span><span class="o">-</span><span class="mi">1</span> <span class="p">[</span><span class="n">ITP</span><span class="p">]</span> <span class="o">--</span> <span class="n">distribute</span> <span class="n">SSH</span> <span class="n">keys</span>
+<span class="mi">120</span>  <span class="mi">1</span>    <span class="mi">748878</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">mwc</span><span class="o">/</span><span class="mf">1.7.2</span><span class="o">-</span><span class="mi">1</span> <span class="p">[</span><span class="n">ITP</span><span class="p">]</span> <span class="o">--</span> <span class="n">Powerful</span> <span class="n">website</span><span class="o">-</span><span class="n">tracking</span> <span class="n">tool</span>
+<span class="mi">1</span>    <span class="mi">1</span>    <span class="mi">762012</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">fadecut</span><span class="o">/</span><span class="mf">0.1.4</span><span class="o">-</span><span class="mi">1</span>
+<span class="mi">3</span>    <span class="mi">1</span>    <span class="mi">761687</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">abraca</span><span class="o">/</span><span class="mf">0.8.0</span><span class="o">+</span><span class="n">dfsg</span><span class="o">-</span><span class="mi">1</span> <span class="o">--</span> <span class="n">Simple</span> <span class="n">and</span> <span class="n">powerful</span> <span class="n">graphical</span> <span class="n">client</span> <span class="k">for</span> <span class="n">XMMS2</span>
+<span class="mi">35</span>   <span class="mi">2</span>    <span class="mi">758163</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">kcm</span><span class="o">-</span><span class="n">ufw</span><span class="o">/</span><span class="mf">0.4.3</span><span class="o">-</span><span class="mi">1</span> <span class="n">ITP</span>
+<span class="mi">3</span>    <span class="mi">2</span>    <span class="mi">761636</span>  <span class="n">RFS</span><span class="o">:</span> <span class="n">raceintospace</span><span class="o">/</span><span class="mf">1.1</span><span class="o">+</span><span class="n">dfsg1</span><span class="o">-</span><span class="mi">1</span> <span class="p">[</span><span class="n">ITP</span><span class="p">]</span>
+<span class="p">....</span>
+<span class="p">....</span>
+</pre></div>
+
+
+<p>The script <code>rfs_health.py</code> can be found below, it uses <code>SOAPpy</code> 
+(only python &lt;3 unfortunately).</p>
+<div class="highlight"><pre><span class="c">#!/usr/bin/python</span>
+
+<span class="kn">import</span> <span class="nn">SOAPpy</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">datetime</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://bugs.debian.org/cgi-bin/soap.cgi&#39;</span>
+<span class="n">namespace</span> <span class="o">=</span> <span class="s">&#39;Debbugs/SOAP&#39;</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">SOAPpy</span><span class="o">.</span><span class="n">SOAPProxy</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">namespace</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">RFS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_modified</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">log_modified</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">pending</span> <span class="o">!=</span> <span class="s">&#39;done&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pending</span> <span class="o">=</span> <span class="s">&quot;pending&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dust</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_modified</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pending</span> <span class="o">=</span> <span class="s">&quot;done&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dust</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_date</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_modified</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+        <span class="n">today</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_age</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">today</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_date</span><span class="p">)</span><span class="o">.</span><span class="n">days</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_date</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_modified</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">subject</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">subject</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bug_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">bug_num</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">age</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_age</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dust</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dust</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;{} subject: {} age:{} dust:{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">bug_num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_age</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dust</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">bugi</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">get_bugs</span><span class="p">(</span><span class="s">&quot;package&quot;</span><span class="p">,</span> <span class="s">&quot;sponsorship-requests&quot;</span><span class="p">,</span> <span class="s">&quot;status&quot;</span><span class="p">,</span> <span class="s">&quot;open&quot;</span><span class="p">)</span>
+    <span class="n">buglist</span> <span class="o">=</span> <span class="p">[</span><span class="n">RFS</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">server</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span><span class="n">bugi</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">]</span>
+    <span class="n">buglist_sorted_by_dust</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">buglist</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">dust</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Age  Dust Number  Title&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">buglist_sorted_by_dust</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;{:&lt;4} {:&lt;4} {:&lt;7} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">dust</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">bug_number</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">subject</span><span class="p">))</span>
+</pre></div>
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="./category/debian.html">Debian</a></p>
+    <p>Tags:
+      <a href="./tag/debian.html">debian</a>,      <a href="./tag/python.html">python</a>    </p>
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "rfs-health-in-debian.html";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = '//tdiblog.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; 2012-2014 Dariusz Dwornikowski. Built using <a href="http://getpelican.com"
+          target="_blank">Pelican</a>. Based on theme by Carey Metcalfe, available on <a
+          href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">GitHub</a>, which is based
+        on <a href="https://github.com/giulivo/pelican-svbhack" target="_blank">svbhack</a> by
+        Giulio Fidente, modified by <a href="https://github.com/Vincent-C/pelican-svbhack"
+        target="_blank">Vincent Cheng</a>.</p>
+    </div>
+  </main>
+
+
+
+</body>
+</html>

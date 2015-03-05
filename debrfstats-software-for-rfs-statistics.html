@@ -16,10 +16,10 @@
 
   <link href="//tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
 
-<meta name="keywords" content="latex">
+<meta name="keywords" content="debian, python">
 
   <title>
-Text above arrows in LaTeX | Blog  </title>
+debrfstats software for RFS statistics | Blog  </title>
 
 </head>
 
@@ -50,33 +50,35 @@ Text above arrows in LaTeX | Blog  </title>
       </p>
 <p>Posted
  by Dariusz Dwornikowski
-on śro 30 styczeń 2013</p>
+on wto 23 wrzesień 2014</p>
     </header>
 
 <article>
   <div class="article_title">
-    <h1><a href="./text-above-arrows-in-latex.html" class="nohover">Text above arrows in LaTeX</a></h1>
+    <h1><a href="./debrfstats-software-for-rfs-statistics.html" class="nohover">debrfstats software for RFS statistics</a></h1>
   </div>
   <div class="article_text">
-    <p>Sometimes you need to place text above arrows. Let's say you need to write transitions for a labelled transition system. In fact in LaTeX this is not so obvious, especially if you want to have text above and under the arrow. I know of two easy ways to do it.</p>
-<div class="highlight"><pre><span class="sb">$$</span><span class="nb"> E </span><span class="nv">\xrightarrow</span><span class="nb">{</span><span class="nv">\alpha</span><span class="nb">} F </span><span class="s">$$</span>
-</pre></div>
-<p>The second method.</p>
-<div class="highlight"><pre><span class="sb">$$</span><span class="nb"> </span><span class="nv">\mathop</span><span class="nb">{</span><span class="nv">\longrightarrow</span><span class="nb">}^_{</span><span class="nv">\alpha</span><span class="nb">} </span><span class="s">$$</span>
-</pre></div>
-
+    <p><a href="./statistics-of-rfs-bugs-and-sponsoring-process.html">Last time</a> I told that I would release software I used to make
+RFS stats plots. You can find it in my github repo -
+<a href="https://github.com/tdi/debrfstats">github.com/tdi/debrfstats</a>. </p>
+<p>The software contains small class to get data needed to generate plots, as well as for doing
+some simple bug analysis. The software also contains an R script to make plots from a CSV file. For
+now debrfstats uses SOAP interface to Debbugs but I am now working on adding a UDD data source.</p>
+<p>The software is written in Python 2 (SOAPpy does not come in 3 flavour), some usage examples are in
+the <code>main.py</code> file in the repository.  </p>
+<p>If you have any questions or wishes for debrfstats do not hesitate to contact me. </p>
   </div>
   <div class="article_meta">
-    <p>Category: <a href="./category/latex.html">latex</a></p>
+    <p>Category: <a href="./category/debian.html">Debian</a></p>
     <p>Tags:
-      <a href="./tag/latex.html">latex</a>    </p>
+      <a href="./tag/debian.html">debian</a>,      <a href="./tag/python.html">python</a>    </p>
   </div>
 
 
     <div id="article_comments" style="display:block">
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-           var disqus_identifier = "text-above-arrows-in-latex.html";
+           var disqus_identifier = "debrfstats-software-for-rfs-statistics.html";
            (function() {
            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
            dsq.src = '//tdiblog.disqus.com/embed.js';
