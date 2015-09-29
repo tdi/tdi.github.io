@@ -3,7 +3,6 @@ Date: 2015-09-29 16:13
 Tags: vim, mutt
 Category: tools
 Slug: delete-until-signature-in-vim
-status: draft
 
 It has been bugging me for a while. When responding to an email, you often want to delete all the
 content (or part of the previous content) until the end of the email's body. However it would be
