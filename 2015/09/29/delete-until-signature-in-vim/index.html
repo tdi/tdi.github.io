@@ -16,9 +16,10 @@
 
   <link href="//tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
 
+<meta name="keywords" content="vim, mutt">
 
   <title>
-Tag: vim | Blog  </title>
+Delete until signature in vim | Blog  </title>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -57,71 +58,48 @@ Tag: vim | Blog  </title>
       
       &#124; <a href="//tdi.github.io/feeds/all.atom.xml">Atom Feed</a>
       </p>
-<p>Tag: vim
-</p>
+<p>Posted
+ by Dariusz Dwornikowski
+on Tue 29 September 2015</p>
     </header>
 
 <article>
   <div class="article_title">
-    <h1><a href="//tdi.github.io/2015/09/29/delete-until-signature-in-vim/">Delete until signature in vim</a></h1>
+    <h1><a href="//tdi.github.io/2015/09/29/delete-until-signature-in-vim/" class="nohover">Delete until signature in vim</a></h1>
   </div>
   <div class="article_text">
     <p>It has been bugging me for a while. When responding to an email, you often want to delete all the
 content (or part of the previous content) until the end of the email's body. However it would be
-nice ...</p>
-  </div>
-</article>
-<hr />
-<article>
-  <div class="article_title">
-    <h1><a href="//tdi.github.io/2013/02/18/vim-pepa-syntax/">VIM PEPA syntax</a></h1>
-  </div>
-  <div class="article_text">
-    <p>For everyone interested in PEPA (Performance Evaluation Process Algbra) I created a small
-syntax plugin that will colorize syntax of any PEPA model in VIM. The plugin is hosted on github
-<a class="reference external" href="https://github.com/tdi/vim-pepa-syntax">here</a>.</p>
-<p>Here is how it looks:</p>
-<img alt="pepa vim plugin in action" class="align-center" src="//tdi.github.io/images/pepa-vim.png" />
+nice to leave your signature in place. For that I came up with this nifty little vim trick:</p>
+<div class="highlight"><pre><span class="nb">nnoremap</span> <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">gr</span> <span class="p">&lt;</span>Esc<span class="p">&gt;</span><span class="k">d</span>/<span class="p">--</span>\_.*Dariusz<span class="p">&lt;</span>CR<span class="p">&gt;</span>:<span class="k">nohl</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>O
+</pre></div>
 
+
+<p>Assuming that your signature starts with <code>--</code> and the following line starts with your name (in my
+case it is Dariusz), this will delete all the content from the current line until the signature.
+Then it will remove search highlighting, and finally move one line up.</p>
   </div>
-</article>
-<hr />
-<article>
-  <div class="article_title">
-    <h1><a href="//tdi.github.io/2013/02/02/highlight-lines-over-79/">Highlight lines over 79</a></h1>
+  <div class="article_meta">
+    <p>Category: <a href="//tdi.github.io/category/tools.html">tools</a></p>
+    <p>Tags:
+      <a href="//tdi.github.io/tag/vim.html">vim</a>,      <a href="//tdi.github.io/tag/mutt.html">mutt</a>    </p>
   </div>
-  <div class="article_text">
-    <p>If you want to stick to PEP8 speccification of Python syntax, you should stick to 79 line length.
-It is very easy to forget to follow that rule, fortunatelly vim can help you. There are many nice
-solution to inform ...</p>
-  </div>
-</article>
-<hr />
-<article>
-  <div class="article_title">
-    <h1><a href="//tdi.github.io/2013/01/30/toggle-cursorline-in-vim/">Toggle cursorline and cursorcolumn function in VIM</a></h1>
-  </div>
-  <div class="article_text">
-    <p>It is often very comfortable to see where your cursor in VIM is. To achieve that you can use
-cursorcolumn and cursorline to highlight the row and the column in which you are currently present
-with your cursor. Below is ...</p>
-  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "2015/09/29/delete-until-signature-in-vim/";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = '//tdiblog.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
 </article>
 
-<footer>
-<div id="paginator">
-
-
-<span id="left">
-</span>
-
-    <a href="//tdi.github.io/tag/vimindex.html">[1]</a>
-
-<span id="right">
-</span>
-
-</div>
-</footer>
 
     <div id="ending_message">
         <p>&copy; 2012-2014 Dariusz Dwornikowski. Built using <a href="http://getpelican.com"

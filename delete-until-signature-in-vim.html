@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet/less" type="text/css" href="../theme/css/style.less">
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
 
-  <link rel="stylesheet" type="text/css" href="../theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 
   <meta charset="utf-8" />
@@ -16,20 +16,20 @@
 
   <link href="//tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
 
-<meta name="keywords" content="debian, vim, salt">
+<meta name="keywords" content="vim, mutt">
 
   <title>
-Migrating to my own with salt part 1 | Blog  </title>
+Delete until signature in vim | Blog  </title>
 
 </head>
 
 <body>
   <aside>
     <div id="user_meta">
-      <a href="..">
-        <!--<img src="../theme/images/logo.png" alt="logo" id="logo">-->
+      <a href=".">
+        <!--<img src="./theme/images/logo.png" alt="logo" id="logo">-->
       </a>
-      <h2><a href=".." class="nohover">Dariusz Dwornikowski</a></h2>
+      <h2><a href="." class="nohover">Dariusz Dwornikowski</a></h2>
       <p>Computer Scientist, Admin, Debian Maintainer</p>
       <ul>
       </ul>
@@ -44,37 +44,42 @@ Migrating to my own with salt part 1 | Blog  </title>
   <main id="main">
     <header>
       <p id="header">
-      <a href="..">Home</a>
+      <a href=".">Home</a>
       
       &#124; <a href="//tdi.github.io/feeds/all.atom.xml">Atom Feed</a>
       </p>
 <p>Posted
  by Dariusz Dwornikowski
-on wto 10 luty 2015</p>
+on wto 29 wrzesień 2015</p>
     </header>
 
 <article>
   <div class="article_title">
-    <h1><a href="../drafts/migrating-to-my-own-with-salt-part-1.html" class="nohover">Migrating to my own with salt part 1</a></h1>
+    <h1><a href="./delete-until-signature-in-vim.html" class="nohover">Delete until signature in vim</a></h1>
   </div>
   <div class="article_text">
-    <p>Following <a href="https://tomasz.buchert.pl/">Tomek's</a> steps, I decided to switch from gmail to my own
-infrastructure. After week of waiting I bought a dedicated server from Kimsufi, and started to
-prepare to configure services. </p>
-<p>In my day to day work I am forced to use Chef to configure servers, so here I decided to use
-SaltStack. </p>
+    <p>It has been bugging me for a while. When responding to an email, you often want to delete all the
+content (or part of the previous content) until the end of the email's body. However it would be
+nice to leave your signature in place. For that I came up with this nifty little vim trick:</p>
+<div class="highlight"><pre><span class="nb">nnoremap</span> <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">gr</span> <span class="p">&lt;</span>Esc<span class="p">&gt;</span><span class="k">d</span>/<span class="p">--</span>\_.*Dariusz<span class="p">&lt;</span>CR<span class="p">&gt;</span>:<span class="k">nohl</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>O
+</pre></div>
+
+
+<p>Assuming that your signature starts with <code>--</code> and the following line starts with your name (in my
+case it is Dariusz), this will delete all the content from the current line until the signature.
+Then it will remove search highlighting, and finally move one line up.</p>
   </div>
   <div class="article_meta">
-    <p>Category: <a href="../category/projects.html">projects</a></p>
+    <p>Category: <a href="./category/tools.html">tools</a></p>
     <p>Tags:
-      <a href="../tag/debian.html">debian</a>,      <a href="../tag/vim.html">vim</a>,      <a href="../tag/salt.html">salt</a>    </p>
+      <a href="./tag/vim.html">vim</a>,      <a href="./tag/mutt.html">mutt</a>    </p>
   </div>
 
 
     <div id="article_comments" style="display:block">
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-           var disqus_identifier = "drafts/migrating-to-my-own-with-salt-part-1.html";
+           var disqus_identifier = "delete-until-signature-in-vim.html";
            (function() {
            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
            dsq.src = '//tdiblog.disqus.com/embed.js';
