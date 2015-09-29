@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Dariusz Dwornikowski'
 SITENAME = u'Blog'
-SITEURL = 'http://tdi.github.io'
+SITEURL = '//tdi.github.io'
 # USER_LOGO_URL = 'http://www.cs.put.poznan.pl/ddwornikowski/_images/darek.png'
 TAGLINE = 'Computer Scientist, Admin, Debian Maintainer'
 
