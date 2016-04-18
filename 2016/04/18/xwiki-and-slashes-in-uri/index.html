@@ -16,10 +16,10 @@
 
   <link href="//tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
 
-<meta name="keywords" content="mutt">
+<meta name="keywords" content="xwiki, nginx, www">
 
   <title>
-forwarding messages with attachments in mutt | Blog  </title>
+XWiki and slashes in URI | Blog  </title>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -61,35 +61,54 @@ forwarding messages with attachments in mutt | Blog  </title>
       </p>
 <p>Posted
  by Dariusz Dwornikowski
-on Fri 12 September 2014</p>
+on Mon 18 April 2016</p>
     </header>
 
 <article>
   <div class="article_title">
-    <h1><a href="//tdi.github.io/2014/09/12/forwarding-messages-with-attachments-in-mutt/" class="nohover">forwarding messages with attachments in mutt</a></h1>
+    <h1><a href="//tdi.github.io/2016/04/18/xwiki-and-slashes-in-uri/" class="nohover">XWiki and slashes in URI</a></h1>
   </div>
   <div class="article_text">
-    <p>This is a pain for every mutt user. I do not know why this solution is so hard to find. 
-Just add these two lines to your <code>.muttrc</code>.</p>
-<div class="highlight"><pre><span></span>set mime_forward
-set mime_forward_rest=yes
+    <p><a href="http://www.xwiki.org/xwiki/bin/view/Main/WebHome">XWiki</a> is a great open source Atlassian Confluence replacement (some argue it is better, I leave it
+to your assessment). We use XWiki a lot at Tenesys to document internal projects, and create
+documentation of clients' platforms. We run XWiki in Tomcat application server, behind nginx proxy. </p>
+<p>We use great XWiki's plugin, called FAQ, which can be used to create, well FAQs. The problem we had
+was that sometimes people (me especially) created FAQ entries with a <code>/</code> in the name, which resulted
+in XWiki creating a slug with <code>/</code> character, which is used to delimit page hierarchy in XWIki.
+Basically, you wanted to write <code>How to install Debian/Ubuntu package</code> and you ended up with two
+pages: <code>How to install Debian</code> and a subpage <code>Ubuntu package</code>. You can't easily delete the 'slashed'
+FAQ page because by default the last one is deleted only.  </p>
+<p>The solution to this problems is twofold. First of all, you need to tell Tomcat to allow passing
+encoded slash (<code>%2F</code>) oto XWiki. 
+Add to <code>-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true</code> to <code>CATALINA_OPTS</code>. You can
+either do it via <code>catalina.sh</code> or <code>catalina.opts</code>.</p>
+<p>Second of all, you need to make sure that your nginx proxy directive is bare, i.e. does not contain URI part, see relevant <a href="https://stackoverflow.com/questions/20496963/avoid-nginx-decoding-query-parameters-on-proxy-pass-equivalent-to-allowencodeds">stack question here</a>. Basically you want your <code>proxy_pass</code> to look like that:</p>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+  <span class="kn">proxy_pass</span> <span class="s">http://backend</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 
 
-<p>This will forward an email with all the attachments, no scripts needed, no fancy tagging or
-reediting. </p>
+<p>... not like that.</p>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+  <span class="kn">proxy_pass</span> <span class="s">http://backend/xwiki</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>I spent quite a lot of time before I discovered that nginx caveat. Hope it helps somebody too. </p>
   </div>
   <div class="article_meta">
     <p>Category: <a href="//tdi.github.io/category/tools.html">tools</a></p>
     <p>Tags:
-      <a href="//tdi.github.io/tag/mutt.html">mutt</a>    </p>
+      <a href="//tdi.github.io/tag/xwiki.html">xwiki</a>,      <a href="//tdi.github.io/tag/nginx.html">nginx</a>,      <a href="//tdi.github.io/tag/www.html">www</a>    </p>
   </div>
 
 
     <div id="article_comments" style="display:block">
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-           var disqus_identifier = "2014/09/12/forwarding-messages-with-attachments-in-mutt/";
+           var disqus_identifier = "2016/04/18/xwiki-and-slashes-in-uri/";
            (function() {
            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
            dsq.src = '//tdiblog.disqus.com/embed.js';

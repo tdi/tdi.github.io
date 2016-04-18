@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/tools.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2015-09-29T16:13:00+02:00</updated><entry><title>Delete until signature in vim</title><link href="//tdi.github.io/2015/09/29/delete-until-signature-in-vim/" rel="alternate"></link><published>2015-09-29T16:13:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2015-09-29:2015/09/29/delete-until-signature-in-vim/</id><summary type="html">&lt;p&gt;It has been bugging me for a while. When responding to an email, you often want to delete all the
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/tools.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2016-04-18T13:54:00+02:00</updated><entry><title>XWiki and slashes in URI</title><link href="//tdi.github.io/2016/04/18/xwiki-and-slashes-in-uri/" rel="alternate"></link><published>2016-04-18T13:54:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-04-18:2016/04/18/xwiki-and-slashes-in-uri/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.xwiki.org/xwiki/bin/view/Main/WebHome"&gt;XWiki&lt;/a&gt; is a great open source Atlassian Confluence replacement (some argue it is better, I leave it
+to your assessment). We use XWiki a lot at Tenesys to document internal projects, and create
+documentation of clients' platforms. We run XWiki in Tomcat application server, behind nginx proxy. &lt;/p&gt;
+&lt;p&gt;We use great XWiki's plugin, called FAQ, which can be used to create, well FAQs. The problem we had
+was that sometimes people (me especially) created FAQ entries with a &lt;code&gt;/&lt;/code&gt; in the name, which resulted
+in XWiki creating a slug with &lt;code&gt;/&lt;/code&gt; character, which is used to delimit page hierarchy in XWIki.
+Basically, you wanted to write &lt;code&gt;How to install Debian/Ubuntu package&lt;/code&gt; and you ended up with two
+pages: &lt;code&gt;How to install Debian&lt;/code&gt; and a subpage &lt;code&gt;Ubuntu package&lt;/code&gt;. You can't easily delete the 'slashed'
+FAQ page because by default the last one is deleted only.  &lt;/p&gt;
+&lt;p&gt;The solution to this problems is twofold. First of all, you need to tell Tomcat to allow passing
+encoded slash (&lt;code&gt;%2F&lt;/code&gt;) oto XWiki. 
+Add to &lt;code&gt;-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true&lt;/code&gt; to &lt;code&gt;CATALINA_OPTS&lt;/code&gt;. You can
+either do it via &lt;code&gt;catalina.sh&lt;/code&gt; or &lt;code&gt;catalina.opts&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Second of all, you need to make sure that your nginx proxy directive is bare, i.e. does not contain URI part, see relevant &lt;a href="https://stackoverflow.com/questions/20496963/avoid-nginx-decoding-query-parameters-on-proxy-pass-equivalent-to-allowencodeds"&gt;stack question here&lt;/a&gt;. Basically you want your &lt;code&gt;proxy_pass&lt;/code&gt; to look like that:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;location&lt;/span&gt; &lt;span class="s"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;proxy_pass&lt;/span&gt; &lt;span class="s"&gt;http://backend&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;... not like that.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;location&lt;/span&gt; &lt;span class="s"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;proxy_pass&lt;/span&gt; &lt;span class="s"&gt;http://backend/xwiki&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I spent quite a lot of time before I discovered that nginx caveat. Hope it helps somebody too. &lt;/p&gt;</summary><category term="xwiki"></category><category term="nginx"></category><category term="www"></category></entry><entry><title>Delete until signature in vim</title><link href="//tdi.github.io/2015/09/29/delete-until-signature-in-vim/" rel="alternate"></link><published>2015-09-29T16:13:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2015-09-29:2015/09/29/delete-until-signature-in-vim/</id><summary type="html">&lt;p&gt;It has been bugging me for a while. When responding to an email, you often want to delete all the
 content (or part of the previous content) until the end of the email's body. However it would be
 nice to leave your signature in place. For that I came up with this nifty little vim trick:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;nnoremap&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="k"&gt;silent&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;leader&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="k"&gt;gr&lt;/span&gt; &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;Esc&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="k"&gt;d&lt;/span&gt;/&lt;span class="p"&gt;--&lt;/span&gt;\_.*Dariusz&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;:&lt;span class="k"&gt;nohl&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;CR&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;O

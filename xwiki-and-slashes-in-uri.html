@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.6.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Dariusz Dwornikowski">
+  <meta name="description" content="Posts and writings by Dariusz Dwornikowski">
+
+
+  <link href="//tdi.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Blog Full Atom Feed" />
+
+<meta name="keywords" content="xwiki, nginx, www">
+
+  <title>
+XWiki and slashes in URI | Blog  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <!--<img src="./theme/images/logo.png" alt="logo" id="logo">-->
+      </a>
+      <h2><a href="." class="nohover">Dariusz Dwornikowski</a></h2>
+      <p>Computer Scientist, Admin, Debian Maintainer</p>
+      <ul>
+      </ul>
+      <ul>
+        <li><a href="https://qa.debian.org/developer.php?login=dariusz.dwornikowski%40cs.put.poznan.pl" target="_blank">Debian DDPO<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="http://www.cs.put.poznan.pl/ddwornikowski/" target="_blank">Home Page<i class="fa fa-external-link-square fa-lg"></i></a></li>
+        <li><a href="http://www.cs.put.poznan.pl/ddwornikowski/" target="_blank">About me<i class="fa fa-external-link-square fa-lg"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header>
+      <p id="header">
+      <a href=".">Home</a>
+      
+      &#124; <a href="//tdi.github.io/feeds/all.atom.xml">Atom Feed</a>
+      </p>
+<p>Posted
+ by Dariusz Dwornikowski
+on pon 18 kwiecień 2016</p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h1><a href="./xwiki-and-slashes-in-uri.html" class="nohover">XWiki and slashes in URI</a></h1>
+  </div>
+  <div class="article_text">
+    <p><a href="http://www.xwiki.org/xwiki/bin/view/Main/WebHome">XWiki</a> is a great open source Atlassian Confluence replacement (some argue it is better, I leave it
+to your assessment). We use XWiki a lot at Tenesys to document internal projects, and create
+documentation of clients' platforms. We run XWiki in Tomcat application server, behind nginx proxy. </p>
+<p>We use great XWiki's plugin, called FAQ, which can be used to create, well FAQs. The problem we had
+was that sometimes people (me especially) created FAQ entries with a <code>/</code> in the name, which resulted
+in XWiki creating a slug with <code>/</code> character, which is used to delimit page hierarchy in XWIki.
+Basically, you wanted to write <code>How to install Debian/Ubuntu package</code> and you ended up with two
+pages: <code>How to install Debian</code> and a subpage <code>Ubuntu package</code>. You can't easily delete the 'slashed'
+FAQ page because by default the last one is deleted only.  </p>
+<p>The solution to this problems is twofold. First of all, you need to tell Tomcat to allow passing
+encoded slash (<code>%2F</code>) oto XWiki. 
+Add to <code>-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true</code> to <code>CATALINA_OPTS</code>. You can
+either do it via <code>catalina.sh</code> or <code>catalina.opts</code>.</p>
+<p>Second of all, you need to make sure that your nginx proxy directive is bare, i.e. does not contain URI part, see relevant <a href="https://stackoverflow.com/questions/20496963/avoid-nginx-decoding-query-parameters-on-proxy-pass-equivalent-to-allowencodeds">stack question here</a>. Basically you want your <code>proxy_pass</code> to look like that:</p>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+  <span class="kn">proxy_pass</span> <span class="s">http://backend</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>... not like that.</p>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+  <span class="kn">proxy_pass</span> <span class="s">http://backend/xwiki</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>I spent quite a lot of time before I discovered that nginx caveat. Hope it helps somebody too. </p>
+  </div>
+  <div class="article_meta">
+    <p>Category: <a href="./category/tools.html">tools</a></p>
+    <p>Tags:
+      <a href="./tag/xwiki.html">xwiki</a>,      <a href="./tag/nginx.html">nginx</a>,      <a href="./tag/www.html">www</a>    </p>
+  </div>
+
+
+    <div id="article_comments" style="display:block">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+           var disqus_identifier = "xwiki-and-slashes-in-uri.html";
+           (function() {
+           var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.src = '//tdiblog.disqus.com/embed.js';
+           (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</article>
+
+
+    <div id="ending_message">
+        <p>&copy; 2012-2014 Dariusz Dwornikowski. Built using <a href="http://getpelican.com"
+          target="_blank">Pelican</a>. Based on theme by Carey Metcalfe, available on <a
+          href="https://github.com/pR0Ps/pelican-svbhack" target="_blank">GitHub</a>, which is based
+        on <a href="https://github.com/giulivo/pelican-svbhack" target="_blank">svbhack</a> by
+        Giulio Fidente, modified by <a href="https://github.com/Vincent-C/pelican-svbhack"
+        target="_blank">Vincent Cheng</a>.</p>
+    </div>
+  </main>
+
+
+
+</body>
+</html>
