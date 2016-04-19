@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/all.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2016-04-18T13:54:00+02:00</updated><entry><title>XWiki and slashes in URI</title><link href="//tdi.github.io/2016/04/18/xwiki-and-slashes-in-uri/" rel="alternate"></link><published>2016-04-18T13:54:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-04-18:2016/04/18/xwiki-and-slashes-in-uri/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.xwiki.org/xwiki/bin/view/Main/WebHome"&gt;XWiki&lt;/a&gt; is a great open source Atlassian Confluence replacement (some argue it is better, I leave it
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/all.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2016-04-19T14:26:00+02:00</updated><entry><title>HAProxy and 503 HTTP errors with AWS ELB as a backend</title><link href="//tdi.github.io/2016/04/19/haproxy-and-503-http-errors-with-aws-elb-as-a-backend/" rel="alternate"></link><published>2016-04-19T14:26:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-04-19:2016/04/19/haproxy-and-503-http-errors-with-aws-elb-as-a-backend/</id><summary type="html">&lt;p&gt;Although, AWS provides load balancer service in the form of Elastic Load Balancer (ELB), a common
+trick is to use HAProxy in the middle to provide SSL offloading, complex routing and better logging.    &lt;br /&gt;
+In this scenario, a public ELB is the frontier of all the traffic, HAProxy farm in the middle is
+managed by an Auto Scaling Group, and one (or more) internal backend ELBs stay in front of Web farm. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="haproxy" src="//tdi.github.io/images/haproxy.png" /&gt;&lt;/p&gt;
+&lt;p&gt;I think that &lt;a href="http://www.haproxy.org/"&gt;HAProxy&lt;/a&gt; does not need any introductions here. It is highly
+scalable and reliable piece of software. There is however a small caveat when you use it with domain
+names and not IP addresses. To speed up things, HAProxy resolves all the domain named during startup (during config file parsing in fact). Hence, when
+the IP of a domain changes, you end up with a lot of 503s (Service Unavailable). &lt;/p&gt;
+&lt;p&gt;Why is this important ? In AWS, ELB's IP can change over time, so it is recommended to use ELB's domain name.
+Now, when you use this domain name in HAProxy's backend, you can end up with 503s. ELB IPs do not
+change so often but still you would not want any downtimes. &lt;/p&gt;
+&lt;p&gt;The solution is to configure runtime resolvers in HAProxy and use them in the backend
+&lt;a href="http://blog.haproxy.com/2015/10/14/whats-new-in-haproxy-1-6/"&gt;(unforntunatelly this works only in HAProxy 1.6)&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt; ::haproxy
+ resolvers myresolver
+      nameserver dns1 10.10.10.10:53
+      resolve_retries       30
+      timeout retry         1s
+      hold valid           10s
+
+  backend mybackend
+      server myelb-internal.123456.eu-west-1.elb.amazonaws.com check resolvers myresolver
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now HAProxy will check the domain at runtime, no more 503s.&lt;/p&gt;</summary><category term="aws"></category><category term="linux"></category><category term="haproxy"></category><category term="http"></category></entry><entry><title>XWiki and slashes in URI</title><link href="//tdi.github.io/2016/04/18/xwiki-and-slashes-in-uri/" rel="alternate"></link><published>2016-04-18T13:54:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-04-18:2016/04/18/xwiki-and-slashes-in-uri/</id><summary type="html">&lt;p&gt;&lt;a href="http://www.xwiki.org/xwiki/bin/view/Main/WebHome"&gt;XWiki&lt;/a&gt; is a great open source Atlassian Confluence replacement (some argue it is better, I leave it
 to your assessment). We use XWiki a lot at Tenesys to document internal projects, and create
 documentation of clients' platforms. We run XWiki in Tomcat application server, behind nginx proxy. &lt;/p&gt;
 &lt;p&gt;We use great XWiki's plugin, called FAQ, which can be used to create, well FAQs. The problem we had
