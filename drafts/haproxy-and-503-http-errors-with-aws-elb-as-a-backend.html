@@ -73,6 +73,7 @@ on Thu 07 April 2016</p>
 trick is to use HAProxy in the middle to provide SSL offloading, complex routing and better logging.    <br />
 In this scenario, a public ELB is the frontier of all the traffic, HAProxy farm in the middle is
 managed by an Auto Scaling Group, and one (or more) internal backend ELBs stay in front of Web farm. </p>
+<p><img alt="haproxy" src="//tdi.github.io/images/haproxy.png" /></p>
 <p>I think that <a href="http://www.haproxy.org/">HAProxy</a> does not need any introductions here. It is highly
 scalable and reliable piece of software. There is however a small caveat when you use it with domain
 names and not IP addresses. To speed up things, HAProxy resolves all the domain named during startup (during config file parsing in fact). Hence, when
