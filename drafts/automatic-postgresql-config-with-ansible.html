@@ -97,13 +97,13 @@ the second one will just restart the database server:</p>
 Ansible’s fact called ansible_memtotal_mb. Since it returns RAM size in MBs, stick to this unit.
 We will define the following parameters:</p>
 <ul>
-<li>shared_buffers, as 0.25*RAM size,</li>
-<li>work_mem, as shared_buffers/max_connections,</li>
-<li>maintenance_work_mem, as RAM GBs times 64MB,</li>
-<li>effective_cache_size, as 0.75*RAM size.</li>
+<li><code>shared_buffers</code>, as 0.25*RAM size,</li>
+<li><code>work_mem</code>, as <code>shared_buffers/max_connections</code>,</li>
+<li><code>maintenance_work_mem</code>, as RAM GBs times 64MB,</li>
+<li><code>effective_cache_size</code>, as 0.75*RAM size.</li>
 </ul>
 <p>For max_connections we will define a default role variable of 100 but we will allow to specify it at
-a runtime. The relevant parts of the postgresql.conf.j2 are below:</p>
+a runtime. The relevant parts of the <code>postgresql.conf.j2</code> are below:</p>
 <div class="highlight"><pre><span></span><span class="x"> max_connections = </span><span class="cp">{{</span> <span class="nv">max_connections</span> <span class="cp">}}</span><span class="x">      </span>
 <span class="x"> shared_buffers = </span><span class="cp">{{</span> <span class="o">(((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">0.25</span><span class="o">)|</span><span class="nf">int</span><span class="o">*</span><span class="m">1024</span> <span class="cp">}}</span><span class="x">MB</span>
 <span class="x"> work_mem = </span><span class="cp">{{</span> <span class="o">((((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">0.25</span><span class="o">)/</span><span class="nv">max_connections</span><span class="o">*</span><span class="m">1024</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span> <span class="cp">}}</span><span class="x">MB</span>
@@ -114,7 +114,22 @@ a runtime. The relevant parts of the postgresql.conf.j2 are below:</p>
 
 <p>You can now run the role every time you change the instance size, and the config will be changed
 accordingly to the RAM size. You can extend the role and maybe add other constraints and change
-max_connections to you specific needs. An example playbook could look like:</p>
+<code>max_connections</code> to you specific needs. An example playbook could look like:</p>
+<div class="highlight"><pre><span></span>---
+hosts: my_postgres
+roles:
+  - postgres-config 
+vars:
+  - max_connection: 300
+</pre></div>
+
+
+<p>And run it:</p>
+<div class="highlight"><pre><span></span>$ ansible-playbook playbook.yml
+</pre></div>
+
+
+<p>The complete role can be found in my github: https://github.com/tdi/postgres-config</p>
   </div>
   <div class="article_meta">
     <p>Category: <a href="//tdi.github.io/category/devops.html">devops</a></p>
