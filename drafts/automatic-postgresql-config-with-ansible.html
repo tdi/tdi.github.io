@@ -96,21 +96,25 @@ the second one will just restart the database server:</p>
 <p>Now we need the template, where are the calculations take place. RAM size will be taken from the
 Ansible’s fact called ansible_memtotal_mb. Since it returns RAM size in MBs, stick to this unit.
 We will define the following parameters:</p>
-<p>shared_buffers, as 0.25<em>RAM size,
-work_mem, as shared_buffers/max_connections,
-maintenance_work_mem, as RAM GBs times 64MB,
-effective_cache_size, as 0.75</em>RAM size.</p>
+<ul>
+<li>
+<p>shared_buffers, as 0.25*RAM size,</p>
+</li>
+<li>
+<p>work_mem, as shared_buffers/max_connections,</p>
+</li>
+<li>
+<p>maintenance_work_mem, as RAM GBs times 64MB,</p>
+</li>
+<li>
+<p>effective_cache_size, as 0.75*RAM size.</p>
+</li>
+</ul>
 <p>For max_connections we will define a default role variable of 100 but we will allow to specify it at
 a runtime. The relevant parts of the postgresql.conf.j2 are below:</p>
-<div class="highlight"><pre><span></span><span class="x"> :::jinja2</span>
-
-<span class="x"> max_connections = </span><span class="cp">{{</span> <span class="nv">max_connections</span> <span class="cp">}}</span><span class="x"></span>
-
+<div class="highlight"><pre><span></span><span class="x"> max_connections = </span><span class="cp">{{</span> <span class="nv">max_connections</span> <span class="cp">}}</span><span class="x">      </span>
 <span class="x"> shared_buffers = </span><span class="cp">{{</span> <span class="o">(((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">0.25</span><span class="o">)|</span><span class="nf">int</span><span class="o">*</span><span class="m">1024</span> <span class="cp">}}</span><span class="x">MB</span>
-
-<span class="x"> work_mem = </span><span class="cp">{{</span> <span class="o">((((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">0.25</span><span class="o">)/</span><span class="nv">max_connections</span><span class="o">*</span><span class="m">1024</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span>
- <span class="cp">}}</span><span class="x">MB</span>
-
+<span class="x"> work_mem = </span><span class="cp">{{</span> <span class="o">((((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">0.25</span><span class="o">)/</span><span class="nv">max_connections</span><span class="o">*</span><span class="m">1024</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span> <span class="cp">}}</span><span class="x">MB</span>
 <span class="x"> maintenance_work_mem = </span><span class="cp">{{</span> <span class="o">((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">64</span> <span class="cp">}}</span><span class="x">MB</span>
 <span class="x"> effective_cache_size = </span><span class="cp">{{</span> <span class="o">(((</span><span class="nv">ansible_memtotal_mb</span><span class="o">/</span><span class="m">1024.0</span><span class="o">)|</span><span class="nf">round</span><span class="o">|</span><span class="nf">int</span><span class="o">)*</span><span class="m">0.75</span><span class="o">)|</span><span class="nf">int</span><span class="o">*</span><span class="m">1024</span> <span class="cp">}}</span><span class="x">MB</span>
 </pre></div>
