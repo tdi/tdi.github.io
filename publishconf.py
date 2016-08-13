@@ -5,8 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Dariusz Dwornikowski'
 SITENAME = u'Blog'
 SITEURL = '//tdi.github.io'
-# USER_LOGO_URL = 'http://www.cs.put.poznan.pl/ddwornikowski/_images/darek.png'
-TAGLINE = 'Computer Scientist, Admin, Debian Maintainer'
+TAGLINE = 'Computer Scientist, Admin, Debian Developer, CTO at Tenesys, AWS certified'
 
 PATH = 'content'
 DISQUS_SITENAME = 'tdiblog'
@@ -58,6 +57,7 @@ THEME = 'svbhack'
 LINKS = (('Debian DDPO', 'https://qa.debian.org/developer.php?login=dariusz.dwornikowski%40cs.put.poznan.pl'),
         ('Github', 'https://github.com/tdi'), 
         ('Debian Poznań', 'https://wiki.debian.org/LocalGroups/DebianPoz'), 
+        ('My company', 'http://tenesys.pl'), 
         ('About me', 'http://www.cs.put.poznan.pl/ddwornikowski/'), 
         )
 
