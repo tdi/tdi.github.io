@@ -73,7 +73,7 @@ on Sat 13 August 2016</p>
 to run your database server on a cloud instance. In these kind of setup, when you scale up or down
 your instance size, you need to adjust PostgreSQL parameters according to the changing RAM size.
 There are several parameters in PostgreSQL that highly depend on RAM size. An example is
-shared_buffers for which a rule of thumb says that is should be set to 0.25*RAM.</p>
+<code>shared_buffers</code> for which a rule of thumb says that is should be set to 0.25*RAM.</p>
 <p>In DBaaS, when you scale the DB instance up or down, parameters are adjusted for you by the cloud
 provider, e.g. AWS RDS uses parameter groups for that reason, where particular parameters are
 defined depending on the size of the RAM of the RDS instance.</p>
