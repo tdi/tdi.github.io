@@ -82,7 +82,7 @@ configuration files on your instance, each for a different memory size, you can 
 every time you change the size of the instance… or you can use Ansible role for that.</p>
 <p>Our Ansible role will be very simple, we will have two tasks. One will change the PostgreSQL config,
 the second one will just restart the database server:</p>
-<div class="highlight"><pre><span></span>  ::yaml
+<div class="highlight"><pre><span></span>  :::yaml
   ---
   - name: Update PostgreSQL config
     template: src=postgresql.conf.j2 dest=/etc/postgresql/9.5/main/postgresql.conf
@@ -103,7 +103,7 @@ maintenance_work_mem, as RAM GBs times 64MB,
 effective_cache_size, as 0.75</em>RAM size.</p>
 <p>For max_connections we will define a default role variable of 100 but we will allow to specify it at
 a runtime. The relevant parts of the postgresql.conf.j2 are below:</p>
-<div class="highlight"><pre><span></span><span class="x"> ::jinja2</span>
+<div class="highlight"><pre><span></span><span class="x"> :::jinja2</span>
 
 <span class="x"> max_connections = </span><span class="cp">{{</span> <span class="nv">max_connections</span> <span class="cp">}}</span><span class="x"></span>
 

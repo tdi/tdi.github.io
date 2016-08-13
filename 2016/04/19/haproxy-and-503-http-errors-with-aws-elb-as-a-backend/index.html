@@ -83,7 +83,7 @@ Now, when you use this domain name in HAProxy's backend, you can end up with 503
 change so often but still you would not want any downtimes. </p>
 <p>The solution is to configure runtime resolvers in HAProxy and use them in the backend
 <a href="http://blog.haproxy.com/2015/10/14/whats-new-in-haproxy-1-6/">(unforntunatelly this works only in HAProxy 1.6)</a>:</p>
-<div class="highlight"><pre><span></span> ::haproxy
+<div class="highlight"><pre><span></span> :::haproxy
  resolvers myresolver
       nameserver dns1 10.10.10.10:53
       resolve_retries       30
