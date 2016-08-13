@@ -82,15 +82,14 @@ configuration files on your instance, each for a different memory size, you can 
 every time you change the size of the instance… or you can use Ansible role for that.</p>
 <p>Our Ansible role will be very simple, we will have two tasks. One will change the PostgreSQL config,
 the second one will just restart the database server:</p>
-<div class="highlight"><pre><span></span>  :::yaml
-  ---
-  - name: Update PostgreSQL config
-    template: src=postgresql.conf.j2 dest=/etc/postgresql/9.5/main/postgresql.conf
-    register: pgconf
+<div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Update PostgreSQL config</span>
+  <span class="l l-Scalar l-Scalar-Plain">template</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">src=postgresql.conf.j2 dest=/etc/postgresql/9.5/main/postgresql.conf</span>
+  <span class="l l-Scalar l-Scalar-Plain">register</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">pgconf</span>
 
-  - name: Restart postgresql
-    service: name=postgresql state=restarted
-    when: pgconf.changed
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Restart postgresql</span>
+  <span class="l l-Scalar l-Scalar-Plain">service</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name=postgresql state=restarted</span>
+  <span class="l l-Scalar l-Scalar-Plain">when</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">pgconf.changed</span>
 </pre></div>
 
 
