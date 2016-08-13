@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/dariusz-dwornikowski.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2016-04-19T14:26:00+02:00</updated><entry><title>HAProxy and 503 HTTP errors with AWS ELB as a backend</title><link href="//tdi.github.io/2016/04/19/haproxy-and-503-http-errors-with-aws-elb-as-a-backend/" rel="alternate"></link><published>2016-04-19T14:26:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-04-19:2016/04/19/haproxy-and-503-http-errors-with-aws-elb-as-a-backend/</id><summary type="html">&lt;p&gt;Although, AWS provides load balancer service in the form of Elastic Load Balancer (ELB), a common
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blog</title><link href="//tdi.github.io/" rel="alternate"></link><link href="//tdi.github.io/feeds/dariusz-dwornikowski.atom.xml" rel="self"></link><id>//tdi.github.io/</id><updated>2016-08-13T18:18:00+02:00</updated><entry><title>Automatic PostgreSQL config with Ansible</title><link href="//tdi.github.io/2016/08/13/automatic-postgresql-config-with-ansible/" rel="alternate"></link><published>2016-08-13T18:18:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-08-13:2016/08/13/automatic-postgresql-config-with-ansible/</id><summary type="html">&lt;p&gt;If for some reasons you can’t use dedicated DBaaS for your PostgreSQL (like AWS RDS) then you need
+to run your database server on a cloud instance. In these kind of setup, when you scale up or down
+your instance size, you need to adjust PostgreSQL parameters according to the changing RAM size.
+There are several parameters in PostgreSQL that highly depend on RAM size. An example is
+&lt;code&gt;shared_buffers&lt;/code&gt; for which a rule of thumb says that is should be set to 0.25*RAM.&lt;/p&gt;
+&lt;p&gt;In DBaaS, when you scale the DB instance up or down, parameters are adjusted for you by the cloud
+provider, e.g. AWS RDS uses parameter groups for that reason, where particular parameters are
+defined depending on the size of the RAM of the RDS instance.&lt;/p&gt;
+&lt;p&gt;So what can you when you do not have RDS or any other DBaaS? You can always keep several
+configuration files on your instance, each for a different memory size, you can rewrite you config
+every time you change the size of the instance… or you can use Ansible role for that.&lt;/p&gt;
+&lt;p&gt;Our Ansible role will be very simple, we will have two tasks. One will change the PostgreSQL config,
+the second one will just restart the database server:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nn"&gt;---&lt;/span&gt;
+&lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;name&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Update PostgreSQL config&lt;/span&gt;
+  &lt;span class="l l-Scalar l-Scalar-Plain"&gt;template&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;src=postgresql.conf.j2 dest=/etc/postgresql/9.5/main/postgresql.conf&lt;/span&gt;
+  &lt;span class="l l-Scalar l-Scalar-Plain"&gt;register&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pgconf&lt;/span&gt;
+
+&lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;name&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Restart postgresql&lt;/span&gt;
+  &lt;span class="l l-Scalar l-Scalar-Plain"&gt;service&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;name=postgresql state=restarted&lt;/span&gt;
+  &lt;span class="l l-Scalar l-Scalar-Plain"&gt;when&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pgconf.changed&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now we need the template, where are the calculations take place. RAM size will be taken from the
+Ansible’s fact called &lt;code&gt;ansible_memtotal_mb&lt;/code&gt;. Since it returns RAM size in MBs, we will stick to MBs.
+We will define the following parameters, you can adjust them to your needs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;shared_buffers&lt;/code&gt;, as 0.25*RAM size,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;work_mem&lt;/code&gt;, as &lt;code&gt;shared_buffers/max_connections&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;maintenance_work_mem&lt;/code&gt;, as RAM GBs times 64MB,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;effective_cache_size&lt;/code&gt;, as 0.75*RAM size.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For max_connections we will define a default role variable of 100 but we will allow to specify it at
+a runtime. The relevant parts of the &lt;code&gt;postgresql.conf.j2&lt;/code&gt; are below:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="x"&gt; max_connections = &lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;max_connections&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="x"&gt;      &lt;/span&gt;
+&lt;span class="x"&gt; shared_buffers = &lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="o"&gt;(((&lt;/span&gt;&lt;span class="nv"&gt;ansible_memtotal_mb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1024.0&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;round&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt;&lt;span class="o"&gt;)*&lt;/span&gt;&lt;span class="m"&gt;0.25&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="m"&gt;1024&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="x"&gt;MB&lt;/span&gt;
+&lt;span class="x"&gt; work_mem = &lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="o"&gt;((((&lt;/span&gt;&lt;span class="nv"&gt;ansible_memtotal_mb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1024.0&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;round&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt;&lt;span class="o"&gt;)*&lt;/span&gt;&lt;span class="m"&gt;0.25&lt;/span&gt;&lt;span class="o"&gt;)/&lt;/span&gt;&lt;span class="nv"&gt;max_connections&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="m"&gt;1024&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;round&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="x"&gt;MB&lt;/span&gt;
+&lt;span class="x"&gt; maintenance_work_mem = &lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;ansible_memtotal_mb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1024.0&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;round&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt;&lt;span class="o"&gt;)*&lt;/span&gt;&lt;span class="m"&gt;64&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="x"&gt;MB&lt;/span&gt;
+&lt;span class="x"&gt; effective_cache_size = &lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="o"&gt;(((&lt;/span&gt;&lt;span class="nv"&gt;ansible_memtotal_mb&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1024.0&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;round&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt;&lt;span class="o"&gt;)*&lt;/span&gt;&lt;span class="m"&gt;0.75&lt;/span&gt;&lt;span class="o"&gt;)|&lt;/span&gt;&lt;span class="nf"&gt;int&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="m"&gt;1024&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="x"&gt;MB&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can now run the role every time you change the instance size, and the config will be changed
+accordingly to the RAM size. You can extend the role and maybe add other constraints and change
+&lt;code&gt;max_connections&lt;/code&gt; to you specific needs. An example playbook could look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;---
+hosts: my_postgres
+roles:
+  - postgres-config 
+vars:
+  - max_connection: 300
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And run it:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ansible-playbook playbook.yml
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The complete role can be found in my &lt;a href="https://github.com/tdi/postgres-config"&gt;github repo&lt;/a&gt;.&lt;/p&gt;</summary><category term="postgresql"></category><category term="linux"></category><category term="ansible"></category></entry><entry><title>HAProxy and 503 HTTP errors with AWS ELB as a backend</title><link href="//tdi.github.io/2016/04/19/haproxy-and-503-http-errors-with-aws-elb-as-a-backend/" rel="alternate"></link><published>2016-04-19T14:26:00+02:00</published><author><name>Dariusz Dwornikowski</name></author><id>tag:tdi.github.io,2016-04-19:2016/04/19/haproxy-and-503-http-errors-with-aws-elb-as-a-backend/</id><summary type="html">&lt;p&gt;Although, AWS provides load balancer service in the form of Elastic Load Balancer (ELB), a common
 trick is to use HAProxy in the middle to provide SSL offloading, complex routing and better logging.    &lt;br /&gt;
 In this scenario, a public ELB is the frontier of all the traffic, HAProxy farm in the middle is
 managed by an Auto Scaling Group, and one (or more) internal backend ELBs stay in front of Web farm. &lt;/p&gt;
