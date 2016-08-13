@@ -97,18 +97,10 @@ the second one will just restart the database server:</p>
 Ansible’s fact called ansible_memtotal_mb. Since it returns RAM size in MBs, stick to this unit.
 We will define the following parameters:</p>
 <ul>
-<li>
-<p>shared_buffers, as 0.25*RAM size,</p>
-</li>
-<li>
-<p>work_mem, as shared_buffers/max_connections,</p>
-</li>
-<li>
-<p>maintenance_work_mem, as RAM GBs times 64MB,</p>
-</li>
-<li>
-<p>effective_cache_size, as 0.75*RAM size.</p>
-</li>
+<li>shared_buffers, as 0.25*RAM size,</li>
+<li>work_mem, as shared_buffers/max_connections,</li>
+<li>maintenance_work_mem, as RAM GBs times 64MB,</li>
+<li>effective_cache_size, as 0.75*RAM size.</li>
 </ul>
 <p>For max_connections we will define a default role variable of 100 but we will allow to specify it at
 a runtime. The relevant parts of the postgresql.conf.j2 are below:</p>
