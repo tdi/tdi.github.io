@@ -138,3 +138,6 @@ noClasses = false
 # guessSyntax = true
 # lineNos = true
 # style = "github"
+[caches]
+    [caches.images]
+    dir = ':cacheDir/images'
