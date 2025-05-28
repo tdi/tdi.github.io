@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Darek Dwornikowski</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Darek Dwornikowski</description>
+    <image>
+      <title>Darek Dwornikowski</title>
+      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.147.6</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 28 May 2025 10:00:00 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Day 1: Why I&#39;m Learning Blockchain as a CTO</title>
+      <link>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</link>
+      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</guid>
+      <description>Starting my journey from traditional CTO to Web3 - why I&amp;#39;m making this transition and what I hope to achieve.</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Wed, 28 May 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h1 id=&#34;hi-im-dariusz-dwornikowski&#34;&gt;Hi, I&amp;rsquo;m Dariusz Dwornikowski&lt;/h1&gt;
+&lt;p&gt;I&amp;rsquo;m a seasoned CTO with 20+ years of experience in technology leadership, currently making the transition from traditional tech into the blockchain and Web3 space.&lt;/p&gt;
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Current Role:&lt;/strong&gt; CTO at Worksuite (formerly Shortlist)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Previous Experience:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VP Engineering at Nordcloud&lt;/li&gt;
+&lt;li&gt;Academic researcher at Poznań University of Technology&lt;/li&gt;
+&lt;li&gt;Co-founder and tech director at various startups&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;technical-expertise&#34;&gt;Technical Expertise&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cloud Platforms:&lt;/strong&gt; AWS, Azure, multi-cloud architectures&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DevOps &amp;amp; Infrastructure:&lt;/strong&gt; Kubernetes, containerization, CI/CD&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Programming:&lt;/strong&gt; Multiple languages, system architecture&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Leadership:&lt;/strong&gt; Engineering team management, technical strategy&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Academia:&lt;/strong&gt; PhD in theoretical computer science&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-web3-transition&#34;&gt;The Web3 Transition&lt;/h2&gt;
+&lt;p&gt;In 2025, I decided to pivot my career toward blockchain technology. This blog documents my learning journey as I:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
