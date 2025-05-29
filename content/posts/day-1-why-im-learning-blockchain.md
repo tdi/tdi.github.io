@@ -44,21 +44,20 @@ Coming from:
 - **Enterprise software development** experience
 - **and more**
 
-## What I'm Learning
+## What I'm Learning and Plan to learn
 
 My learning roadmap includes:
-1. **Blockchain fundamentals** - consensus mechanisms, cryptography
-2. **Smart contract development** - Solidity, Ethereum ecosystem
-3. **Web3 development** - dApps, wallet integration
+1. **Blockchain fundamentals** - consensus mechanisms, cryptography. This is partially done, since I graduated and was in research field in distributed systems. 
+2. **Smart contract development** - Solidity, Ethereum ecosystem. 
+3. **Web3 development** - dApps, wallet integrations etc
 4. **DeFi protocols** - Understanding decentralized finance
 5. **Enterprise adoption** - How traditional companies can leverage blockchain
 
 ## Goals for This Journey
 
-- Document everything I learn publicly
+- Document what I learn publicly
 - Build a portfolio of blockchain projects
 - Connect with the crypto community
-- Eventually land a CTO role in Web3
 - Help bridge the gap between traditional tech and blockchain
 
 ## Why Share Publicly?
@@ -71,9 +70,7 @@ Learning in public has several benefits:
 
 ## What's Next?
 
-Tomorrow I'll dive into blockchain fundamentals and start the Free Code Camp 32-hour blockchain course. I'll document key insights and challenges as I go.
-
-Follow along on [Twitter](https://x.com/darek_dwo) for daily updates, and feel free to reach out if you're on a similar journey or have advice to share.
+Follow along on [Twitter](https://x.com/darek_dwo) for some updates, and feel free to reach out if you're on a similar journey or have advice to share.
 
 ---
 
