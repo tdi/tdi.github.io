@@ -1,0 +1,3 @@
+{{- $image := (or (index .Site.Params.images 0) "/openg.png") -}}
+<meta property="og:image" content="{{ $image | absURL }}">
+<meta name="twitter:image" content="{{ $image | absURL }}"> 

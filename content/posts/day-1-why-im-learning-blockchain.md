@@ -1,16 +1,15 @@
 ---
 title: "Day 1: Why I'm Learning Blockchain as a CTO"
 date: 2025-05-28T10:00:00+01:00
-draft: false
+draft: true
 tags: ["blockchain", "learning", "cto", "career"]
 categories: ["Learning Journey"]
-author: "Dariusz Dwornikowski"
+author: "Darek Dwornikowski"
 showToc: true
 TocOpen: false
 hidemeta: false
 comments: false
 description: "Starting my journey from traditional CTO to Web3 - why I'm making this transition and what I hope to achieve."
-canonicalURL: "https://canonical.url/to/page"
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
@@ -22,32 +21,28 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
-cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
-    relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
 ---
 
 ## Why Blockchain? Why Now?
 
 After 20+ years as a CTO in traditional tech companies, including my current role at Worksuite and previous experience as VP Engineering at Nordcloud, I've decided to make a significant career pivot into the blockchain and Web3 space.
 
-## The Market Opportunity
+## Why it talks to me 
 
-The numbers are compelling:
-- Global crypto market hit $3 trillion in November 2024
-- Web3 developer salaries are 30% higher than traditional tech
-- Massive shortage of experienced technical leadership in crypto
+While I share the widespread excitement about cryptocurrency, my primary interest lies in blockchain technology itself. For me, blockchain represents the most thrilling technological advancement since the advent of public cloud computing. Its appeal stems from its transformative potential - not just as a technology, but as a force capable of reshaping societies. Blockchain enables a true prosumer (versus consumer) approach to computing and services, challenging the established hegemony of big tech companies. Moreover, it provides an investment platform with unprecedented equal access for all participants, democratizing financial opportunities in ways previously impossible. 
 
-## My Background
+Recent advent of AI (or maybe better put - probabilitic writing machines 😉) excting as it is, for me already becoming a mainstream commodity. Sure, it is exiting what you can _do_ with AI but it is not that existing (or easy) to be really making impact in the technology itself, this is mostly reserved for multi billion companies, researchers, etc. Agents, probably the most promising use case of Ai  (and the most misunderstood by CEOs of the world), are on the other quite interesting adjacent to blockchain. When (and if) we can minimize and lower the computational cost of LLMs (or at least distribute it), blockchain will be the major accellerator of private GPU LLM computing (it is already happening with so many projects). 
+
+## Bit about me
+
+I am curious and always hungry guy from Poland: 
 
 Coming from:
-- **20+ years** in technology leadership
+- **20+ years** in overall technology, research and leadership roles
 - **Academic background** at Poznań University of Technology
 - **Cloud and DevOps expertise** from Nordcloud
 - **Enterprise software development** experience
+- **and more**
 
 ## What I'm Learning
 
@@ -78,7 +73,7 @@ Learning in public has several benefits:
 
 Tomorrow I'll dive into blockchain fundamentals and start the Free Code Camp 32-hour blockchain course. I'll document key insights and challenges as I go.
 
-Follow along on [Twitter](https://twitter.com/yourhandle) for daily updates, and feel free to reach out if you're on a similar journey or have advice to share.
+Follow along on [Twitter](https://x.com/darek_dwo) for daily updates, and feel free to reach out if you're on a similar journey or have advice to share.
 
 ---
 

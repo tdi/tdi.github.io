@@ -1,6 +1,6 @@
 baseURL = 'https://tdi.github.io'
 languageCode = 'en-us'
-title = 'Darek Dwornikowski'
+title = "Darek's Blog"
 theme = 'PaperMod'
 
 enableRobotsTXT = true
@@ -14,14 +14,14 @@ minifyOutput = true
 
 [params]
 env = "production"
-title = "Darek Dwornikowski"
+title = "Darek's Blog"
 description = "Documenting my thoughts"
-keywords = [ "Blog", "Portfolio", "CTO", "Blockchain", "Web3", "Crypto" ]
+keywords = ["Blog", "Portfolio", "CTO", "Blockchain", "Web3", "Crypto"]
 author = "Darek Dwornikowski"
 # author = ["Me", "You"] # multiple authors
-images = [ "<link or path of image for opengraph, twitter-cards>" ]
+images = ["/static/openg.png"]
 DateFormat = "January 2, 2006"
-defaultTheme = "auto" # dark, light
+defaultTheme = "auto"          # dark, light
 disableThemeToggle = false
 
 ShowReadingTime = true
@@ -50,28 +50,25 @@ apple_touch_icon = "<link / abs url>"
 safari_pinned_tab = "<link / abs url>"
 
 [params.label]
-text = "Darek Dwornikowski"
+text = "Darek's Blog"
 icon = "/apple-touch-icon.png"
 iconHeight = 35
 
 # profile-mode
 [params.profileMode]
-enabled = false # needs to be explicitly set
+enabled = false                                                                  # needs to be explicitly set
 title = "CTO Learning Blockchain"
 subtitle = "20+ years in tech, now diving into Web3"
 imageUrl = "<title / alt>"
 imageWidth = 120
 imageHeight = 120
 imageTitle = "ProfileMode image"
-buttons = [
-    { name = "Posts", url = "/posts" },
-    { name = "Tags", url = "/tags" }
-]
+buttons = [{ name = "Posts", url = "/posts" }, { name = "Tags", url = "/tags" }]
 
 # home-info mode
 [params.homeInfoParams]
 Title = "Hi there 👋"
-Content = "Welcome to my blog documenting my journey from traditional CTO to Web3. I'm sharing everything I learn about blockchain, smart contracts, and crypto as I make this career transition."
+Content = "Welcome to my blog documenting my journey from traditional CTO to Web3. I'm sharing everything I learn about blockchain, smart contracts, and crypto as I make this mild career transition."
 
 [[params.socialIcons]]
 name = "twitter"
@@ -89,14 +86,14 @@ url = "https://linkedin.com/in/darekd"
 SiteVerificationTag = "XYZabc"
 
 [params.cover]
-hidden = true # hide everywhere but not in structured data
-hiddenInList = true # hide on list pages and home
+hidden = true         # hide everywhere but not in structured data
+hiddenInList = true   # hide on list pages and home
 hiddenInSingle = true # hide on single page
 
 [params.editPost]
 URL = "https://github.com/tdi/tdi.github.io/tree/main/content"
-Text = "Suggest Changes" # edit text
-appendFilePath = true # to append file path to Edit link
+Text = "Suggest Changes"                                       # edit text
+appendFilePath = true                                          # to append file path to Edit link
 
 # for search
 # https://fusejs.io/api/options.html
@@ -107,7 +104,7 @@ location = 0
 distance = 1000
 threshold = 0.4
 minMatchCharLength = 0
-keys = [ "title", "permalink", "summary", "content" ]
+keys = ["title", "permalink", "summary", "content"]
 
 [[menu.main]]
 identifier = "about"
@@ -139,5 +136,5 @@ noClasses = false
 # lineNos = true
 # style = "github"
 [caches]
-    [caches.images]
-    dir = ':cacheDir/images'
+[caches.images]
+dir = ':cacheDir/images'
