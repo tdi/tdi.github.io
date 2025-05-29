@@ -1,7 +1,7 @@
 ---
 title: "Day 1: Why I'm Learning Blockchain as a CTO"
 date: 2025-05-28T10:00:00+01:00
-draft: true
+draft: false
 tags: ["blockchain", "learning", "cto", "career"]
 categories: ["Learning Journey"]
 author: "Darek Dwornikowski"
