@@ -86,9 +86,10 @@ url = "https://linkedin.com/in/darekd"
 SiteVerificationTag = "XYZabc"
 
 [params.cover]
-hidden = true         # hide everywhere but not in structured data
-hiddenInList = true   # hide on list pages and home
-hiddenInSingle = true # hide on single page
+hidden = true               # hide everywhere but not in structured data
+hiddenInList = true         # hide on list pages and home
+hiddenInSingle = true
+image = "/static/openg.png" # hide on single page
 
 [params.editPost]
 URL = "https://github.com/tdi/tdi.github.io/tree/main/content"
