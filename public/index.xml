@@ -2,22 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Darek&#39;s Blog</title>
-    <link>https://tdi.github.io/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Darek&#39;s Blog</description>
     <image>
       <title>Darek&#39;s Blog</title>
-      <url>https://tdi.github.io/static/openg.png</url>
-      <link>https://tdi.github.io/static/openg.png</link>
+      <url>http://localhost:1313/static/openg.png</url>
+      <link>http://localhost:1313/static/openg.png</link>
     </image>
     <generator>Hugo -- 0.147.8</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Jun 2025 11:24:33 +0200</lastBuildDate>
-    <atom:link href="https://tdi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Jul 2025 10:41:40 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Autonomic Computing Reloaded</title>
+      <link>http://localhost:1313/posts/autonomic-computing-reloaded/</link>
+      <pubDate>Thu, 24 Jul 2025 10:41:40 +0200</pubDate>
+      <guid>http://localhost:1313/posts/autonomic-computing-reloaded/</guid>
+      <description>&lt;p&gt;I always felt management in distributed systems could be solved by limiting human as much as possible. Why? Bacause going up the stack of virtualization you limit the domain of possibilities - so the state of &lt;em&gt;what&lt;/em&gt; can happen and &lt;em&gt;how&lt;/em&gt; to &lt;em&gt;fix&lt;/em&gt; it gets limited. Think about managing stuff running on a server directly, vs a VM, vs a container, vs a cloud (API is the finite state of possibilities to act on). When things are finite, vs inifinite, god opens door of possibilites. But how to do it? How to encode a &amp;lsquo;runbook&amp;rsquo; of human actions and acting on things and remove human from it (at least in 99%)? Well you can&amp;rsquo;t really unless you have a way of acting on unknown and being able to reason. I think Auotonomic computing concept, which is an ancient idea by IBM from 2003 might have a reneissance these days with LLMs (and I guess it has - &lt;a href=&#34;https://www.ibm.com/think/topics/aiops&#34;&gt;AIOps&lt;/a&gt;).&lt;/p&gt;</description>
+    </item>
     <item>
       <title>What the Hell Are Layer2 Rollups</title>
-      <link>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</link>
+      <link>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</link>
       <pubDate>Thu, 05 Jun 2025 11:24:33 +0200</pubDate>
-      <guid>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</guid>
+      <guid>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</guid>
       <description>&lt;h2 id=&#34;what-the-hell-are-layer2-rollups&#34;&gt;What the Hell Are Layer2 Rollups?&lt;/h2&gt;
 &lt;p&gt;If you&amp;rsquo;ve spent any time in the Ethereum or blockchain space, you&amp;rsquo;ve probably heard the term &amp;ldquo;Layer 2&amp;rdquo; thrown around—often in the same breath as &amp;ldquo;rollups.&amp;rdquo; But what does it actually mean? Why is everyone so excited about it? And why should anyone building on blockchain care?&lt;/p&gt;
 &lt;h2 id=&#34;the-problem-ethereums-scaling-bottleneck&#34;&gt;The Problem: Ethereum&amp;rsquo;s Scaling Bottleneck&lt;/h2&gt;
@@ -25,16 +32,16 @@
     </item>
     <item>
       <title>Day 1: Why I&#39;m Learning Blockchain as a CTO</title>
-      <link>https://tdi.github.io/posts/day-1-why-im-learning-blockchain/</link>
+      <link>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</link>
       <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>https://tdi.github.io/posts/day-1-why-im-learning-blockchain/</guid>
+      <guid>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</guid>
       <description>Starting my journey from traditional CTO to Web3 - why I&amp;#39;m making this transition and what I hope to achieve.</description>
     </item>
     <item>
       <title>About</title>
-      <link>https://tdi.github.io/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Wed, 28 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://tdi.github.io/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>&lt;h1 id=&#34;hi-im-dariusz-dwornikowski&#34;&gt;Hi, I&amp;rsquo;m Dariusz Dwornikowski&lt;/h1&gt;
 &lt;p&gt;I&amp;rsquo;m a seasoned CTO with 20+ years of experience in technology leadership, currently making the transition from traditional tech into the blockchain and Web3 space.&lt;/p&gt;
 &lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;

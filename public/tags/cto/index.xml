@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Cto on Darek&#39;s Blog</title>
-    <link>https://tdi.github.io/tags/cto/</link>
+    <link>http://localhost:1313/tags/cto/</link>
     <description>Recent content in Cto on Darek&#39;s Blog</description>
     <image>
       <title>Darek&#39;s Blog</title>
-      <url>https://tdi.github.io/static/openg.png</url>
-      <link>https://tdi.github.io/static/openg.png</link>
+      <url>http://localhost:1313/static/openg.png</url>
+      <link>http://localhost:1313/static/openg.png</link>
     </image>
     <generator>Hugo -- 0.147.8</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 28 May 2025 10:00:00 +0100</lastBuildDate>
-    <atom:link href="https://tdi.github.io/tags/cto/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/cto/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Day 1: Why I&#39;m Learning Blockchain as a CTO</title>
-      <link>https://tdi.github.io/posts/day-1-why-im-learning-blockchain/</link>
+      <link>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</link>
       <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>https://tdi.github.io/posts/day-1-why-im-learning-blockchain/</guid>
+      <guid>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</guid>
       <description>Starting my journey from traditional CTO to Web3 - why I&amp;#39;m making this transition and what I hope to achieve.</description>
     </item>
   </channel>
