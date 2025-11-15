@@ -2,31 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Layer2 on Darek&#39;s Blog</title>
-    <link>http://localhost:1313/tags/layer2/</link>
+    <link>https://tdi.github.io/tags/layer2/</link>
     <description>Recent content in Layer2 on Darek&#39;s Blog</description>
     <image>
       <title>Darek&#39;s Blog</title>
-      <url>http://localhost:1313/static/openg.png</url>
-      <link>http://localhost:1313/static/openg.png</link>
+      <url>https://tdi.github.io/static/openg.png</url>
+      <link>https://tdi.github.io/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Jul 2025 10:41:40 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/layer2/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Autonomic Computing Reloaded</title>
-      <link>http://localhost:1313/posts/autonomic-computing-reloaded/</link>
-      <pubDate>Thu, 24 Jul 2025 10:41:40 +0200</pubDate>
-      <guid>http://localhost:1313/posts/autonomic-computing-reloaded/</guid>
-      <description>&lt;p&gt;I always felt management in distributed systems could be solved removing as much human as possible. Back in 2010, while I was working as a researcher in &lt;a href=&#34;https://put.poznan.pl/&#34;&gt;Poznan University of Technology&lt;/a&gt;, I was researching a concept proposed by IBM called &lt;a href=&#34;https://en.wikipedia.org/wiki/Autonomic_computing&#34;&gt;autonomic computing&lt;/a&gt;. What they did was take MAPE (Monitor-Analyze-Plan-Execute) loop and added knowledge component to it.&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;Autonomic Computing Concept&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/openg.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;It was a great concept but technically not feasible back then because&lt;/p&gt;</description>
-    </item>
+    <lastBuildDate>Thu, 05 Jun 2025 11:24:33 +0200</lastBuildDate>
+    <atom:link href="https://tdi.github.io/tags/layer2/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What the Hell Are Layer2 Rollups</title>
-      <link>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</link>
+      <link>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</link>
       <pubDate>Thu, 05 Jun 2025 11:24:33 +0200</pubDate>
-      <guid>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</guid>
+      <guid>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</guid>
       <description>&lt;h2 id=&#34;what-the-hell-are-layer2-rollups&#34;&gt;What the Hell Are Layer2 Rollups?&lt;/h2&gt;
 &lt;p&gt;If you&amp;rsquo;ve spent any time in the Ethereum or blockchain space, you&amp;rsquo;ve probably heard the term &amp;ldquo;Layer 2&amp;rdquo; thrown around—often in the same breath as &amp;ldquo;rollups.&amp;rdquo; But what does it actually mean? Why is everyone so excited about it? And why should anyone building on blockchain care?&lt;/p&gt;
 &lt;h2 id=&#34;the-problem-ethereums-scaling-bottleneck&#34;&gt;The Problem: Ethereum&amp;rsquo;s Scaling Bottleneck&lt;/h2&gt;

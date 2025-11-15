@@ -2,71 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Darek&#39;s Blog</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://tdi.github.io/tags/</link>
     <description>Recent content in Tags on Darek&#39;s Blog</description>
     <image>
       <title>Darek&#39;s Blog</title>
-      <url>http://localhost:1313/static/openg.png</url>
-      <link>http://localhost:1313/static/openg.png</link>
+      <url>https://tdi.github.io/static/openg.png</url>
+      <link>https://tdi.github.io/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Jul 2025 10:41:40 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Ai</title>
-      <link>http://localhost:1313/tags/ai/</link>
-      <pubDate>Thu, 24 Jul 2025 10:41:40 +0200</pubDate>
-      <guid>http://localhost:1313/tags/ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Layer2</title>
-      <link>http://localhost:1313/tags/layer2/</link>
-      <pubDate>Thu, 24 Jul 2025 10:41:40 +0200</pubDate>
-      <guid>http://localhost:1313/tags/layer2/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Managgement</title>
-      <link>http://localhost:1313/tags/managgement/</link>
-      <pubDate>Thu, 24 Jul 2025 10:41:40 +0200</pubDate>
-      <guid>http://localhost:1313/tags/managgement/</guid>
-      <description></description>
-    </item>
+    <lastBuildDate>Sat, 14 Jun 2025 17:15:12 +0200</lastBuildDate>
+    <atom:link href="https://tdi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blockchain</title>
-      <link>http://localhost:1313/tags/blockchain/</link>
-      <pubDate>Thu, 05 Jun 2025 11:24:33 +0200</pubDate>
-      <guid>http://localhost:1313/tags/blockchain/</guid>
+      <link>https://tdi.github.io/tags/blockchain/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/tags/blockchain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Devops</title>
+      <link>https://tdi.github.io/tags/devops/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/tags/devops/</guid>
       <description></description>
     </item>
     <item>
       <title>Ethereum</title>
-      <link>http://localhost:1313/tags/ethereum/</link>
+      <link>https://tdi.github.io/tags/ethereum/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/tags/ethereum/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Smart-Contracts</title>
+      <link>https://tdi.github.io/tags/smart-contracts/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/tags/smart-contracts/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web3</title>
+      <link>https://tdi.github.io/tags/web3/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/tags/web3/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Layer2</title>
+      <link>https://tdi.github.io/tags/layer2/</link>
       <pubDate>Thu, 05 Jun 2025 11:24:33 +0200</pubDate>
-      <guid>http://localhost:1313/tags/ethereum/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Career</title>
-      <link>http://localhost:1313/tags/career/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/career/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Cto</title>
-      <link>http://localhost:1313/tags/cto/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/cto/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Learning</title>
-      <link>http://localhost:1313/tags/learning/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/tags/learning/</guid>
+      <guid>https://tdi.github.io/tags/layer2/</guid>
       <description></description>
     </item>
   </channel>

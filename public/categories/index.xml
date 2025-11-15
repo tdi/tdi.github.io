@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on Darek&#39;s Blog</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>https://tdi.github.io/categories/</link>
     <description>Recent content in Categories on Darek&#39;s Blog</description>
     <image>
       <title>Darek&#39;s Blog</title>
-      <url>http://localhost:1313/static/openg.png</url>
-      <link>http://localhost:1313/static/openg.png</link>
+      <url>https://tdi.github.io/static/openg.png</url>
+      <link>https://tdi.github.io/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 May 2025 10:00:00 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jun 2025 17:15:12 +0200</lastBuildDate>
+    <atom:link href="https://tdi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learning Journey</title>
-      <link>http://localhost:1313/categories/learning-journey/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/categories/learning-journey/</guid>
+      <link>https://tdi.github.io/categories/learning-journey/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/categories/learning-journey/</guid>
       <description></description>
     </item>
   </channel>

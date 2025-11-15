@@ -19,6 +19,6 @@ I always felt management in distributed systems could be solved by limiting huma
 
 The ide was simple and pure. Autonomic manager was in charge of some management domain, it gathered information from sensors, analyzed the data, planned actions and executed action on the managed element via effectors. You could think it is a simple `while` loop - and you are not wrong. What was always the problem, at least in my mind, was the ***knowledge*** element. 
 
-In older days to have a structured knowledge, you had to rely on the most hellish, complex and bloated idea to represent knowledge - ontologies. Again, idea in its pure platonic form was ok, terms connected with relations yielding huge network that was travelled by reasoners. In reality it sucked and was hard to implement because of lack of structured knowledge. Effect is that ontologies are good for library systems, biology taxonomies and so on - you get the gist. 
+In older days to have a structured knowledge, you had to rely on the most hellish, complex and bloated idea to represent knowledge - ontologies. Again, the idea in its pure, platonic form was promising - terms connected with relations yielding huge network that was travelled by reasoners. In reality it sucked and was hard to implement because of lack of standards, incompletness of knowledge etc. Effect is that ontologies are good for library systems, biology taxonomies, and most closed and very formalized domains. 
 
 So back to autonomic computing. 

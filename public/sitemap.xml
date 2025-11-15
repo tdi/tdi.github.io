@@ -2,57 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/tags/ai/</loc>
+    <loc>https://tdi.github.io/</loc>
     <lastmod>2025-07-24T10:41:40+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/autonomic-computing-reloaded/</loc>
+    <loc>https://tdi.github.io/posts/</loc>
     <lastmod>2025-07-24T10:41:40+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-07-24T10:41:40+02:00</lastmod>
+    <loc>https://tdi.github.io/tags/blockchain/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/layer2/</loc>
-    <lastmod>2025-07-24T10:41:40+02:00</lastmod>
+    <loc>https://tdi.github.io/categories/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/managgement/</loc>
-    <lastmod>2025-07-24T10:41:40+02:00</lastmod>
+    <loc>https://tdi.github.io/tags/devops/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-07-24T10:41:40+02:00</lastmod>
+    <loc>https://tdi.github.io/posts/devops-in-web3/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-07-24T10:41:40+02:00</lastmod>
+    <loc>https://tdi.github.io/tags/ethereum/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/blockchain/</loc>
+    <loc>https://tdi.github.io/categories/learning-journey/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
+  </url><url>
+    <loc>https://tdi.github.io/tags/smart-contracts/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
+  </url><url>
+    <loc>https://tdi.github.io/tags/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
+  </url><url>
+    <loc>https://tdi.github.io/tags/web3/</loc>
+    <lastmod>2025-06-14T17:15:12+02:00</lastmod>
+  </url><url>
+    <loc>https://tdi.github.io/tags/layer2/</loc>
     <lastmod>2025-06-05T11:24:33+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/ethereum/</loc>
+    <loc>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</loc>
     <lastmod>2025-06-05T11:24:33+02:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</loc>
-    <lastmod>2025-06-05T11:24:33+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/career/</loc>
-    <lastmod>2025-05-28T10:00:00+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2025-05-28T10:00:00+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/cto/</loc>
-    <lastmod>2025-05-28T10:00:00+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</loc>
-    <lastmod>2025-05-28T10:00:00+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/learning/</loc>
-    <lastmod>2025-05-28T10:00:00+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/learning-journey/</loc>
-    <lastmod>2025-05-28T10:00:00+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://tdi.github.io/about/</loc>
     <lastmod>2025-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://tdi.github.io/search/</loc>
   </url>
 </urlset>

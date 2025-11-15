@@ -2,33 +2,33 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Blockchain on Darek&#39;s Blog</title>
-    <link>http://localhost:1313/tags/blockchain/</link>
+    <link>https://tdi.github.io/tags/blockchain/</link>
     <description>Recent content in Blockchain on Darek&#39;s Blog</description>
     <image>
       <title>Darek&#39;s Blog</title>
-      <url>http://localhost:1313/static/openg.png</url>
-      <link>http://localhost:1313/static/openg.png</link>
+      <url>https://tdi.github.io/static/openg.png</url>
+      <link>https://tdi.github.io/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Jun 2025 11:24:33 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jun 2025 17:15:12 +0200</lastBuildDate>
+    <atom:link href="https://tdi.github.io/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DevOps in Web3: A New Frontier</title>
+      <link>https://tdi.github.io/posts/devops-in-web3/</link>
+      <pubDate>Sat, 14 Jun 2025 17:15:12 +0200</pubDate>
+      <guid>https://tdi.github.io/posts/devops-in-web3/</guid>
+      <description>Exploring the unique challenges and solutions in Web3 DevOps, from smart contract deployment to security best practices.</description>
+    </item>
     <item>
       <title>What the Hell Are Layer2 Rollups</title>
-      <link>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</link>
+      <link>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</link>
       <pubDate>Thu, 05 Jun 2025 11:24:33 +0200</pubDate>
-      <guid>http://localhost:1313/posts/what-the-hell-are-layer2-protocols/</guid>
+      <guid>https://tdi.github.io/posts/what-the-hell-are-layer2-protocols/</guid>
       <description>&lt;h2 id=&#34;what-the-hell-are-layer2-rollups&#34;&gt;What the Hell Are Layer2 Rollups?&lt;/h2&gt;
 &lt;p&gt;If you&amp;rsquo;ve spent any time in the Ethereum or blockchain space, you&amp;rsquo;ve probably heard the term &amp;ldquo;Layer 2&amp;rdquo; thrown around—often in the same breath as &amp;ldquo;rollups.&amp;rdquo; But what does it actually mean? Why is everyone so excited about it? And why should anyone building on blockchain care?&lt;/p&gt;
 &lt;h2 id=&#34;the-problem-ethereums-scaling-bottleneck&#34;&gt;The Problem: Ethereum&amp;rsquo;s Scaling Bottleneck&lt;/h2&gt;
 &lt;p&gt;Ethereum is the world&amp;rsquo;s most popular smart contract platform, but it&amp;rsquo;s not without its flaws. The biggest? Scalability. The base layer (Layer 1) can only handle about &lt;a href=&#34;https://cryptorank.io/news/feed/76c2b-ethereum-s-big-boost-new-proposal-may-increase-tps-to-2-000&#34;&gt;15-30 transactions per second&lt;/a&gt;: When demand spikes, fees skyrocket and the network slows to a crawl. Not exactly the &amp;ldquo;world computer&amp;rdquo; we all dream about.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Day 1: Why I&#39;m Learning Blockchain as a CTO</title>
-      <link>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>http://localhost:1313/posts/day-1-why-im-learning-blockchain/</guid>
-      <description>Starting my journey from traditional CTO to Web3 - why I&amp;#39;m making this transition and what I hope to achieve.</description>
     </item>
   </channel>
 </rss>

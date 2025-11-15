@@ -9,7 +9,7 @@
       <url>http://localhost:1313/static/openg.png</url>
       <link>http://localhost:1313/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.148.1</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 24 Jul 2025 10:41:40 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/ai/index.xml" rel="self" type="application/rss+xml" />
@@ -18,9 +18,7 @@
       <link>http://localhost:1313/posts/autonomic-computing-reloaded/</link>
       <pubDate>Thu, 24 Jul 2025 10:41:40 +0200</pubDate>
       <guid>http://localhost:1313/posts/autonomic-computing-reloaded/</guid>
-      <description>&lt;p&gt;I always felt management in distributed systems could be solved removing as much human as possible. Back in 2010, while I was working as a researcher in &lt;a href=&#34;https://put.poznan.pl/&#34;&gt;Poznan University of Technology&lt;/a&gt;, I was researching a concept proposed by IBM called &lt;a href=&#34;https://en.wikipedia.org/wiki/Autonomic_computing&#34;&gt;autonomic computing&lt;/a&gt;. What they did was take MAPE (Monitor-Analyze-Plan-Execute) loop and added knowledge component to it.&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;Autonomic Computing Concept&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/openg.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;It was a great concept but technically not feasible back then because&lt;/p&gt;</description>
+      <description>&lt;p&gt;I always felt management in distributed systems could be solved by limiting human as much as possible. Why? Bacause going up the stack of virtualization you limit the domain of possibilities - so the state of &lt;em&gt;what&lt;/em&gt; can happen and &lt;em&gt;how&lt;/em&gt; to &lt;em&gt;fix&lt;/em&gt; it gets limited. Think about managing stuff running on a server directly, vs a VM, vs a container, vs a cloud (API is the finite state of possibilities to act on). When things are finite, vs inifinite, god opens door of possibilites. But how to do it? How to encode a &amp;lsquo;runbook&amp;rsquo; of human actions and acting on things and remove human from it (at least in 99%)? Well you can&amp;rsquo;t really unless you have a way of acting on unknown and being able to reason. I think Auotonomic computing concept, which is an ancient idea by IBM from 2003 might have a reneissance these days with LLMs (and I guess it has - &lt;a href=&#34;https://www.ibm.com/think/topics/aiops&#34;&gt;AIOps&lt;/a&gt;).&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
