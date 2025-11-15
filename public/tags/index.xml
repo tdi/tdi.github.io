@@ -9,7 +9,7 @@
       <url>https://tdi.github.io/static/openg.png</url>
       <link>https://tdi.github.io/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 05 Jun 2025 11:24:33 +0200</lastBuildDate>
     <atom:link href="https://tdi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -32,27 +32,6 @@
       <link>https://tdi.github.io/tags/layer2/</link>
       <pubDate>Thu, 05 Jun 2025 11:24:33 +0200</pubDate>
       <guid>https://tdi.github.io/tags/layer2/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Career</title>
-      <link>https://tdi.github.io/tags/career/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>https://tdi.github.io/tags/career/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Cto</title>
-      <link>https://tdi.github.io/tags/cto/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>https://tdi.github.io/tags/cto/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Learning</title>
-      <link>https://tdi.github.io/tags/learning/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>https://tdi.github.io/tags/learning/</guid>
       <description></description>
     </item>
   </channel>

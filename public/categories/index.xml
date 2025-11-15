@@ -9,16 +9,8 @@
       <url>https://tdi.github.io/static/openg.png</url>
       <link>https://tdi.github.io/static/openg.png</link>
     </image>
-    <generator>Hugo -- 0.147.8</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 May 2025 10:00:00 +0100</lastBuildDate>
     <atom:link href="https://tdi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Learning Journey</title>
-      <link>https://tdi.github.io/categories/learning-journey/</link>
-      <pubDate>Wed, 28 May 2025 10:00:00 +0100</pubDate>
-      <guid>https://tdi.github.io/categories/learning-journey/</guid>
-      <description></description>
-    </item>
   </channel>
 </rss>
