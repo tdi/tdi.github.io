@@ -7,50 +7,52 @@ showtoc: false
 
 # Hi, I'm Dariusz Dwornikowski
 
-I'm a seasoned CTO with 20+ years of experience in technology leadership, currently making the transition from traditional tech into the blockchain and Web3 space.
+I'm a founder and CTO with 20+ years of experience in technology leadership, currently building [Bitropy](https://bitropy.io) — sovereign AI infrastructure for the enterprise.
 
 ## Background
 
-**Current Role:** co-founder and CTO at Greenuit.com and CTO at Worksuite (formerly Shortlist)
+**Current Role:** Founder and CTO at [Bitropy.io](https://bitropy.io) — the enterprise layer that makes MCP safe, observable, and manageable at scale
 
 **Previous Experience:**
-- VP Engineering at Nordcloud
-- Academic researcher at Poznań University of Technology
-- Co-founder and tech director at various startups
+- CTO at WorkSuite Inc (2022-2025) — engineering and infosec, company acquired by HIG Growth
+- VP Engineering / CTO at Nordcloud-IBM (2017-2022) — set up Nordcloud Poland from 0 to 400 people, scaled product engineering to 150+
+- Co-founder at Tenesys (2015-2017) — AWS cloud solutions for enterprise
+- Researcher at Poznan University of Technology (2009-present) — IEEE publications on distributed systems
 
 ## Technical Expertise
 
-- **Cloud Platforms:** AWS, Azure, multi-cloud architectures
-- **DevOps & Infrastructure:** Kubernetes, containerization, CI/CD
-- **Programming:** Multiple languages, system architecture
-- **Leadership:** Engineering team management, technical strategy
-- **Business:** Had a significant exposure in Nordcloud, where I boostrapped 5 enterprise SaaS products 
-- **Academia:** _almost_ PHD in distributed systems (but I am restarting it ! )
+- **AI & Agentic Systems:** AI transformation, agentic coding adoption, MCP infrastructure
+- **Cloud Platforms:** AWS, Google Cloud, multi-cloud architectures (AWS Solutions Architect, GCP Architect Professional, FinOps Certified)
+- **DevOps & Infrastructure:** Kubernetes, containerization, CI/CD, platform engineering
+- **Programming:** Multiple languages, system architecture, distributed systems
+- **Leadership:** Scaled engineering teams from 0 to 400+, guided two M&A exits (IBM, HIG Growth)
+- **Business:** Bootstrapped 5 enterprise SaaS products at Nordcloud, 5+ advisory board roles
+- **Open Source:** Official Debian Developer since 2015
+- **Academia:** _almost_ PhD in distributed systems (but I am restarting it!)
 
-## The Web3 Transition
+## What I'm Building
 
-In 2025, I decided to pivot my career more toward blockchain technology. This blog documents my learning journey as I:
+At [Bitropy](https://bitropy.io), we're building the enterprise gateway for AI agents — providing centralized control over MCP servers with security, compliance, and governance built in.
 
-- Learn blockchain fundamentals and smart contract development
-- Build projects in the Web3 ecosystem
-- Connect with the crypto community
-- Work toward a CTO role in a blockchain company (currently founded Greenuit)
+## I Can Help With
+
+- AI transformation and agentic coding adoption
+- Fractional CTO engagements
+- C-level advisory and board roles
+- M&A exit strategy and due diligence
 
 ## Why This Blog?
 
-I believe in learning publicly. By sharing my journey, I hope to:
-
-- Stay accountable to my learning goals
-- Help other technical leaders considering similar transitions
-- Build credibility in the blockchain space
-- Connect with like-minded professionals
+I believe in learning publicly. By sharing my journey, I hope to help other technical leaders navigating the AI transformation and connect with like-minded professionals.
 
 ## Let's Connect
 
+- **Email:** [dariusz@dwornikowski.com](mailto:dariusz@dwornikowski.com)
+- **Website:** [dwornikowski.com](https://dwornikowski.com)
 - **X:** [@darek_dwo](https://x.com/darek_dwo)
-- **LinkedIn:** [Your LinkedIn](https://linkedin.com/in/darekd)
-- **GitHub:** [Your GitHub](https://github.com/tdi)
+- **LinkedIn:** [linkedin.com/in/darekd](https://linkedin.com/in/darekd)
+- **GitHub:** [github.com/tdi](https://github.com/tdi)
 
 ---
 
-*Follow my journey from CTO to Web3 and feel free to reach out if you're on a similar path or have insights to share.*
+*Feel free to reach out if you're navigating AI transformation, building with MCP, or just want to connect.*
