@@ -43,7 +43,9 @@ At [Bitropy](https://bitropy.io), we're building the enterprise gateway for AI a
 
 ## Why This Blog?
 
-I believe in learning publicly. By sharing my journey, I hope to help other technical leaders navigating the AI transformation and connect with like-minded professionals.
+I believe in learning publicly. By sharing what I'm working on, I hope to help other technical leaders navigating AI transformation and connect with like-minded professionals.
+
+For my full profile and consulting services, see [dwornikowski.com](https://dwornikowski.com).
 
 ## Let's Connect
 

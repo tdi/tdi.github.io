@@ -15,11 +15,10 @@ minifyOutput = true
 [params]
 env = "production"
 title = "Darek's Blog"
-description = "Documenting my thoughts"
-keywords = ["Blog", "Portfolio", "CTO", "Blockchain", "Web3", "Crypto"]
-author = "Darek Dwornikowski"
-# author = ["Me", "You"] # multiple authors
-images = ["/static/openg.png"]
+description = "Notes on AI transformation, agentic coding, engineering leadership, and building Bitropy — by Dariusz Dwornikowski."
+keywords = ["AI transformation", "agentic coding", "CTO", "engineering leadership", "MCP", "Bitropy", "LLMs", "platform engineering"]
+author = "Dariusz Dwornikowski"
+images = ["/openg.png"]
 DateFormat = "January 2, 2006"
 defaultTheme = "auto"          # dark, light
 disableThemeToggle = false
@@ -43,36 +42,28 @@ tocopen = false
 [params.assets]
 # disableHLJS = true # to disable highlight.js
 # disableFingerprinting = true
-favicon = "<link / abs url>"
-favicon16x16 = "<link / abs url>"
-favicon32x32 = "<link / abs url>"
-apple_touch_icon = "<link / abs url>"
-safari_pinned_tab = "<link / abs url>"
 
 [params.label]
 text = "Darek's Blog"
-icon = "/apple-touch-icon.png"
-iconHeight = 35
 
 # profile-mode
 [params.profileMode]
-enabled = false                                                                  # needs to be explicitly set
-title = "CTO Learning Blockchain"
-subtitle = "20+ years in tech, now diving into Web3"
-imageUrl = "<title / alt>"
+enabled = false
+title = "Darek Dwornikowski"
+subtitle = "Engineering leader, founder of Bitropy, writing about AI transformation and agentic coding."
 imageWidth = 120
 imageHeight = 120
-imageTitle = "ProfileMode image"
+imageTitle = "Darek Dwornikowski"
 buttons = [{ name = "Posts", url = "/posts" }, { name = "Tags", url = "/tags" }]
 
 # home-info mode
 [params.homeInfoParams]
-Title = "Hi there 👋"
-Content = "Welcome to my blog documenting my journey from traditional CTO to Web3. I'm sharing everything I learn about blockchain, smart contracts, and crypto as I make this mild career transition."
+Title = "Hi, I'm Darek"
+Content = "I'm an engineering leader and founder of [Bitropy](https://bitropy.io). Here I write about AI transformation, agentic coding, and lessons from 20+ years scaling tech companies. More about me at [dwornikowski.com](https://dwornikowski.com)."
 
 [[params.socialIcons]]
-name = "twitter"
-url = "https://twitter.com/darek_dwo"
+name = "x"
+url = "https://x.com/darek_dwo"
 
 [[params.socialIcons]]
 name = "github"
@@ -82,14 +73,15 @@ url = "https://github.com/tdi"
 name = "linkedin"
 url = "https://linkedin.com/in/darekd"
 
-[params.analytics.google]
-SiteVerificationTag = "XYZabc"
+[[params.socialIcons]]
+name = "link"
+url = "https://dwornikowski.com"
 
 [params.cover]
-hidden = true               # hide everywhere but not in structured data
-hiddenInList = true         # hide on list pages and home
+hidden = true
+hiddenInList = true
 hiddenInSingle = true
-image = "/static/openg.png" # hide on single page
+image = "/openg.png"
 
 [params.editPost]
 URL = "https://github.com/tdi/tdi.github.io/tree/main/content"
