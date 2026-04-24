@@ -1,4 +1,4 @@
-baseURL = 'https://tdi.github.io'
+baseURL = 'https://blog.dwornikowski.com/'
 languageCode = 'en-us'
 title = "Darek's Blog"
 theme = 'PaperMod'
