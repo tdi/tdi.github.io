@@ -1,6 +1,6 @@
 +++
 date = '2026-04-24T12:00:00+02:00'
-draft = true
+draft = false
 title = 'From $200 to $30: Five Layers of LLM Cost Optimization'
 author = "Darek Dwornikowski"
 tags = ["llm", "cost-optimization", "token-usage", "engineering", "postgres"]
@@ -9,7 +9,7 @@ description = "A walkthrough of how I cut an LLM-based product classifier's toke
 
 ## The Problem
 
-One of the services I've been building for an ecommerce app is a product categorizer: given a product name, assign it a 3-level category path from a large taxonomy. Simple on paper, until you're classifying ~1M products a month and watching your LLM bill climb past $200.
+One of the services I've been building for an ecommerce app is a product categorizer: given a product name, assign it a 3-level category path from a large taxonomy. The app is in Polish, so both the product names and the category tree are in Polish — which matters less than you'd think, since LLMs handle this well, but it does mean the examples in this post would normally look like "Drzwi sosnowe 80cm" instead of "Wooden door 80cm." I've translated everything to English here for readability. Simple on paper, until you're classifying ~1M products a month and watching your LLM bill climb past $200.
 
 The naive implementation worked fine for the first few thousand products. Then reality hit: the category tree is big, products repeat a lot, and most of what you pay for on every call is context you already paid for on the previous call.
 
@@ -218,4 +218,8 @@ The main risk is failure modes. If the Stage 1 response is malformed or misses p
 
 Token optimization isn't a single trick — it's a stack. Each layer is a tool for a different kind of waste: oversized context, redundant work, cache-hostile keys, per-call overhead. If you're running classification or extraction workloads at any meaningful volume, I'd bet you have 80%+ savings sitting in your pipeline, waiting to be claimed.
 
-*Building something similar and stuck on cost? I consult on AI transformation and agentic systems at [dwornikowski.com](https://dwornikowski.com). Happy to trade notes.*
+*Building something similar and stuck on cost? At [Bitropy](https://bitropy.io) we work on the enterprise layer for AI agents — making MCP servers and LLM workloads safe, observable, and cost-efficient at scale. A lot of what's in this post (caching, batching, context discipline, per-call telemetry) is the kind of thing Bitropy gives you out of the box for production agent workloads instead of having to build it yourself. I also consult independently on AI transformation, agentic coding adoption, and fractional CTO work — see [dwornikowski.com](https://dwornikowski.com). Happy to trade notes either way.*
+
+---
+
+*A note on style: English isn't my first language. I drafted this post myself based on the work I did, then used an AI assistant to help with formatting and copy-editing. The technical content, decisions, numbers, and lessons are entirely mine.*
