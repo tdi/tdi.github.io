@@ -1,0 +1,138 @@
+/* Catppuccin palette: Latte for light, Macchiato (Ghostty default) for dark. */
+
+:root {
+    /* Latte */
+    --base:      #eff1f5;
+    --mantle:    #e6e9ef;
+    --crust:     #dce0e8;
+    --surface0:  #ccd0da;
+    --surface1:  #bcc0cc;
+    --surface2:  #acb0be;
+    --subtext0:  #6c6f85;
+    --subtext1:  #5c5f77;
+    --text:      #4c4f69;
+    --blue:      #1e66f5;
+    --lavender:  #7287fd;
+    --mauve:     #8839ef;
+    --pink:      #ea76cb;
+    --green:     #40a02b;
+
+    --theme:         var(--base);
+    --entry:         var(--base);
+    --primary:       var(--text);
+    --secondary:     var(--subtext0);
+    --tertiary:      var(--surface1);
+    --content:       var(--text);
+    --code-bg:       var(--surface0);
+    --code-block-bg: var(--mantle);
+    --border:        var(--surface0);
+}
+
+.dark {
+    /* Macchiato */
+    --base:      #24273a;
+    --mantle:    #1e2030;
+    --crust:     #181926;
+    --surface0:  #363a4f;
+    --surface1:  #494d64;
+    --surface2:  #5b6078;
+    --subtext0:  #a5adcb;
+    --subtext1:  #b8c0e0;
+    --text:      #cad3f5;
+    --blue:      #8aadf4;
+    --lavender:  #b7bdf8;
+    --mauve:     #c6a0f6;
+    --pink:      #f5bde6;
+    --green:     #a6da95;
+
+    --theme:         var(--base);
+    --entry:         var(--base);
+    --primary:       var(--text);
+    --secondary:     var(--subtext0);
+    --tertiary:      var(--surface1);
+    --content:       var(--text);
+    --code-bg:       var(--surface0);
+    --code-block-bg: var(--crust);
+    --border:        var(--surface1);
+}
+
+.list {
+    background: var(--theme);
+}
+
+/* Links use Catppuccin blue/lavender for contrast on the dark base. */
+a,
+.post-content a {
+    color: var(--blue);
+}
+a:hover,
+.post-content a:hover {
+    color: var(--lavender);
+}
+
+/* Flatten cards: no fill, just a subtle bottom rule between entries. */
+.post-entry,
+.first-entry,
+.entry-cover {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding-inline: 0;
+}
+
+.post-entry {
+    border-bottom: 1px solid var(--surface0);
+    border-radius: 0;
+}
+
+.post-entry:hover {
+    background: transparent;
+    border-bottom-color: var(--mauve);
+}
+
+.first-entry {
+    min-height: auto;
+}
+
+/* Inline code chips. */
+.post-content code {
+    background: var(--code-bg);
+    color: var(--pink);
+}
+
+/* Code blocks. */
+.post-content pre,
+.post-content pre code,
+.highlight,
+.highlight pre {
+    background: var(--code-block-bg) !important;
+    color: var(--text);
+}
+
+/* Blockquotes get a lavender accent. */
+.post-content blockquote {
+    border-inline-start-color: var(--lavender);
+    color: var(--subtext1);
+}
+
+/* Header / footer / nav blend into the base. */
+.header,
+.footer,
+.nav {
+    background: var(--theme);
+    border-color: var(--border);
+}
+
+.logo a,
+.menu a {
+    color: var(--primary);
+}
+.menu a:hover {
+    color: var(--mauve);
+}
+
+/* Selection in Catppuccin lavender. */
+::selection {
+    background: var(--lavender);
+    color: var(--base);
+}
