@@ -15,8 +15,8 @@ minifyOutput = true
 [params]
 env = "production"
 title = "Darek's Blog"
-description = "Notes on AI transformation, agentic coding, engineering leadership, and building Bitropy — by Dariusz Dwornikowski."
-keywords = ["AI transformation", "agentic coding", "CTO", "engineering leadership", "MCP", "Bitropy", "LLMs", "platform engineering"]
+description = "Notes by Dariusz Dwornikowski — engineering leader, founder of Bitropy, 20+ years scaling tech companies, 2 successful M&A exits (IBM, HIG Growth). Writing on AI transformation, agentic coding, fractional CTO work, and C-level consulting."
+keywords = ["Dariusz Dwornikowski", "Darek Dwornikowski", "CTO", "engineering leader", "AI transformation", "agentic coding", "fractional CTO", "advisory board", "cloud architect", "Bitropy", "Nordcloud", "WorkSuite", "Poznan", "Poland", "consulting", "exit strategy", "AI-driven companies", "MCP", "LLMs"]
 author = "Dariusz Dwornikowski"
 images = ["/openg.png"]
 DateFormat = "January 2, 2006"
@@ -49,8 +49,8 @@ text = "Darek's Blog"
 # profile-mode
 [params.profileMode]
 enabled = false
-title = "Darek Dwornikowski"
-subtitle = "Engineering leader, founder of Bitropy, writing about AI transformation and agentic coding."
+title = "Dariusz Dwornikowski"
+subtitle = "Founder & engineering leader. 20+ years scaling tech companies, 2 M&A exits. Writing on AI transformation, agentic coding, and CTO work."
 imageWidth = 120
 imageHeight = 120
 imageTitle = "Darek Dwornikowski"
@@ -59,7 +59,7 @@ buttons = [{ name = "Posts", url = "/posts" }, { name = "Tags", url = "/tags" }]
 # home-info mode
 [params.homeInfoParams]
 Title = "Hi, I'm Darek"
-Content = "I'm an engineering leader and founder of [Bitropy](https://bitropy.io). Here I write about AI transformation, agentic coding, and lessons from 20+ years scaling tech companies. More about me at [dwornikowski.com](https://dwornikowski.com)."
+Content = "Founder & engineering leader, currently building [Bitropy](https://bitropy.io). 20+ years scaling tech companies, 2 successful M&A exits (IBM, HIG Growth). Based in Poznań, Poland. Here I write about AI transformation, agentic coding, fractional CTO work, and lessons from the trenches. Full profile at [dwornikowski.com](https://dwornikowski.com)."
 
 [[params.socialIcons]]
 name = "x"
@@ -68,6 +68,10 @@ url = "https://x.com/darek_dwo"
 [[params.socialIcons]]
 name = "github"
 url = "https://github.com/tdi"
+
+[[params.socialIcons]]
+name = "codeberg"
+url = "https://codeberg.org/darekd"
 
 [[params.socialIcons]]
 name = "linkedin"

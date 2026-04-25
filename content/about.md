@@ -7,39 +7,33 @@ showtoc: false
 
 # Hi, I'm Dariusz Dwornikowski
 
-I'm a founder and CTO with 20+ years of experience in technology leadership, currently building [Bitropy](https://bitropy.io) — sovereign AI infrastructure for the enterprise.
+Engineering leader with 20+ years of experience scaling tech companies, building products, and leading technical organizations. Track record of 2 successful M&A exits (IBM, HIG Growth) and growing teams from 0 to 400+. Based in Poznań, Poland.
 
-## Background
+Currently founder of [Bitropy](https://bitropy.io) — sovereign AI infrastructure, agentic apps, and AI integration for enterprises.
 
-**Current Role:** Founder and CTO at [Bitropy.io](https://bitropy.io) — the enterprise layer that makes MCP safe, observable, and manageable at scale
+## Experience
 
-**Previous Experience:**
-- CTO at WorkSuite Inc (2022-2025) — engineering and infosec, company acquired by HIG Growth
-- VP Engineering / CTO at Nordcloud-IBM (2017-2022) — set up Nordcloud Poland from 0 to 400 people, scaled product engineering to 150+
-- Co-founder at Tenesys (2015-2017) — AWS cloud solutions for enterprise
-- Researcher at Poznan University of Technology (2009-present) — IEEE publications on distributed systems
+- **Founder — Bitropy** (2025 – now). Sovereign AI infrastructure, agentic apps and AI integration for enterprises.
+- **CTO — WorkSuite Inc** (2022 – 2025). Led engineering & infosec. Key contributor to acquisition by HIG Growth.
+- **VP Engineering / CTO Poland — Nordcloud, an IBM Company** (2017 – 2022). Member of the global leadership team. Set up Nordcloud Poland from 0 to 400 people. Scaled product engineering to 150+. Part of the team behind the successful exit to IBM.
+- **Co-Founder & Technology Director — Tenesys** (2015 – 2017). AWS cloud implementations, video/voice streaming, IoT, and enterprise migrations.
+- **Researcher — Poznan University of Technology** (2009 – now). Distributed systems, process calculi, IEEE publications.
 
-## Technical Expertise
+## What I Know
 
-- **AI & Agentic Systems:** AI transformation, agentic coding adoption, MCP infrastructure
-- **Cloud Platforms:** AWS, Google Cloud, multi-cloud architectures (AWS Solutions Architect, GCP Architect Professional, FinOps Certified)
-- **DevOps & Infrastructure:** Kubernetes, containerization, CI/CD, platform engineering
-- **Programming:** Multiple languages, system architecture, distributed systems
-- **Leadership:** Scaled engineering teams from 0 to 400+, guided two M&A exits (IBM, HIG Growth)
-- **Business:** Bootstrapped 5 enterprise SaaS products at Nordcloud, 5+ advisory board roles
-- **Open Source:** Official Debian Developer since 2015
-- **Academia:** _almost_ PhD in distributed systems (but I am restarting it!)
-
-## What I'm Building
-
-At [Bitropy](https://bitropy.io), we're building the enterprise gateway for AI agents — providing centralized control over MCP servers with security, compliance, and governance built in.
+- **AI & agentic systems** — AI transformation, agentic coding adoption, MCP infrastructure, LLM integration
+- **Cloud architecture** — AWS, Google Cloud, multi-cloud (AWS Solutions Architect Associate, GCP Architect Professional, FinOps Certified Practitioner)
+- **Platform & infra** — Kubernetes, containerization, CI/CD, distributed systems
+- **Engineering leadership** — scaling teams from 0 to 400+, two M&A exits, 5 enterprise SaaS products bootstrapped at Nordcloud, 5+ advisory board roles
+- **Open source** — Debian Developer since 2015
+- **Academia** — _almost_ PhD in distributed systems (restarting it)
 
 ## I Can Help With
 
-- AI transformation and agentic coding adoption
-- Fractional CTO engagements
-- C-level advisory and board roles
-- M&A exit strategy and due diligence
+- **AI transformation consulting** — end-to-end guidance on transforming engineering organizations into AI-driven teams using agentic coding, LLMs, and AI process integration
+- **Fractional CTO** — strategic technology leadership and hands-on technical guidance for scaling engineering organizations
+- **Advisory board** — board-level advisory on scaling engineering, product development, technical strategy, and M&A preparation
+- **Exit strategy & M&A** — preparing tech companies for successful acquisition, drawing on direct experience with IBM and HIG Growth exits
 
 ## Why This Blog?
 
@@ -54,7 +48,9 @@ For my full profile and consulting services, see [dwornikowski.com](https://dwor
 - **X:** [@darek_dwo](https://x.com/darek_dwo)
 - **LinkedIn:** [linkedin.com/in/darekd](https://linkedin.com/in/darekd)
 - **GitHub:** [github.com/tdi](https://github.com/tdi)
+- **Codeberg:** [codeberg.org/darekd](https://codeberg.org/darekd)
+- **Google Scholar:** [scholar.google.com/citations?user=IG-pQFIAAAAJ](https://scholar.google.com/citations?user=IG-pQFIAAAAJ)
 
 ---
 
-*Feel free to reach out if you're navigating AI transformation, building with MCP, or just want to connect.*
+*Reach out if you're navigating AI transformation, building with MCP, or just want to connect.*
