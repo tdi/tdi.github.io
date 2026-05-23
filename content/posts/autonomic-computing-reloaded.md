@@ -2,7 +2,7 @@
 date = '2025-07-24T10:41:40+02:00'
 draft = true
 title = 'Autonomic Computing Reloaded'
-categories = ["technology", "research"]
+categories = ["AI & Engineering"]
 author = "Darek Dwornikowski"
 tags = ["ai", "management", "autonomic-computing", "llm", "aiops"]
 +++

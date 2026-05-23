@@ -3,7 +3,8 @@ date = '2026-04-24T12:00:00+02:00'
 draft = false
 title = 'From $200 to $30: Five Layers of LLM Cost Optimization'
 author = "Darek Dwornikowski"
-tags = ["llm", "cost-optimization", "token-usage", "engineering", "postgres"]
+categories = ["AI & Engineering"]
+tags = ["ai", "llm", "cost-optimization", "engineering", "postgres"]
 description = "A walkthrough of how I cut an LLM-based product classifier's token usage by ~92% through compression, two-stage prompting, exact-match lookups, similarity caching, and batching."
 +++
 

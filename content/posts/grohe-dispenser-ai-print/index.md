@@ -2,7 +2,7 @@
 title: "How I Refused to Pay €80 for a Broken Plastic Tube and Asked Claude to CAD It Instead"
 date: 2026-05-06
 draft: false
-tags: ["3d-printing", "ai", "claude", "cowork", "diy", "cad", "openscad"]
+tags: ["3d-printing", "ai", "claude", "diy", "cad", "openscad"]
 categories: ["Tinkering"]
 summary: "A small piece of plastic in our kitchen soap dispenser snapped. The official Grohe replacement costs €80. I had a 3D printer and a Claude Cowork session — five iterations later, I had a working part."
 cover:

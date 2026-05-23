@@ -2,7 +2,7 @@
 date = '2025-06-05T11:24:33+02:00'
 draft = false
 title = 'What the Hell Are Layer2 Rollups'
-categorie = ["Learning Journey"]
+categories = ["Blockchain"]
 author = "Darek Dwornikowski"
 tags = ["blockchain", "ethereum", "layer2"]
 +++
