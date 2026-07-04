@@ -1,0 +1,102 @@
+<svg viewBox="0 0 720 400" width="100%" style="max-width:720px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pk-title">
+  <title id="pk-title">Animated flow: OAuth 2.1 authorization code with PKCE between MCP client, authorization server, and MCP server</title>
+  <style>
+    .pk-actor { fill: var(--code-bg, #f2f2f2); stroke: var(--border, #ccc); rx: 6; }
+    .pk-name { font: 600 13.5px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle; }
+    .pk-life { stroke: var(--border, #ccc); stroke-dasharray: 4 4; }
+    .pk-msg { stroke: #7f8ea3; stroke-width: 1.5; marker-end: url(#pk-arrow); }
+    .pk-reply { stroke-dasharray: 5 4; }
+    .pk-lbl { font: 12px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+              paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .pk-chip-txt { font: 700 11px ui-sans-serif, system-ui, sans-serif; fill: #0b1220; text-anchor: middle; }
+    .pk-s1 { animation: pk-s1 16s linear infinite; }
+    .pk-s2 { animation: pk-s2 16s linear infinite; }
+    .pk-s3 { animation: pk-s3 16s linear infinite; }
+    .pk-s4 { animation: pk-s4 16s linear infinite; }
+    .pk-s5 { animation: pk-s5 16s linear infinite; }
+    .pk-s6 { animation: pk-s6 16s linear infinite; }
+    .pk-s7 { animation: pk-s7 16s linear infinite; }
+    .pk-s8 { animation: pk-s8 16s linear infinite; }
+    .pk-s9 { animation: pk-s9 16s linear infinite; }
+    .pk-token { animation: pk-token 16s linear infinite; }
+    @keyframes pk-s1 { 0%, 2% { opacity: 0; } 4%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s2 { 0%, 10% { opacity: 0; } 12%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s3 { 0%, 18% { opacity: 0; } 20%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s4 { 0%, 28% { opacity: 0; } 30%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s5 { 0%, 38% { opacity: 0; } 40%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s6 { 0%, 48% { opacity: 0; } 50%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s7 { 0%, 58% { opacity: 0; } 60%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s8 { 0%, 72% { opacity: 0; } 74%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-s9 { 0%, 84% { opacity: 0; } 86%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes pk-token {
+      0%, 58% { opacity: 0; transform: translate(360px, 320px); }
+      60% { opacity: 1; transform: translate(360px, 320px); }
+      68% { transform: translate(120px, 320px); }
+      73% { transform: translate(120px, 342px); }
+      80% { transform: translate(600px, 342px); }
+      96% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pk-s1, .pk-s2, .pk-s3, .pk-s4, .pk-s5, .pk-s6, .pk-s7, .pk-s8, .pk-s9, .pk-token { animation: none !important; }
+    }
+  </style>
+  <defs>
+    <marker id="pk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8ea3"/>
+    </marker>
+  </defs>
+
+  <rect class="pk-actor" x="40" y="16" width="160" height="34"/>
+  <text class="pk-name" x="120" y="38">MCP Client</text>
+  <rect class="pk-actor" x="280" y="16" width="160" height="34"/>
+  <text class="pk-name" x="360" y="38">Authorization Server</text>
+  <rect class="pk-actor" x="520" y="16" width="160" height="34"/>
+  <text class="pk-name" x="600" y="38">MCP Server</text>
+
+  <line class="pk-life" x1="120" y1="50" x2="120" y2="388"/>
+  <line class="pk-life" x1="360" y1="50" x2="360" y2="388"/>
+  <line class="pk-life" x1="600" y1="50" x2="600" y2="388"/>
+
+  <g class="pk-s1">
+    <line class="pk-msg" x1="120" y1="95" x2="594" y2="95"/>
+    <text class="pk-lbl" x="360" y="89">MCP request (no token)</text>
+  </g>
+  <g class="pk-s2">
+    <line class="pk-msg pk-reply" x1="600" y1="130" x2="126" y2="130"/>
+    <text class="pk-lbl" x="360" y="124">401 + WWW-Authenticate (resource metadata URL)</text>
+  </g>
+  <g class="pk-s3">
+    <line class="pk-msg" x1="120" y1="165" x2="594" y2="165"/>
+    <text class="pk-lbl" x="360" y="159">GET /.well-known/oauth-protected-resource (RFC 9728)</text>
+  </g>
+  <g class="pk-s4">
+    <line class="pk-msg" x1="120" y1="200" x2="354" y2="200"/>
+    <text class="pk-lbl" x="237" y="194">/authorize + PKCE challenge (browser)</text>
+  </g>
+  <g class="pk-s5">
+    <line class="pk-msg pk-reply" x1="360" y1="235" x2="126" y2="235"/>
+    <text class="pk-lbl" x="237" y="229">authorization code</text>
+  </g>
+  <g class="pk-s6">
+    <line class="pk-msg" x1="120" y1="270" x2="354" y2="270"/>
+    <text class="pk-lbl" x="237" y="264">/token: code + PKCE verifier + resource</text>
+  </g>
+  <g class="pk-s7">
+    <line class="pk-msg pk-reply" x1="360" y1="305" x2="126" y2="305"/>
+    <text class="pk-lbl" x="237" y="299">access token (aud: MCP server)</text>
+  </g>
+  <g class="pk-s8">
+    <line class="pk-msg" x1="120" y1="342" x2="594" y2="342"/>
+    <text class="pk-lbl" x="360" y="336">MCP request + Bearer token</text>
+  </g>
+  <g class="pk-s9">
+    <line class="pk-msg pk-reply" x1="600" y1="376" x2="126" y2="376"/>
+    <text class="pk-lbl" x="360" y="370">200 OK</text>
+  </g>
+
+  <g class="pk-token" transform="translate(600, 342)">
+    <rect x="-32" y="-11" width="64" height="22" rx="6" fill="#7aa2f7"/>
+    <text class="pk-chip-txt" x="0" y="4">TOKEN</text>
+  </g>
+</svg>

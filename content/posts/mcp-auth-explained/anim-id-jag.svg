@@ -1,0 +1,121 @@
+<svg viewBox="0 0 720 400" width="100%" style="max-width:720px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="jag-title">
+  <title id="jag-title">Animated flow: Identity Assertion Authorization Grant — enterprise IdP issues an assertion the agent trades for an MCP server access token</title>
+  <style>
+    .jag-actor { fill: var(--code-bg, #f2f2f2); stroke: var(--border, #ccc); rx: 6; }
+    .jag-name { font: 600 13px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle; }
+    .jag-life { stroke: var(--border, #ccc); stroke-dasharray: 4 4; }
+    .jag-msg { stroke: #7f8ea3; stroke-width: 1.5; marker-end: url(#jag-arrow); }
+    .jag-reply { stroke-dasharray: 5 4; }
+    .jag-lbl { font: 12px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+               paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .jag-note { font: italic 11.5px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+                paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .jag-chip-txt { font: 700 10.5px ui-sans-serif, system-ui, sans-serif; fill: #0b1220; text-anchor: middle; }
+    .jag-s1 { animation: jag-s1 16s linear infinite; }
+    .jag-s2 { animation: jag-s2 16s linear infinite; }
+    .jag-s3 { animation: jag-s3 16s linear infinite; }
+    .jag-s4 { animation: jag-s4 16s linear infinite; }
+    .jag-s5 { animation: jag-s5 16s linear infinite; }
+    .jag-s6 { animation: jag-s6 16s linear infinite; }
+    .jag-s7 { animation: jag-s7 16s linear infinite; }
+    .jag-chip-id { animation: jag-chip-id 16s linear infinite; }
+    .jag-chip-jag { animation: jag-chip-jag 16s linear infinite; }
+    .jag-chip-at { animation: jag-chip-at 16s linear infinite; }
+    @keyframes jag-s1 { 0%, 2% { opacity: 0; } 4%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-s2 { 0%, 12% { opacity: 0; } 14%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-s3 { 0%, 24% { opacity: 0; } 26%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-s4 { 0%, 38% { opacity: 0; } 40%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-s5 { 0%, 52% { opacity: 0; } 54%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-s6 { 0%, 68% { opacity: 0; } 70%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-s7 { 0%, 80% { opacity: 0; } 82%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes jag-chip-id {
+      0%, 2% { opacity: 0; transform: translate(90px, 108px); }
+      4% { opacity: 1; transform: translate(90px, 108px); }
+      14% { transform: translate(90px, 108px); }
+      20% { transform: translate(270px, 162px); }
+      26% { opacity: 1; }
+      30%, 100% { opacity: 0; transform: translate(270px, 162px); }
+    }
+    @keyframes jag-chip-jag {
+      0%, 26% { opacity: 0; transform: translate(270px, 202px); }
+      28% { opacity: 1; transform: translate(270px, 202px); }
+      34% { transform: translate(90px, 202px); }
+      40% { transform: translate(90px, 202px); }
+      46% { opacity: 1; transform: translate(450px, 242px); }
+      50%, 100% { opacity: 0; transform: translate(450px, 242px); }
+    }
+    @keyframes jag-chip-at {
+      0%, 54% { opacity: 0; transform: translate(450px, 282px); }
+      56% { opacity: 1; transform: translate(450px, 282px); }
+      62% { transform: translate(90px, 282px); }
+      70% { transform: translate(90px, 282px); }
+      78% { transform: translate(630px, 322px); }
+      96% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .jag-s1, .jag-s2, .jag-s3, .jag-s4, .jag-s5, .jag-s6, .jag-s7,
+      .jag-chip-id, .jag-chip-jag, .jag-chip-at { animation: none !important; }
+    }
+  </style>
+  <defs>
+    <marker id="jag-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8ea3"/>
+    </marker>
+  </defs>
+
+  <rect class="jag-actor" x="15" y="16" width="150" height="34"/>
+  <text class="jag-name" x="90" y="38">Agent (MCP client)</text>
+  <rect class="jag-actor" x="195" y="16" width="150" height="34"/>
+  <text class="jag-name" x="270" y="38">Enterprise IdP</text>
+  <rect class="jag-actor" x="375" y="16" width="150" height="34"/>
+  <text class="jag-name" x="450" y="38">MCP Server's AS</text>
+  <rect class="jag-actor" x="555" y="16" width="150" height="34"/>
+  <text class="jag-name" x="630" y="38">MCP Server</text>
+
+  <line class="jag-life" x1="90" y1="50" x2="90" y2="385"/>
+  <line class="jag-life" x1="270" y1="50" x2="270" y2="385"/>
+  <line class="jag-life" x1="450" y1="50" x2="450" y2="385"/>
+  <line class="jag-life" x1="630" y1="50" x2="630" y2="385"/>
+
+  <g class="jag-s1">
+    <text class="jag-note" x="90" y="86">already signed in via SSO</text>
+  </g>
+  <g class="jag-s2">
+    <line class="jag-msg" x1="90" y1="140" x2="264" y2="140"/>
+    <text class="jag-lbl" x="180" y="134">RFC 8693: exchange ID token, target = MCP server</text>
+  </g>
+  <g class="jag-s3">
+    <line class="jag-msg jag-reply" x1="270" y1="180" x2="96" y2="180"/>
+    <text class="jag-lbl" x="180" y="174">ID-JAG assertion (policy checked at IdP)</text>
+  </g>
+  <g class="jag-s4">
+    <line class="jag-msg" x1="90" y1="220" x2="444" y2="220"/>
+    <text class="jag-lbl" x="267" y="214">/token: assertion grant (JWT bearer)</text>
+  </g>
+  <g class="jag-s5">
+    <line class="jag-msg jag-reply" x1="450" y1="260" x2="96" y2="260"/>
+    <text class="jag-lbl" x="267" y="254">access token (aud: MCP server) — no consent screen</text>
+  </g>
+  <g class="jag-s6">
+    <line class="jag-msg" x1="90" y1="300" x2="624" y2="300"/>
+    <text class="jag-lbl" x="360" y="294">MCP request + Bearer token</text>
+  </g>
+  <g class="jag-s7">
+    <line class="jag-msg jag-reply" x1="630" y1="336" x2="96" y2="336"/>
+    <text class="jag-lbl" x="360" y="330">200 OK</text>
+  </g>
+
+  <g class="jag-chip-id" transform="translate(270, 162)" opacity="0">
+    <rect x="-36" y="-11" width="72" height="22" rx="6" fill="#7aa2f7"/>
+    <text class="jag-chip-txt" x="0" y="4">ID TOKEN</text>
+  </g>
+  <g class="jag-chip-jag" transform="translate(450, 242)" opacity="0">
+    <rect x="-36" y="-11" width="72" height="22" rx="6" fill="#e0af68"/>
+    <text class="jag-chip-txt" x="0" y="4">ID-JAG</text>
+  </g>
+  <g class="jag-chip-at" transform="translate(630, 322)">
+    <rect x="-40" y="-11" width="80" height="22" rx="6" fill="#9ece6a"/>
+    <text class="jag-chip-txt" x="0" y="4">ACCESS TOK</text>
+  </g>
+</svg>

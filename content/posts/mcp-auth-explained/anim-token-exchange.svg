@@ -1,0 +1,108 @@
+<svg viewBox="0 0 720 370" width="100%" style="max-width:720px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="tx-title">
+  <title id="tx-title">Animated flow: MCP gateway terminates the client token and mints a downstream token via RFC 8693 token exchange</title>
+  <style>
+    .tx-actor { fill: var(--code-bg, #f2f2f2); stroke: var(--border, #ccc); rx: 6; }
+    .tx-name { font: 600 13px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle; }
+    .tx-life { stroke: var(--border, #ccc); stroke-dasharray: 4 4; }
+    .tx-msg { stroke: #7f8ea3; stroke-width: 1.5; marker-end: url(#tx-arrow); }
+    .tx-reply { stroke-dasharray: 5 4; }
+    .tx-lbl { font: 12px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+              paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .tx-note { font: italic 11.5px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+               paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .tx-chip-txt { font: 700 11px ui-sans-serif, system-ui, sans-serif; fill: #0b1220; text-anchor: middle; }
+    .tx-s1 { animation: tx-s1 16s linear infinite; }
+    .tx-s2 { animation: tx-s2 16s linear infinite; }
+    .tx-s3 { animation: tx-s3 16s linear infinite; }
+    .tx-s4 { animation: tx-s4 16s linear infinite; }
+    .tx-s5 { animation: tx-s5 16s linear infinite; }
+    .tx-s6 { animation: tx-s6 16s linear infinite; }
+    .tx-s7 { animation: tx-s7 16s linear infinite; }
+    .tx-chip-a { animation: tx-chip-a 16s linear infinite; }
+    .tx-chip-b { animation: tx-chip-b 16s linear infinite; }
+    @keyframes tx-s1 { 0%, 2% { opacity: 0; } 4%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-s2 { 0%, 12% { opacity: 0; } 14%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-s3 { 0%, 22% { opacity: 0; } 24%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-s4 { 0%, 34% { opacity: 0; } 36%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-s5 { 0%, 48% { opacity: 0; } 50%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-s6 { 0%, 62% { opacity: 0; } 64%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-s7 { 0%, 72% { opacity: 0; } 74%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes tx-chip-a {
+      0%, 2% { opacity: 0; transform: translate(90px, 122px); }
+      4% { opacity: 1; transform: translate(90px, 122px); }
+      10% { transform: translate(270px, 122px); }
+      24% { transform: translate(270px, 122px); }
+      30% { opacity: 1; transform: translate(450px, 197px); }
+      34% { opacity: 1; }
+      38%, 100% { opacity: 0; transform: translate(450px, 197px); }
+    }
+    @keyframes tx-chip-b {
+      0%, 36% { opacity: 0; transform: translate(450px, 237px); }
+      40% { opacity: 1; transform: translate(450px, 237px); }
+      46% { transform: translate(270px, 237px); }
+      50% { transform: translate(270px, 237px); }
+      58% { transform: translate(630px, 277px); }
+      96% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .tx-s1, .tx-s2, .tx-s3, .tx-s4, .tx-s5, .tx-s6, .tx-s7, .tx-chip-a, .tx-chip-b { animation: none !important; }
+    }
+  </style>
+  <defs>
+    <marker id="tx-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8ea3"/>
+    </marker>
+  </defs>
+
+  <rect class="tx-actor" x="15" y="16" width="150" height="34"/>
+  <text class="tx-name" x="90" y="38">MCP Client</text>
+  <rect class="tx-actor" x="195" y="16" width="150" height="34"/>
+  <text class="tx-name" x="270" y="38">MCP Gateway</text>
+  <rect class="tx-actor" x="375" y="16" width="150" height="34"/>
+  <text class="tx-name" x="450" y="38">Enterprise AS</text>
+  <rect class="tx-actor" x="555" y="16" width="150" height="34"/>
+  <text class="tx-name" x="630" y="38">Upstream MCP Server</text>
+
+  <line class="tx-life" x1="90" y1="50" x2="90" y2="355"/>
+  <line class="tx-life" x1="270" y1="50" x2="270" y2="355"/>
+  <line class="tx-life" x1="450" y1="50" x2="450" y2="355"/>
+  <line class="tx-life" x1="630" y1="50" x2="630" y2="355"/>
+
+  <g class="tx-s1">
+    <line class="tx-msg" x1="90" y1="100" x2="264" y2="100"/>
+    <text class="tx-lbl" x="180" y="94">MCP request + token A (aud: gateway)</text>
+  </g>
+  <g class="tx-s2">
+    <text class="tx-note" x="270" y="145">validates token A, applies policy</text>
+  </g>
+  <g class="tx-s3">
+    <line class="tx-msg" x1="270" y1="175" x2="444" y2="175"/>
+    <text class="tx-lbl" x="360" y="169">RFC 8693: exchange(subject_token = A)</text>
+  </g>
+  <g class="tx-s4">
+    <line class="tx-msg tx-reply" x1="450" y1="215" x2="276" y2="215"/>
+    <text class="tx-lbl" x="360" y="209">token B (aud: upstream, scoped down)</text>
+  </g>
+  <g class="tx-s5">
+    <line class="tx-msg" x1="270" y1="255" x2="624" y2="255"/>
+    <text class="tx-lbl" x="450" y="249">MCP request + token B</text>
+  </g>
+  <g class="tx-s6">
+    <line class="tx-msg tx-reply" x1="630" y1="295" x2="276" y2="295"/>
+    <text class="tx-lbl" x="450" y="289">result</text>
+  </g>
+  <g class="tx-s7">
+    <line class="tx-msg tx-reply" x1="270" y1="330" x2="96" y2="330"/>
+    <text class="tx-lbl" x="180" y="324">result</text>
+  </g>
+
+  <g class="tx-chip-a" transform="translate(450, 197)" opacity="0">
+    <rect x="-34" y="-11" width="68" height="22" rx="6" fill="#7aa2f7"/>
+    <text class="tx-chip-txt" x="0" y="4">TOKEN A</text>
+  </g>
+  <g class="tx-chip-b" transform="translate(630, 277)">
+    <rect x="-34" y="-11" width="68" height="22" rx="6" fill="#9ece6a"/>
+    <text class="tx-chip-txt" x="0" y="4">TOKEN B</text>
+  </g>
+</svg>

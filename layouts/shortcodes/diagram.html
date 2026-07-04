@@ -1,0 +1,9 @@
+{{- $svg := .Page.Resources.Get (.Get 0) -}}
+{{- if $svg -}}
+<figure style="margin: 1.5rem 0; text-align: center;">
+  {{ $svg.Content | safeHTML }}
+  {{- with .Get 1 }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
+{{- else -}}
+{{- errorf "diagram shortcode: resource %q not found in %s" (.Get 0) .Page.File.Path -}}
+{{- end -}}
