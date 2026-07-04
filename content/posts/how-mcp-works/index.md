@@ -63,6 +63,42 @@ sequenceDiagram
 
 Two things happen here. First, **version agreement**: MCP versions are dates (`2025-06-18`, `2025-11-25`), and the two sides settle on a revision both speak. Second, **capability negotiation**: each side declares what it supports — the server might say "I have tools and resources, and my resources support subscriptions"; the client might say "I can do sampling and elicitation." Nothing outside the negotiated set is allowed in the session. This is how a 2024-era server keeps working with a 2026-era client without either one guessing.
 
+(Enjoy the handshake while it lasts: the upcoming 2026-07-28 revision removes it entirely, for reasons the transports section will make obvious.)
+
+This is what the handshake actually looks like on the wire. The client opens:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": { "elicitation": {} },
+    "clientInfo": { "name": "my-agent", "version": "1.2.0" }
+  }
+}
+```
+
+The server answers with its own hand:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "tools": { "listChanged": true },
+      "resources": { "subscribe": true }
+    },
+    "serverInfo": { "name": "jira-mcp", "version": "0.4.1" }
+  }
+}
+```
+
+That is the entire protocol aesthetic: small JSON objects, a `method`, an `id` to pair request with response. Everything below is just different methods riding the same envelope.
+
 ## What a server exposes
 
 Everything a server offers falls into three primitives, and the cleanest way to keep them straight is to ask: **who decides when it gets used?**
@@ -73,13 +109,101 @@ Everything a server offers falls into three primitives, and the cleanest way to 
 | **Resources** | The application | Data the host can attach as context: files, schemas, documents |
 | **Prompts** | The user | Templates the user explicitly invokes: slash commands, workflows |
 
-**Tools** are the famous one — the reason MCP gets called "function calling, standardized." A tool is a named function with a JSON Schema for its inputs: the client lists them (`tools/list`), hands the definitions to the model, and when the model decides to act, the client calls `tools/call` and returns the result to the model. Since 2025-06-18 tools can also declare an *output schema* and return **structured content** — typed JSON the host can validate and feed back to the model as data, not prose — plus *resource links* pointing at server data the result references.
+**Tools** are the famous one — the reason MCP gets called "function calling, standardized." A tool is a named function with a JSON Schema for its inputs. When the client asks `tools/list`, each definition comes back looking like this:
+
+```json
+{
+  "name": "search_issues",
+  "description": "Search Jira issues by free text or JQL",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string" },
+      "limit": { "type": "integer", "default": 10 }
+    },
+    "required": ["query"]
+  }
+}
+```
+
+Note what this is: a name, a human/model-readable description, and a schema. The description is not decoration — it is the *interface documentation the model reads* to decide when and how to use the tool. Writing good tool descriptions is prompt engineering. (Who actually invokes the tool is subtle enough to deserve its own section — next one down.) Since 2025-06-18 tools can also declare an *output schema* and return **structured content** — typed JSON the host can validate and feed back to the model as data, not prose — plus *resource links* pointing at server data the result references.
 
 **Resources** flip the initiative: the *application*, not the model, decides what context to pull in. Each resource has a URI (`file:///project/README.md`, `db://schema/users`); the host lists them, lets the user or its own logic pick, reads the content, and attaches it to the conversation. Resource *templates* (`db://schema/{table}`) let a server expose whole families of resources, and clients can *subscribe* to a resource and get notified when it changes.
 
 **Prompts** are user-triggered templates — a server ships a parameterized prompt ("review this PR with our team's checklist"), the host surfaces it as a slash command or menu item, the user fills the arguments. The model never invokes a prompt on its own; that is the entire distinction.
 
 All three lists are dynamic: servers emit `list_changed` notifications when their offerings change, and clients re-fetch. An MCP connection is a living session, not a static manifest.
+
+## Who actually calls the tool?
+
+"The model can call tools" is the most repeated and most misleading sentence in AI tooling, so let us be precise. **The model never executes anything.** A language model takes text in and puts text out — that is the entire physics of it. What "tool calling" really means is a division of labor between three parties:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant M as Model (LLM API)
+    participant H as Harness (host's agent loop + MCP client)
+    participant S as MCP Server
+    H->>M: prompt + tool definitions (from tools/list)
+    M-->>H: tool_use block: search_issues({"query": "login timeout"})
+    Note over M,H: this is generated TEXT — an intent, nothing has run
+    H->>H: validate against schema, check permissions, maybe ask the user
+    H->>S: tools/call search_issues
+    S->>S: actually executes (hits the real Jira API)
+    S-->>H: result
+    H->>M: conversation + tool result appended
+    M-->>H: next tool_use, or the final answer
+```
+
+Step by step, with the wire messages:
+
+**The model proposes (steps 1–2).** The harness — the host's agent loop — sends the model a prompt along with the tool definitions it gathered over MCP. When the model "decides to call a tool," what it actually does is emit a structured block of text, something like:
+
+```json
+{ "type": "tool_use", "name": "search_issues", "input": { "query": "login timeout", "limit": 5 } }
+```
+
+That is an *intent*, not an action. If nothing else happened, no tool would ever run. The model has no network access, no credentials, no ability to touch the MCP server. It wrote down a wish.
+
+**The harness disposes (steps 3–4).** The harness parses that block, validates the arguments against the tool's schema, applies whatever policy it has — allowlists, permission prompts, "are you sure?" dialogs — and only then has its MCP client send the actual protocol message:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "method": "tools/call",
+  "params": {
+    "name": "search_issues",
+    "arguments": { "query": "login timeout", "limit": 5 }
+  }
+}
+```
+
+This gap between intent and execution is where every safety property of an agent lives. It is why the host can require a human click before anything destructive, why tool allowlists work, and why a malicious model output cannot by itself exfiltrate your data — *something* still has to translate the wish into a call, and that something answers to the user, not the model.
+
+**The server executes (steps 5–6)** — real code, real API calls, real side effects — and returns a result:
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 7,
+  "result": {
+    "content": [
+      { "type": "text", "text": "Found 2 issues: PROJ-101, PROJ-204" }
+    ],
+    "structuredContent": {
+      "issues": [
+        { "key": "PROJ-101", "summary": "Login times out after 30s" },
+        { "key": "PROJ-204", "summary": "Session cookie expires early" }
+      ]
+    }
+  }
+}
+```
+
+**The loop closes (steps 7–8).** The harness appends that result to the conversation and calls the model again. The model reads it and either emits another tool_use — and the whole cycle repeats — or writes the final answer. That repeat-until-done cycle *is* the agentic loop; there is no additional magic. An "agent" is a model, a harness willing to loop, and a set of tools.
+
+So when someone says "Claude called my MCP server": the model chose, the harness called, the server did the work. Three different verbs, three different parties — and MCP is the standardized wire between the second and third.
 
 ## What a client exposes back
 
@@ -100,7 +224,9 @@ sequenceDiagram
     Note over S: server used an LLM it never held keys for
 ```
 
-**Elicitation** (added 2025-06-18) lets the server ask the *user* a structured question mid-operation — "which environment do you want to deploy to?" — with a JSON Schema describing the expected answer. The host renders the form and returns the answer. Before elicitation, servers had to either front-load every parameter into tool arguments or fail; now they can have a dialogue.
+Sampling's trajectory is worth knowing before you build on it. The 2025-11-25 revision made it more powerful — a server can now include tool definitions in a sampling request (SEP-1577), so the borrowed model can run a full agentic loop. And then the 2026-07-28 release candidate **deprecated it**, along with roots and logging: the working group's position is that a server needing an LLM should call a model API directly, and the model-loan pattern created more coupling and statefulness than it earned. Deprecated features keep working for at least twelve months, but for new designs, treat sampling as legacy.
+
+**Elicitation** (added 2025-06-18) lets the server ask the *user* a structured question mid-operation — "which environment do you want to deploy to?" — with a JSON Schema describing the expected answer. The host renders the form and returns the answer. Before elicitation, servers had to either front-load every parameter into tool arguments or fail; now they can have a dialogue. The 2025-11-25 revision added a second mode: instead of a form, the server can hand the host a URL for interactions too sensitive to pass through the client at all — the form mode is explicitly forbidden from asking for passwords, keys, or payment details. Unlike sampling, elicitation survived the stateless rework: the upcoming revision just changes the mechanics (the server returns an "input required" result and the client re-submits with the answers, rather than the server holding a connection open).
 
 **Roots** let the client tell the server which directories it should operate in — "you may work inside `/home/darek/project`, nowhere else." Advisory scoping for filesystem-flavored servers.
 
@@ -116,7 +242,7 @@ MCP separates the message layer (JSON-RPC, always) from the transport, and the t
 
 **Streamable HTTP** (2025-03-26) replaced it and is the current answer: one endpoint, plain POST per message, and the *option* — not the obligation — to upgrade any response into an SSE stream when the server wants to push progress or notifications. Sessions get an `Mcp-Session-Id` header; streams are resumable via SSE event IDs, so a dropped connection replays what was missed instead of starting over. A stateless deployment can answer every call as a plain HTTP request; a stateful one can stream. Same protocol, deployer's choice.
 
-The direction of travel since has been relentlessly toward **statelessness**: the 2026-07-28 release candidate reworks the last features that forced servers to hold open connections (server-initiated requests now happen only while processing a client request, with a multi-round-trip pattern replacing held-open streams) and adds routing headers (`Mcp-Method`, `Mcp-Name`) so gateways and load balancers can route MCP traffic without parsing JSON bodies. The protocol that started as "a subprocess on your laptop" now deploys like any other web service — and that evolution, more than any single feature, is what made enterprise MCP real.
+The direction of travel since has been relentlessly toward **statelessness**, and the [2026-07-28 release candidate](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/) finishes the job with intentional breaking changes: the `initialize` handshake is gone (version, client info, and capabilities now travel in `_meta` on every request, and a new `server/discover` call replaces negotiation), the `Mcp-Session-Id` and protocol-level sessions are gone ("any MCP request can land on any server instance"), server-initiated requests may happen only while processing a client request, and new required routing headers (`Mcp-Method`, `Mcp-Name`) let gateways and load balancers route MCP traffic without parsing JSON bodies. The protocol that started as "a subprocess on your laptop" now deploys like any other web service — and that evolution, more than any single feature, is what made enterprise MCP real.
 
 ## How it evolved: five revisions in twenty months
 
@@ -126,23 +252,27 @@ timeline
     2024-11-05 : Launch by Anthropic : JSON-RPC, stdio + HTTP/SSE : tools, resources, prompts, sampling, roots
     2025-03-26 : Streamable HTTP : OAuth auth, first cut : tool annotations, audio content
     2025-06-18 : Auth overhaul (resource server) : elicitation : structured tool output : security best practices
-    2025-11-25 : CIMD, discovery fallbacks : long-running tasks : extensions emerge
-    2026-07-28 : Release candidate : stateless-friendly core : extensions first-class : authorization hardening
+    2025-11-25 : CIMD, discovery fallbacks : experimental tasks : icons, sampling with tools
+    2026-07-28 : Release candidate : stateless core, no handshake : extensions first-class : authorization hardening
 ```
 
 The compressed history, with the load-bearing moments:
 
 **November 2024 — the launch.** Anthropic open-sourced MCP with the core model that still stands: JSON-RPC, the host/client/server split, tools/resources/prompts on the server side, sampling and roots on the client side. The pitch was explicitly the M×N problem.
 
-**Early 2025 — the ecosystem tipped.** The moment MCP stopped being an Anthropic protocol was OpenAI adopting it (March 2025), followed by Google DeepMind. When the three largest model vendors speak the same integration protocol, the integration debate is over; everything after is refinement.
+**Early 2025 — the ecosystem tipped.** The moment MCP stopped being an Anthropic protocol was [OpenAI adopting it](https://techcrunch.com/2025/03/26/openai-adopts-rival-anthropics-standard-for-connecting-ai-models-to-data/) (March 26, 2025), followed within two weeks by Google DeepMind (April 9, 2025), with Microsoft wiring it through its stack in the months after. When the largest model vendors speak the same integration protocol, the integration debate is over; everything after is refinement.
 
-**March 2025 (2025-03-26)** brought Streamable HTTP and the first OAuth-based authorization — remote servers became first-class rather than an afterthought.
+**March 2025 (2025-03-26)** brought Streamable HTTP, the first OAuth-based authorization, tool annotations, and JSON-RPC batching — remote servers became first-class rather than an afterthought.
 
-**June 2025 (2025-06-18)** was the maturity release: the authorization model was rebuilt around the server as an OAuth resource server (the architecture that survives today — the [auth post](/posts/mcp-auth-explained/) covers it in depth), elicitation gave servers a way to talk to users, tools got structured output, and the spec gained a dedicated security best practices document.
+**June 2025 (2025-06-18)** was the maturity release: the authorization model was rebuilt around the server as an OAuth resource server (the architecture that survives today — the [auth post](/posts/mcp-auth-explained/) covers it in depth), elicitation gave servers a way to talk to users, tools got structured output, and the spec gained a dedicated security best practices document. It also *removed* JSON-RPC batching, added three months earlier — the spec was young enough to reverse itself, and did.
 
-**November 2025 (2025-11-25)** — the current stable revision — pushed on two fronts: registration and discovery for the open ecosystem (client ID metadata documents, `.well-known` fallbacks), and support for long-running operations. Alongside the spec, the ecosystem grew its own infrastructure: an official MCP registry for discovering servers, and *extensions* — versioned capability add-ons that evolve independently of the core spec.
+**September 2025** the official [MCP Registry](https://blog.modelcontextprotocol.io/posts/2025-09-08-mcp-registry-preview/) launched in preview — a public catalog for discovering servers, holding around two thousand entries within its first months (still in preview as of this writing).
 
-**July 2026 (2026-07-28, release candidate)** is the "boring on purpose" release: statelessness, gateway-friendliness, observability, and authorization hardening. Less "new powers," more "deploys like normal software" — which is what a protocol at this adoption level should be optimizing for.
+**November 2025 (2025-11-25)** — the current stable revision — pushed on several fronts: registration and discovery for the open ecosystem (client ID metadata documents, `.well-known` fallbacks), experimental *tasks* for long-running operations (call now, fetch the result later), sampling with tools, URL-mode elicitation, and icons. Extensions emerged as the pattern for evolving capabilities outside the core spec.
+
+**December 2025 — the protocol outgrew its parent.** Anthropic [donated MCP](https://blog.modelcontextprotocol.io/posts/2025-12-09-mcp-joins-agentic-ai-foundation/) to the Agentic AI Foundation, a directed fund under the Linux Foundation co-founded by Anthropic, Block, and OpenAI, with support from Google, Microsoft, AWS, and Cloudflare. The maintainers stayed; the ownership question — "is this really neutral?" — got its permanent answer.
+
+**July 2026 (2026-07-28, release candidate)** is the "boring on purpose" release: statelessness (no handshake, no sessions), required routing headers for gateways, W3C trace context for observability, authorization hardening, extensions as first-class citizens with their own repos and versioning (MCP Apps — interactive server-rendered UIs — and Enterprise-Managed Authorization lead the pack), plus governance machinery: a conformance suite and an SDK tier system. It also deprecates roots, sampling, and logging. Less "new powers," more "deploys like normal software" — which is what a protocol at this adoption level should be optimizing for.
 
 ## What about auth?
 
@@ -153,7 +283,7 @@ Deliberately one paragraph here, because it deserves — and has — its own pos
 Twenty months in, the shape of MCP is easy to state:
 
 1. **The protocol is a contract about attention.** Tools, resources, and prompts are each answers to "who decides what the model looks at next" — the model, the app, or the user. Get that framing and the primitive list stops being arbitrary.
-2. **The client-side primitives are the underrated half.** Sampling and elicitation turn servers from passive tool racks into participants that can think (with your model) and ask (with your user's consent). Most of the interesting agent architectures being built on MCP lean on exactly this.
+2. **The client-side primitives are the underrated half — and the contested one.** Sampling and elicitation turned servers from passive tool racks into participants that can think (with your model) and ask (with your user's consent). The spec is still arguing about how much of that belongs in the protocol: elicitation survived the stateless rework, sampling and roots are deprecated in the upcoming revision. Watch this space rather than building on it blindly.
 3. **The evolution has one direction: from laptop to infrastructure.** Subprocess → streamable HTTP → stateless core → gateways, registries, extensions, enterprise auth. Each revision traded a little simplicity for deployability, and the protocol crossed the "enterprise-real" line somewhere around mid-2025.
 
 If you are building something on MCP this year: target the 2025-11-25 revision, design servers stateless from day one, use structured tool output, and read the auth post before you expose anything over HTTP — that is where the sharp edges live.
