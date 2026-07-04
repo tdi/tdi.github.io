@@ -12,7 +12,16 @@ Auth is the part of MCP everyone gets wrong first. I know because I build MCP ga
 
 This post is a field guide. Part one covers how each auth method works when a client talks to an MCP server directly. Part two covers what changes when a proxy — an MCP gateway — sits in the middle, which is where most enterprise deployments end up and where most of the interesting failure modes live. Every method gets a sequence diagram showing who talks to whom and which token moves where.
 
-Here is the canonical flow we will build up to, animated:
+Here is the canonical flow we will build up to, animated. Do not try to decode it yet — it is the destination, and every label on it gets explained below. It helps to meet the players first:
+
+| Actor | What it does |
+|---|---|
+| **MCP client** | The agent side — Claude, an IDE, any app calling MCP servers on your behalf |
+| **MCP server** | Exposes tools and data; in OAuth terms a *resource server* — it consumes tokens, never creates them |
+| **Authorization server (AS)** | Mints (issues) tokens; may be your identity provider or something the server vendor runs |
+| **Gateway** | Optional proxy between clients and servers — the whole of Part 2 |
+
+And a key for reading every diagram in this post: a solid arrow is a request, a dashed arrow is the response, and the moving chip is the token — watch which server it travels to.
 
 {{< diagram "anim-oauth-pkce.svg" "OAuth 2.1 authorization code flow with PKCE — the token is minted by the authorization server and only ever presented to the MCP server it was issued for." >}}
 
@@ -26,7 +35,9 @@ Three things make MCP auth harder than ordinary API auth.
 
 **The spec moved fast.** Authorization landed in the 2025-03-26 revision, was overhauled in 2025-06-18 (the MCP server became a pure resource server), and extended again in [2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization) (client ID metadata documents, discovery fallbacks, step-up authorization). A fourth revision is already locked as a release candidate for 2026-07-28, with a batch of authorization-hardening changes. Plenty of servers in the wild implement three different vintages of the spec. Knowing which vintage you are talking to is half the debugging.
 
-One vocabulary note before the flows. Since 2025-06-18 the MCP server is an **OAuth 2.1 resource server**: it consumes tokens, it does not mint them. Minting is the job of an **authorization server** (AS), which may be your IdP, a hosted service, or something the MCP server vendor runs. The client finds out which AS to talk to through discovery, not configuration. That separation is the single most load-bearing fact in this post.
+One vocabulary note before the flows. Since 2025-06-18 the MCP server is an **OAuth 2.1 resource server**: it consumes tokens, it does not mint them. Minting is the job of an **authorization server** (AS), which may be your **IdP** (identity provider — the system that holds your organization's logins and decides who you are: Okta, Entra ID, Google Workspace), a hosted service, or something the MCP server vendor runs. The client finds out which AS to talk to through discovery, not configuration. That separation is the single most load-bearing fact in this post.
+
+And one note about the tokens themselves, because every diagram shows them. An access token here is usually a JWT — a small signed JSON blob carrying **claims**. Three claims do all the work in this post: `sub` (subject — who the token acts for), `aud` (audience — which server is allowed to accept it), and `act` (actor — who forwarded it on someone's behalf). A **scope** is a named permission inside the token, like `read:issues`. And "audience binding" just means a token stamped `aud: mcp.github.com` is valid at that server and must be rejected everywhere else. Hold onto that one; it is the spine of everything below.
 
 ## Part 1: Direct auth — client to MCP server
 
@@ -57,12 +68,12 @@ sequenceDiagram
     S-->>C: 200 result
 ```
 
-Walking through it:
+Walking through it (the numbers refer to the diagram's steps):
 
-1. The client calls the server cold and gets a **401 with a `WWW-Authenticate` header** pointing at the server's protected resource metadata (RFC 9728). This is how a client learns, with zero configuration, who can mint tokens for this server. Since 2025-11-25 the header is optional — clients must fall back to constructing the `.well-known` URL themselves when it is missing.
-2. The PRM document lists one or more authorization servers. The client picks one and pulls its metadata (RFC 8414, or OIDC Discovery — the AS must offer at least one, clients must support both) to find the authorize and token endpoints.
-3. Standard OAuth 2.1 authorization code flow: browser pops, user logs in and approves, client gets a code, swaps it for a token. **PKCE is mandatory** — OAuth 2.1 bakes it in, and MCP clients are public clients that cannot keep a secret.
-4. The client sends `resource=<MCP server URL>` (RFC 8707 resource indicators) in both the authorize and token requests, so the AS mints a token **audience-bound to that specific server**.
+1. **Steps 1–2, the cold call.** The client calls the server with no token and gets a **401 with a `WWW-Authenticate` header** pointing at the server's protected resource metadata (PRM, RFC 9728). This is how a client learns, with zero configuration, who can mint tokens for this server. Since 2025-11-25 the header is optional — clients must fall back to constructing the `.well-known` URL themselves when it is missing.
+2. **Steps 3–6, discovery.** The PRM document lists one or more authorization servers. The client picks one and pulls its metadata (RFC 8414, or OpenID Connect Discovery — the AS must offer at least one, clients must support both) to find the authorize and token endpoints.
+3. **Steps 7–10, the OAuth dance.** Browser pops, user logs in and approves, client gets a code, swaps it for a token. **PKCE is mandatory** — OAuth 2.1 bakes it in, and MCP clients are public clients that cannot keep a secret. PKCE (Proof Key for Code Exchange) is what protects a client that has no secret: the client invents a random value, sends only its hash with the authorize request, and reveals the original only when swapping the code for the token. An attacker who intercepts the authorization code mid-flight cannot redeem it — they do not have the original value.
+4. **Steps 7 and 9, the detail that matters.** The client sends `resource=<MCP server URL>` (RFC 8707 resource indicators) in both the authorize and token requests, so the AS mints a token **audience-bound to that specific server**.
 
 That last point is the one people skip and regret. The MCP server must validate that the token's audience is itself and reject anything else. A token for `mcp.github.com` presented to `mcp.linear.app` has to bounce, even if the same AS signed both. Audience binding is what makes everything in part two either safe or catastrophic.
 
@@ -70,7 +81,7 @@ That last point is the one people skip and regret. The MCP server must validate 
 
 ### Getting a client_id: DCR vs CIMD
 
-The flow above quietly assumed the client already has a `client_id` at the AS. In the N×M world it usually does not. Two mechanisms fix that.
+The flow above quietly assumed the client already has a `client_id` at the AS. In the N×M world it usually does not. Two mechanisms fix that — the diagram shows both, but a client walks one path or the other, never both in sequence.
 
 ```mermaid
 sequenceDiagram
@@ -91,13 +102,13 @@ sequenceDiagram
 
 **Dynamic Client Registration** (RFC 7591) was the original answer: before the first authorize call, the client POSTs its own metadata to the AS and receives a `client_id`. It works, but every AS accumulates an unbounded pile of anonymous registrations, one per client install. Nobody can tell "Claude Desktop" from "claude-desktop-totally-legit". AS operators hate it. The spec agrees: DCR was demoted from SHOULD to MAY in 2025-11-25, and the 2026-07-28 release candidate [deprecates it outright](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/), keeping it only for backwards compatibility.
 
-**[Client ID Metadata Documents](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/)** (CIMD) are the replacement, a SHOULD since 2025-11-25 (SEP-991): the `client_id` *is* an HTTPS URL, controlled by the client's vendor, pointing at a JSON document describing the client (name, redirect URIs, logo). The AS fetches it on first sight. No registration call, no database of ghosts, and the client's identity is anchored to a domain someone owns. Claude's client ID can literally be a URL on an Anthropic domain — spoofing it means controlling that domain.
+**[Client ID Metadata Documents](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/)** (CIMD) are the replacement, a SHOULD since 2025-11-25 (SEP-991 — SEPs are spec enhancement proposals, MCP's RFC process): the `client_id` *is* an HTTPS URL, controlled by the client's vendor, pointing at a JSON document describing the client (name, redirect URIs, logo). The AS fetches it on first sight. No registration call, no database of ghosts, and the client's identity is anchored to a domain someone owns. Claude's client ID can literally be a URL on an Anthropic domain — spoofing it means controlling that domain.
 
 **Gotchas:** CIMD shifts trust to DNS and TLS — fine, that is the same trust the web runs on — but the AS must fetch and cache sanely, and redirect URI validation against the fetched document is where implementations get sloppy. The spec gives clients a precise pecking order: use pre-registered credentials if you have them, CIMD if the AS advertises `client_id_metadata_document_supported`, DCR if there is a `registration_endpoint`, and only then bother the user for a client ID. CIMD itself is still an IETF draft (draft-01, March 2026) — expect minor churn.
 
 ### Machine-to-machine: client credentials
 
-Not every MCP call has a human behind it. CI pipelines, scheduled agents, service-to-service automation — the agent *is* the principal. OAuth has had the answer since forever: the **client credentials grant**. Worth being honest about the spec status here, because it surprises people: the MCP authorization spec is written entirely around user-delegated flows and does not define a machine-to-machine grant at all. Client credentials is an OAuth 2.1 capability you layer on — nothing forbids it, everybody deploying headless agents does it, but you are in "plain OAuth" territory, not "MCP spec" territory.
+Not every MCP call has a human behind it. CI pipelines, scheduled agents, service-to-service automation — the agent *is* the principal (the identity performing the action). OAuth has had the answer since forever: the **client credentials grant**. Worth being honest about the spec status here, because it surprises people: the MCP authorization spec is written entirely around user-delegated flows and does not define a machine-to-machine grant at all. Client credentials is an OAuth 2.1 capability you layer on — nothing forbids it, everybody deploying headless agents does it, but you are in "plain OAuth" territory, not "MCP spec" territory.
 
 ```mermaid
 sequenceDiagram
@@ -118,7 +129,7 @@ The important shift is in authorization semantics: there is no user's permission
 
 ### Reality check: static API keys
 
-The spec-pure story above is not what half the ecosystem ships. A huge fraction of MCP servers — especially stdio servers running locally — take a static API key from an environment variable, or accept a hardcoded bearer token over HTTP.
+The spec-pure story above is not what half the ecosystem ships. A huge fraction of MCP servers — especially **stdio servers**, the ones that run as a local process on your own machine and talk over standard input/output instead of the network — take a static API key from an environment variable, or accept a hardcoded bearer token over HTTP ("bearer" is literal: whoever holds it can use it, no further proof required).
 
 ```mermaid
 sequenceDiagram
@@ -134,7 +145,7 @@ For a **remote HTTP server**, a static key is a downgrade with real costs: no ex
 
 ## Part 2: Auth through an MCP gateway
 
-Enterprises do not let hundreds of laptops negotiate OAuth with dozens of third-party MCP servers independently. They put a **gateway** in the middle: one place to enforce policy, audit calls, allowlist servers and tools, and keep upstream credentials off endpoints. Architecturally the gateway is both an **MCP server** (facing clients) and an **MCP client** (facing upstreams) — and that dual role is precisely what makes its token handling interesting.
+Enterprises do not let hundreds of laptops negotiate OAuth with dozens of third-party MCP servers independently. They put a **gateway** in the middle — an ordinary service you deploy in the network path between clients and upstream MCP servers: one place to enforce policy, audit calls, allowlist servers and tools, and keep upstream credentials off endpoints. Architecturally the gateway is both an **MCP server** (facing clients) and an **MCP client** (facing upstreams) — and that dual role is precisely what makes its token handling interesting.
 
 There is one wrong way and several right ways.
 
@@ -157,7 +168,7 @@ sequenceDiagram
 The MCP [security best practices](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices) document names this anti-pattern and forbids it outright: "token passthrough is explicitly forbidden in the authorization specification." An MCP server must validate that tokens presented to it were issued specifically for it, full stop. The reasons are classic:
 
 - **Audience collapse.** The whole point of `aud` is that a token stolen from (or issued for) context A is useless in context B. Passthrough deletes that property for every server behind the proxy.
-- **Confused deputy.** The upstream makes authorization decisions based on a token minted under assumptions the proxy has silently changed. The best practices doc documents a concrete MCP variant: a proxy holding a *static client ID* at a third-party AS, fronting *dynamically registered* clients — after one legitimate consent, the AS's consent cookie lets a malicious client slide through without the user ever approving it. Hence the rule that such proxies must obtain consent per dynamically registered client.
+- **Confused deputy.** The upstream makes authorization decisions based on a token minted under assumptions the proxy has silently changed. The best practices doc documents a concrete MCP variant, and it is worth slowing down for. A proxy registers once at a third-party AS and reuses that single client ID for every client behind it. A user consents once, and the AS drops a "this user already approved" cookie. From then on, a malicious client hiding behind the same proxy inherits that approval — no consent screen, no user in the loop. Hence the rule: such proxies must obtain fresh consent for each dynamically registered client.
 - **Audit destruction.** Upstream logs show the original token's subject, but the request path, policy decisions, and any rewriting the proxy did are invisible. Nobody can reconstruct who actually caused an action.
 
 If you take one rule from this post: **a token crosses exactly one trust boundary — the one it was minted for.** Every hop after that needs a new token. Which brings us to how gateways do it properly.
@@ -172,11 +183,11 @@ The correct gateway pattern. The gateway **terminates** the client's token — v
 sequenceDiagram
     autonumber
     participant C as MCP Client
-    participant G as Gateway (RS to client, client to upstream)
+    participant G as Gateway (resource server to client, OAuth client to upstream)
     participant AS as Enterprise AS
     participant S as Upstream MCP Server
     C->>G: MCP request + token A (aud: gateway)
-    G->>G: validate token A, apply policy (tool allowlists, DLP, rate limits)
+    G->>G: validate token A, apply policy (tool allowlists, rate limits, data filters)
     G->>AS: /token grant_type=token-exchange, subject_token=A, resource=S
     AS-->>G: token B (aud: S, sub: user, act: gateway)
     G->>S: MCP request + token B
@@ -214,7 +225,7 @@ The practical limit is trust topology: every hop's AS must know about every exch
 
 ### ID-JAG: cross-app access
 
-The newest piece, and the one aimed squarely at the enterprise MCP problem: **[Identity Assertion Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/)** (ID-JAG — an IETF OAuth working group draft, branded by Okta as [Cross App Access](https://oauth.net/cross-app-access/), XAA). Technically it profiles "identity chaining across trust domains": RFC 8693 token exchange glued to the RFC 7523 JWT grant. The pitch: the user already SSO'd into the enterprise IdP once. Instead of every MCP server running its own consent-screen OAuth dance with every client — N×M browser popups, each an approval decision made by a possibly consent-fatigued user — the IdP becomes the single policy point that hands out cross-app access.
+The newest piece, and the one aimed squarely at the enterprise MCP problem: the **[Identity Assertion Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/)** (ID-JAG). The idea before the plumbing: the user already logged into the enterprise IdP this morning, via SSO. So instead of every MCP server running its own consent-screen OAuth dance with every client — N×M browser popups, each an approval decision made by a possibly consent-fatigued user — the IdP vouches for the user to each server directly and becomes the single policy point. (Names and plumbing, for the curious: it is an IETF OAuth working group draft; Okta ships the same pattern branded as [Cross App Access](https://oauth.net/cross-app-access/), XAA; and technically it profiles "identity chaining across trust domains" — RFC 8693 token exchange feeding the RFC 7523 JWT grant. You will see both halves in the diagram.)
 
 This stopped being theoretical in June 2026: MCP shipped **[Enterprise-Managed Authorization](https://blog.modelcontextprotocol.io/posts/enterprise-managed-auth/)** (EMA) as a [stable extension](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization), an MCP-specific profile of exactly this flow. The pitch is "zero-touch": a user logs in once with their corporate identity and every MCP server the admin authorized connects automatically, scoped to the user's groups and roles — no per-app OAuth, nothing to configure. The launch lineup is telling: Okta as the first IdP (this is their XAA in MCP clothing), Anthropic implementing it across Claude, Claude Code, and Cowork, VS Code shipping it in the IDE, and Asana, Atlassian, Canva, Figma, Granola, Linear, and Supabase live on the server side. (Notably EMA ships as a versioned *extension*, the new way MCP evolves auth without cutting a whole spec revision.)
 
@@ -236,7 +247,7 @@ sequenceDiagram
     S-->>A: 200 result
 ```
 
-Two exchanges, two trust relationships: the agent trades its **ID token** to the IdP for an **ID-JAG assertion** (this is where enterprise policy runs — which users, which agents, which servers), then trades the assertion to the MCP server's AS for an **access token**. The server-side AS trusts the enterprise IdP's signature the way SAML federations always have; the flow is the OAuth-native descendant of that idea.
+Two exchanges, two trust relationships: the agent trades its **ID token** (proof of who the user is, nothing more) to the IdP for an **ID-JAG assertion** (this is where enterprise policy runs — which users, which agents, which servers), then trades the assertion to the MCP server's AS for an **access token** (the thing that actually lets it call the server). The server-side AS trusts the enterprise IdP's signature the way SAML federations always have; the flow is the OAuth-native descendant of that idea.
 
 What this buys an enterprise is exactly what consent screens cannot: **centralized, revocable, auditable** decisions about which agents reach which MCP servers, made by an admin, not by whichever user clicked "Allow" fastest. Turn off a user in the IdP, and their agent access dies everywhere at once. It also quietly fixes a mess the interactive flow can't: with no account-picker in the loop, a user cannot accidentally wire their *personal* Atlassian account into a *work* agent — the corporate identity is the only identity in the flow.
 
