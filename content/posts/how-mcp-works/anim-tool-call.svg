@@ -1,0 +1,129 @@
+<svg viewBox="0 0 720 430" width="100%" style="max-width:720px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="oc-title">
+  <title id="oc-title">Animated tool call: the model emits a textual intent, opencode validates it and makes the real MCP call, the server executes, and the result rides back to the model</title>
+  <style>
+    .oc-actor { fill: var(--code-bg, #f2f2f2); stroke: var(--border, #ccc); rx: 6; }
+    .oc-name { font: 600 13.5px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle; }
+    .oc-sub { font: italic 10.5px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle; opacity: 0.75; }
+    .oc-life { stroke: var(--border, #ccc); stroke-dasharray: 4 4; }
+    .oc-msg { stroke: #7f8ea3; stroke-width: 1.5; marker-end: url(#oc-arrow); }
+    .oc-reply { stroke-dasharray: 5 4; }
+    .oc-lbl { font: 12px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+              paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .oc-note { font: italic 11.5px ui-sans-serif, system-ui, sans-serif; fill: var(--content, #333); text-anchor: middle;
+               paint-order: stroke; stroke: var(--theme, #fff); stroke-width: 4px; stroke-linejoin: round; }
+    .oc-chip-txt { font: 700 10.5px ui-sans-serif, system-ui, sans-serif; fill: #0b1220; text-anchor: middle; }
+    .oc-chip-txt-light { font: 700 10.5px ui-sans-serif, system-ui, sans-serif; fill: #7c5a00; text-anchor: middle; }
+    .oc-s1 { animation: oc-s1 16s linear infinite; }
+    .oc-s2 { animation: oc-s2 16s linear infinite; }
+    .oc-s3 { animation: oc-s3 16s linear infinite; }
+    .oc-s4 { animation: oc-s4 16s linear infinite; }
+    .oc-s5 { animation: oc-s5 16s linear infinite; }
+    .oc-s6 { animation: oc-s6 16s linear infinite; }
+    .oc-s7 { animation: oc-s7 16s linear infinite; }
+    .oc-s8 { animation: oc-s8 16s linear infinite; }
+    .oc-chip-intent { animation: oc-chip-intent 16s linear infinite; }
+    .oc-chip-call { animation: oc-chip-call 16s linear infinite; }
+    .oc-chip-result { animation: oc-chip-result 16s linear infinite; }
+    @keyframes oc-s1 { 0%, 2% { opacity: 0; } 4%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s2 { 0%, 10% { opacity: 0; } 12%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s3 { 0%, 22% { opacity: 0; } 24%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s4 { 0%, 32% { opacity: 0; } 34%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s5 { 0%, 42% { opacity: 0; } 44%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s6 { 0%, 50% { opacity: 0; } 52%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s7 { 0%, 62% { opacity: 0; } 64%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-s8 { 0%, 74% { opacity: 0; } 76%, 96% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes oc-chip-intent {
+      0%, 12% { opacity: 0; transform: translate(120px, 152px); }
+      14% { opacity: 1; transform: translate(120px, 152px); }
+      20% { transform: translate(360px, 152px); }
+      30% { opacity: 1; }
+      34%, 100% { opacity: 0; transform: translate(360px, 152px); }
+    }
+    @keyframes oc-chip-call {
+      0%, 32% { opacity: 0; transform: translate(360px, 232px); }
+      36% { opacity: 1; transform: translate(360px, 232px); }
+      42% { transform: translate(600px, 232px); }
+      48% { opacity: 1; }
+      52%, 100% { opacity: 0; transform: translate(600px, 232px); }
+    }
+    @keyframes oc-chip-result {
+      0%, 52% { opacity: 0; transform: translate(600px, 302px); }
+      54% { opacity: 1; transform: translate(600px, 302px); }
+      60% { transform: translate(360px, 302px); }
+      64% { transform: translate(360px, 302px); }
+      66% { transform: translate(360px, 342px); }
+      72% { transform: translate(120px, 342px); }
+      96% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .oc-s1, .oc-s2, .oc-s3, .oc-s4, .oc-s5, .oc-s6, .oc-s7, .oc-s8,
+      .oc-chip-intent, .oc-chip-call, .oc-chip-result { animation: none !important; }
+    }
+  </style>
+  <defs>
+    <marker id="oc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7f8ea3"/>
+    </marker>
+  </defs>
+
+  <rect class="oc-actor" x="30" y="14" width="180" height="42"/>
+  <text class="oc-name" x="120" y="31">Model (LLM API)</text>
+  <text class="oc-sub" x="120" y="47">Claude, GPT, local — any</text>
+  <rect class="oc-actor" x="270" y="14" width="180" height="42"/>
+  <text class="oc-name" x="360" y="31">opencode</text>
+  <text class="oc-sub" x="360" y="47">harness: agent loop + MCP client</text>
+  <rect class="oc-actor" x="510" y="14" width="180" height="42"/>
+  <text class="oc-name" x="600" y="31">jira-mcp</text>
+  <text class="oc-sub" x="600" y="47">MCP server</text>
+
+  <line class="oc-life" x1="120" y1="56" x2="120" y2="415"/>
+  <line class="oc-life" x1="360" y1="56" x2="360" y2="415"/>
+  <line class="oc-life" x1="600" y1="56" x2="600" y2="415"/>
+
+  <g class="oc-s1">
+    <line class="oc-msg" x1="360" y1="95" x2="126" y2="95"/>
+    <text class="oc-lbl" x="240" y="89">prompt + tool definitions</text>
+  </g>
+  <g class="oc-s2">
+    <line class="oc-msg oc-reply" x1="120" y1="130" x2="354" y2="130"/>
+    <text class="oc-lbl" x="240" y="112">tool_use:</text>
+    <text class="oc-lbl" x="240" y="126">search_issues("login timeout")</text>
+  </g>
+  <g class="oc-s3">
+    <text class="oc-note" x="360" y="184">just text so far — validate schema,</text>
+    <text class="oc-note" x="360" y="198">ask user to approve, then translate</text>
+  </g>
+  <g class="oc-s4">
+    <line class="oc-msg" x1="360" y1="222" x2="594" y2="222"/>
+    <text class="oc-lbl" x="480" y="216">tools/call search_issues</text>
+  </g>
+  <g class="oc-s5">
+    <text class="oc-note" x="600" y="262">executes for real — hits the Jira API</text>
+  </g>
+  <g class="oc-s6">
+    <line class="oc-msg oc-reply" x1="600" y1="292" x2="366" y2="292"/>
+    <text class="oc-lbl" x="480" y="286">result: PROJ-101, PROJ-204</text>
+  </g>
+  <g class="oc-s7">
+    <line class="oc-msg" x1="360" y1="332" x2="126" y2="332"/>
+    <text class="oc-lbl" x="240" y="326">conversation + tool result</text>
+  </g>
+  <g class="oc-s8">
+    <line class="oc-msg oc-reply" x1="120" y1="372" x2="354" y2="372"/>
+    <text class="oc-lbl" x="240" y="366">final answer (or the next tool_use)</text>
+  </g>
+
+  <g class="oc-chip-intent" transform="translate(360, 152)" opacity="0">
+    <rect x="-36" y="-11" width="72" height="22" rx="6" fill="#f5d76a" stroke="#c9a227" stroke-dasharray="3 2"/>
+    <text class="oc-chip-txt-light" x="0" y="4">INTENT</text>
+  </g>
+  <g class="oc-chip-call" transform="translate(600, 232)" opacity="0">
+    <rect x="-30" y="-11" width="60" height="22" rx="6" fill="#7aa2f7"/>
+    <text class="oc-chip-txt" x="0" y="4">CALL</text>
+  </g>
+  <g class="oc-chip-result" transform="translate(120, 342)">
+    <rect x="-34" y="-11" width="68" height="22" rx="6" fill="#9ece6a"/>
+    <text class="oc-chip-txt" x="0" y="4">RESULT</text>
+  </g>
+</svg>

@@ -136,7 +136,11 @@ All three lists are dynamic: servers emit `list_changed` notifications when thei
 
 ## Who actually calls the tool?
 
-"The model can call tools" is the most repeated and most misleading sentence in AI tooling, so let us be precise. **The model never executes anything.** A language model takes text in and puts text out — that is the entire physics of it. What "tool calling" really means is a division of labor between three parties:
+"The model can call tools" is the most repeated and most misleading sentence in AI tooling, so let us be precise. **The model never executes anything.** A language model takes text in and puts text out — that is the entire physics of it. What "tool calling" really means is a division of labor between three parties. Here it is with a concrete cast — [opencode](https://opencode.ai) as the harness, any model behind it, a Jira MCP server doing the work:
+
+{{< diagram "anim-tool-call.svg" "The model emits INTENT — which is text, nothing more. opencode validates it, gets the user's approval, and turns it into the real CALL. The server executes, and the RESULT rides back through opencode into the model's next prompt. The dashed amber chip never touches the server; only the harness's blue one does." >}}
+
+The same loop, as a sequence diagram:
 
 ```mermaid
 sequenceDiagram
