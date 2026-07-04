@@ -279,3 +279,9 @@ What this buys an enterprise is exactly what consent screens cannot: **centraliz
 Where it goes next: the 2026-07-28 release candidate tightens the screws rather than adding methods — clients must validate the `iss` parameter on authorization responses (RFC 9207, mix-up attack mitigation), declare an `application_type` so ASes stop rejecting localhost redirects from desktop clients, and bind registered credentials to the issuing AS; DCR formally becomes legacy. The direction of travel is unmistakable: fewer bespoke MCP inventions, more "deploy OAuth the way the rest of the industry already does."
 
 If you are building a client: implement discovery properly, CIMD first, DCR fallback, and never cache a token across resources. If you are building a server: be a resource server, validate audience, publish honest PRM. If you are deploying a fleet of either: put a gateway in the middle and make it exchange tokens, not forward them. The protocol finally has the pieces; the failure modes are all in skipping one.
+
+---
+
+*Building on MCP? At [Bitropy](https://bitropy.io) we build the enterprise layer for AI agents — making MCP servers and LLM workloads safe, observable, and cost-efficient at scale. I also consult independently on agentic coding adoption and AI transformation — see [dwornikowski.com](https://dwornikowski.com).*
+
+*A note on style: English isn't my first language. This post was researched and drafted together with an AI assistant, then fact-checked against the primary sources linked throughout and reviewed by independent AI reviewers before I gave it the final pass. The structure, opinions, and field experience are mine.*

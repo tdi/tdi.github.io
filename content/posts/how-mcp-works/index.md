@@ -291,3 +291,9 @@ Twenty months in, the shape of MCP is easy to state:
 3. **The evolution has one direction: from laptop to infrastructure.** Subprocess → streamable HTTP → stateless core → gateways, registries, extensions, enterprise auth. Each revision traded a little simplicity for deployability, and the protocol crossed the "enterprise-real" line somewhere around mid-2025.
 
 If you are building something on MCP this year: target the 2025-11-25 revision, design servers stateless from day one, use structured tool output, and read the auth post before you expose anything over HTTP — that is where the sharp edges live.
+
+---
+
+*Building on MCP? At [Bitropy](https://bitropy.io) we build the enterprise layer for AI agents — making MCP servers and LLM workloads safe, observable, and cost-efficient at scale. I also consult independently on agentic coding adoption and AI transformation — see [dwornikowski.com](https://dwornikowski.com).*
+
+*A note on style: English isn't my first language. This post was researched and drafted together with an AI assistant, then fact-checked against the primary sources linked throughout before I gave it the final pass. The structure, opinions, and field experience are mine.*
