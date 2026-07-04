@@ -23,7 +23,7 @@ Here is the canonical flow we will build up to, animated. Do not try to decode i
 
 And a key for reading every diagram in this post: a solid arrow is a request, a dashed arrow is the response, and the moving chip is the token — watch which server it travels to.
 
-{{< diagram "anim-oauth-pkce.svg" "OAuth 2.1 authorization code flow with PKCE — the token is minted by the authorization server and only ever presented to the MCP server it was issued for." >}}
+{{< diagram "anim-oauth-pkce.svg" "OAuth 2.1 authorization code flow with PKCE — the token is minted by the authorization server and only ever presented to the MCP server it was issued for. Discovery is abbreviated here; the sequence diagram in Part 1 shows all 12 steps." >}}
 
 ## Why MCP auth is weird
 
@@ -100,7 +100,7 @@ sequenceDiagram
     end
 ```
 
-**Dynamic Client Registration** (RFC 7591) was the original answer: before the first authorize call, the client POSTs its own metadata to the AS and receives a `client_id`. It works, but every AS accumulates an unbounded pile of anonymous registrations, one per client install. Nobody can tell "Claude Desktop" from "claude-desktop-totally-legit". AS operators hate it. The spec agrees: DCR was demoted from SHOULD to MAY in 2025-11-25, and the 2026-07-28 release candidate [deprecates it outright](https://blog.modelcontextprotocol.io/posts/2026-07-28-release-candidate/), keeping it only for backwards compatibility.
+**Dynamic Client Registration** (RFC 7591) was the original answer: before the first authorize call, the client POSTs its own metadata to the AS and receives a `client_id`. It works, but every AS accumulates an unbounded pile of anonymous registrations, one per client install. Nobody can tell "Claude Desktop" from "claude-desktop-totally-legit". AS operators hate it. The spec agrees: DCR was demoted from SHOULD to MAY in 2025-11-25, and the 2026-07-28 release candidate [deprecates it outright](https://modelcontextprotocol.io/specification/draft/changelog), keeping it only for backwards compatibility.
 
 **[Client ID Metadata Documents](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/)** (CIMD) are the replacement, a SHOULD since 2025-11-25 (SEP-991 — SEPs are spec enhancement proposals, MCP's RFC process): the `client_id` *is* an HTTPS URL, controlled by the client's vendor, pointing at a JSON document describing the client (name, redirect URIs, logo). The AS fetches it on first sight. No registration call, no database of ghosts, and the client's identity is anchored to a domain someone owns. Claude's client ID can literally be a URL on an Anthropic domain — spoofing it means controlling that domain.
 
@@ -123,7 +123,7 @@ sequenceDiagram
 
 No browser, no consent screen, no user. The agent authenticates to the AS with its own credential — a client secret, or better, a signed JWT or workload identity (SPIFFE, cloud instance identity) so no long-lived secret sits on disk — and gets a token whose subject is the agent itself.
 
-The important shift is in authorization semantics: there is no user's permissions to inherit, so **the agent needs its own permission model**. "What is this workload allowed to do" is an access-control-list question your AS or server has to answer directly. This is exactly the space where agent-identity work is heating up: agents as first-class principals in the IdP, with their own lifecycle, not service accounts wearing a trench coat. The MCP roadmap lists enterprise readiness and agent communication as 2026 themes, but as of today there is no ratified agent-identity SEP — watch this space.
+The important shift is in authorization semantics: there is no user's permissions to inherit, so **the agent needs its own permission model**. "What is this workload allowed to do" is an access-control-list question your AS or server has to answer directly. This is exactly the space where agent-identity work is heating up: agents as first-class principals in the IdP, with their own lifecycle, not service accounts wearing a trench coat. The [MCP roadmap](https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/) lists enterprise readiness and agent communication as 2026 themes, but as of today there is no ratified agent-identity SEP — watch this space.
 
 **Gotchas:** because the spec is silent, discovery is on you — there is no PRM-driven story for "which AS mints M2M tokens for this server"; you configure it. Audience binding still applies — mint per-resource tokens, do not share one token across servers. And resist the urge to run "user-ish" flows through client credentials because the browser hop is annoying; you lose the entire audit story of who asked for what.
 
@@ -168,8 +168,10 @@ sequenceDiagram
 The MCP [security best practices](https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices) document names this anti-pattern and forbids it outright: "token passthrough is explicitly forbidden in the authorization specification." An MCP server must validate that tokens presented to it were issued specifically for it, full stop. The reasons are classic:
 
 - **Audience collapse.** The whole point of `aud` is that a token stolen from (or issued for) context A is useless in context B. Passthrough deletes that property for every server behind the proxy.
-- **Confused deputy.** The upstream makes authorization decisions based on a token minted under assumptions the proxy has silently changed. The best practices doc documents a concrete MCP variant, and it is worth slowing down for. A proxy registers once at a third-party AS and reuses that single client ID for every client behind it. A user consents once, and the AS drops a "this user already approved" cookie. From then on, a malicious client hiding behind the same proxy inherits that approval — no consent screen, no user in the loop. Hence the rule: such proxies must obtain fresh consent for each dynamically registered client.
+- **Confused deputy.** The upstream makes authorization decisions based on a token minted under assumptions the proxy has silently changed. Downstream trust decisions get made against the wrong principal.
 - **Audit destruction.** Upstream logs show the original token's subject, but the request path, policy decisions, and any rewriting the proxy did are invisible. Nobody can reconstruct who actually caused an action.
+
+While we are on proxy attacks: the best practices doc documents a second one, and it is worth slowing down for even though it targets a different phase of the flow — the authorization dance, not the API call. A proxy registers once at a third-party AS and reuses that single client ID for every client behind it. A user consents once, and the AS drops a "this user already approved" cookie. From then on, a malicious client hiding behind the same proxy can grab an authorization code without the user ever seeing a consent screen. Same lesson — the proxy is a deputy that can be confused — but a different fix: the spec requires such proxies to obtain fresh consent for each dynamically registered client. Audience validation will not save you here.
 
 If you take one rule from this post: **a token crosses exactly one trust boundary — the one it was minted for.** Every hop after that needs a new token. Which brings us to how gateways do it properly.
 
@@ -219,7 +221,7 @@ sequenceDiagram
     S1->>S2: API call + token
 ```
 
-Each token in the chain keeps `sub` = user and appends to the actor chain. That is **delegation** — everyone downstream can see both who the request is for and which services touched it. Contrast with **impersonation**, where the intermediary gets a token that simply *is* the user with no trace of the middleman; RFC 8693 supports both, and for MCP you almost always want delegation, because "an AI agent did this via two intermediaries" is precisely the thing your security team wants visible in logs.
+Each token in the chain keeps `sub` = user and appends to the actor chain — in the real JWT the `act` claims literally nest, each new actor wrapping the previous one (the diagram shows just the top of that stack). That is **delegation** — everyone downstream can see both who the request is for and which services touched it. Contrast with **impersonation**, where the intermediary gets a token that simply *is* the user with no trace of the middleman; RFC 8693 supports both, and for MCP you almost always want delegation, because "an AI agent did this via two intermediaries" is precisely the thing your security team wants visible in logs.
 
 The practical limit is trust topology: every hop's AS must know about every exchanger. Inside one enterprise with one AS, easy. Across organizations, hard — which is the gap the next pattern targets.
 
@@ -247,7 +249,7 @@ sequenceDiagram
     S-->>A: 200 result
 ```
 
-Two exchanges, two trust relationships: the agent trades its **ID token** (proof of who the user is, nothing more) to the IdP for an **ID-JAG assertion** (this is where enterprise policy runs — which users, which agents, which servers), then trades the assertion to the MCP server's AS for an **access token** (the thing that actually lets it call the server). The server-side AS trusts the enterprise IdP's signature the way SAML federations always have; the flow is the OAuth-native descendant of that idea.
+Two trades, two trust relationships (only the first is technically a "token exchange"; the second is a JWT-bearer grant): the agent trades its **ID token** (proof of who the user is, nothing more) to the IdP for an **ID-JAG assertion** (this is where enterprise policy runs — which users, which agents, which servers), then trades the assertion to the MCP server's AS for an **access token** (the thing that actually lets it call the server). The server-side AS trusts the enterprise IdP's signature the way SAML federations always have; the flow is the OAuth-native descendant of that idea.
 
 What this buys an enterprise is exactly what consent screens cannot: **centralized, revocable, auditable** decisions about which agents reach which MCP servers, made by an admin, not by whichever user clicked "Allow" fastest. Turn off a user in the IdP, and their agent access dies everywhere at once. It also quietly fixes a mess the interactive flow can't: with no account-picker in the loop, a user cannot accidentally wire their *personal* Atlassian account into a *work* agent — the corporate identity is the only identity in the flow.
 
