@@ -10,7 +10,7 @@ description = "A field guide to authentication and authorization in the Model Co
 
 Auth is the part of MCP everyone gets wrong first. I know because I build MCP gateways for a living, and the most common support question is some variant of "my client has a token, why won't the server take it?" The answer is almost always the same: the token was minted for someone else.
 
-This post is a field guide. Part one covers how each auth method works when a client talks to an MCP server directly. Part two covers what changes when a proxy — an MCP gateway — sits in the middle, which is where most enterprise deployments end up and where most of the interesting failure modes live. Every method gets a sequence diagram showing who talks to whom and which token moves where.
+This post is a field guide. (If MCP itself is new to you — what servers expose, how the protocol talks, how it evolved — start with the companion post, [How MCP Works](/posts/how-mcp-works/), and come back.) Part one covers how each auth method works when a client talks to an MCP server directly. Part two covers what changes when a proxy — an MCP gateway — sits in the middle, which is where most enterprise deployments end up and where most of the interesting failure modes live. Every method gets a sequence diagram showing who talks to whom and which token moves where.
 
 Here is the canonical flow we will build up to, animated. Do not try to decode it yet — it is the destination, and every label on it gets explained below. It helps to meet the players first:
 
