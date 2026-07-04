@@ -1,6 +1,6 @@
 +++
 date = '2026-07-04T10:00:00+02:00'
-draft = true
+draft = false
 title = 'How MCP Works: What It Exposes, How It Talks, and How It Got Here'
 author = "Darek Dwornikowski"
 categories = ["AI & Engineering"]

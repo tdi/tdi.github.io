@@ -1,6 +1,6 @@
 +++
 date = '2026-07-04T09:00:00+02:00'
-draft = true
+draft = false
 title = 'MCP Auth, Explained: Every Method, Direct and Through a Proxy'
 author = "Darek Dwornikowski"
 categories = ["AI & Engineering"]
