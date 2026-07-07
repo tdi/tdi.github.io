@@ -108,7 +108,7 @@ sequenceDiagram
 
 ### Machine-to-machine: client credentials
 
-Not every MCP call has a human behind it. CI pipelines, scheduled agents, service-to-service automation — the agent *is* the principal (the identity performing the action). OAuth has had the answer since forever: the **client credentials grant**. Worth being honest about the spec status here, because it surprises people: the MCP authorization spec is written entirely around user-delegated flows and does not define a machine-to-machine grant at all. Client credentials is an OAuth 2.1 capability you layer on — nothing forbids it, everybody deploying headless agents does it, but you are in "plain OAuth" territory, not "MCP spec" territory.
+Not every MCP call has a human behind it. CI pipelines, scheduled agents, service-to-service automation — the agent *is* the principal (the identity performing the action). OAuth has had the answer since forever: the **client credentials grant**. The spec status is worth being precise about: the *core* authorization spec is written entirely around user-delegated flows, but machine-to-machine is covered by a blessed **[OAuth Client Credentials extension](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials)** (`io.modelcontextprotocol/oauth-client-credentials`, SEP-1046) — one of the first two official authorization extensions, shipped alongside 2025-11-25 together with Enterprise-Managed Authorization. The extension supports two credential formats — a client ID + secret, or a signed **JWT bearer assertion** (recommended, so no long-lived shared secret travels anywhere) — servers advertise support through the `extensions` capability, and the official SDKs ship a credentials provider that handles token acquisition and refresh.
 
 ```mermaid
 sequenceDiagram
@@ -125,7 +125,9 @@ No browser, no consent screen, no user. The agent authenticates to the AS with i
 
 The important shift is in authorization semantics: there is no user's permissions to inherit, so **the agent needs its own permission model**. "What is this workload allowed to do" is an access-control-list question your AS or server has to answer directly. This is exactly the space where agent-identity work is heating up: agents as first-class principals in the IdP, with their own lifecycle, not service accounts wearing a trench coat. The [MCP roadmap](https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/) lists enterprise readiness and agent communication as 2026 themes, but as of today there is no ratified agent-identity SEP — watch this space.
 
-**Gotchas:** because the spec is silent, discovery is on you — there is no PRM-driven story for "which AS mints M2M tokens for this server"; you configure it. Audience binding still applies — mint per-resource tokens, do not share one token across servers. And resist the urge to run "user-ish" flows through client credentials because the browser hop is annoying; you lose the entire audit story of who asked for what.
+**Gotchas:** the extension is opt-in — both your client and the server's AS have to support it, so check the `extensions` capability before assuming. Prefer JWT assertions over client secrets; a secret in a CI variable is a static API key with better branding. Audience binding still applies — mint per-resource tokens, do not share one token across servers. And resist the urge to run "user-ish" flows through client credentials because the browser hop is annoying; you lose the entire audit story of who asked for what.
+
+*Update (2026-07-07): an earlier version of this section claimed the spec "does not define a machine-to-machine grant at all." A Hacker News commenter correctly pointed out the official Client Credentials extension — the section above has been corrected. Not core spec, but blessed extension: better than I gave it credit for.*
 
 ### Reality check: static API keys
 
@@ -262,7 +264,7 @@ What this buys an enterprise is exactly what consent screens cannot: **centraliz
 | OAuth 2.1 + PKCE | Yes, consents in browser | User | No (CIMD/DCR) | AS + consent screen | Spec, the default for HTTP |
 | DCR (RFC 7591) | — | — | Self-service at runtime | AS | Spec, MAY — deprecated in next revision |
 | CIMD | — | — | None: client_id is a URL | AS + client's domain | Spec 2025-11, SHOULD (IETF draft) |
-| Client credentials | No | The agent itself | Client credential setup | AS / server ACLs | Plain OAuth — not MCP-specified |
+| Client credentials | No | The agent itself | Client credential setup | AS / server ACLs | Official auth extension (SEP-1046) |
 | Static API key | No | Whoever holds the key | Manual | Nowhere useful | Ubiquitous, off-spec |
 | Token passthrough | — | Lies | — | — | Explicitly forbidden |
 | Terminate + exchange | Once, at the edge | User, with actor chain | Gateway as AS client | Gateway + AS | RFC 8693, the gateway pattern |
